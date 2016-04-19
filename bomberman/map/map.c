@@ -7,7 +7,7 @@
 
 Map load_map(char map[])
 {
-    //int map_array[MAX_X][MAX_Y];
+    //int map_array[GAME_MAX_X][GAME_MAX_Y];
     Map game_map;
 
     char dest[100];

@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include "game/game.h"
 #include "map/map.h"
+#include "object/objects/wall/wall.h"
 
 int main(void)
 {
@@ -15,17 +16,22 @@ int main(void)
 
     _map = load_map("level1.map");
 
+    Wall * walls = load_walls(_map);
+
+    printf("%d", walls[10].y);
 
     /* GOOD STUFF
-    for (int i = 0; i < MAX_Y; i++)
+    for (int i = 0; i < GAME_MAX_Y; i++)
     {
-        for(int j = 0; j < MAX_X; j++)
+        for(int j = 0; j < GAME_MAX_X; j++)
         {
             printf("%d",_map.map_array[j][i]);
         }
         printf("\n");
     }
      */
+
+
 
     game_loop(window, renderer);
 

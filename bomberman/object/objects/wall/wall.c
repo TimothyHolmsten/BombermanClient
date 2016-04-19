@@ -3,3 +3,34 @@
 //
 
 #include "wall.h"
+
+Wall create_wall(int x, int y)
+{
+    Wall wall;
+    wall.x = x;
+    wall.y = y;
+
+    return wall;
+}
+
+Wall * load_walls(Map map)
+{
+    Wall wall;
+    Wall walls[GAME_MAX_X*GAME_MAX_Y];
+
+    int i = 0;
+
+    for (int y = 0; y < GAME_MAX_Y; y++)
+    {
+        for(int x = 0; x < GAME_MAX_X; x++)
+        {
+            if (map.map_array[x][y] == 1)
+            {
+                wall = create_wall(x,y);
+                walls[i++] = wall;
+            }
+        }
+    }
+
+    return walls;
+}
