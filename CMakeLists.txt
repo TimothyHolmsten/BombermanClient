@@ -17,7 +17,10 @@ link_libraries(${SDL2_LIBRARY}
 set("-std=c99")
 
 file(GLOB BOMBERMAN_SRC
-        bomberman/*
+        bomberman/main.c
+
+     bomberman/game/*.c
+     bomberman/game/*.h
      )
 
 set(SOURCE_FILES ${BOMBERMAN_SRC})
