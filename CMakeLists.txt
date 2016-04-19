@@ -21,6 +21,9 @@ file(GLOB BOMBERMAN_SRC
 
      bomberman/game/*.c
      bomberman/game/*.h
+
+     bomberman/map/*.c
+     bomberman/map/*.h
      )
 
 set(SOURCE_FILES ${BOMBERMAN_SRC})

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <SDL.h>
 #include "game/game.h"
+#include "map/map.h"
 
 int main(void)
 {
@@ -9,6 +10,8 @@ int main(void)
 
     SDL_Renderer *renderer;
     renderer = init_renderer(window);
+
+    load_map("map/maps/level1.map");
 
     game_loop(window, renderer);
 
