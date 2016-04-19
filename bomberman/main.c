@@ -11,7 +11,21 @@ int main(void)
     SDL_Renderer *renderer;
     renderer = init_renderer(window);
 
-    load_map("level1.map");
+    Map _map;
+
+    _map = load_map("level1.map");
+
+
+    /* GOOD STUFF
+    for (int i = 0; i < MAX_Y; i++)
+    {
+        for(int j = 0; j < MAX_X; j++)
+        {
+            printf("%d",_map.map_array[j][i]);
+        }
+        printf("\n");
+    }
+     */
 
     game_loop(window, renderer);
 

@@ -5,9 +5,10 @@
 #include <stdlib.h>
 #include "map.h"
 
-int load_map(char map[])
+Map load_map(char map[])
 {
-    int map_array[MAX_X][MAX_Y];
+    //int map_array[MAX_X][MAX_Y];
+    Map game_map;
 
     char dest[100];
     // Loading map from right destination
@@ -17,36 +18,32 @@ int load_map(char map[])
     FILE *fp;
     fp = fopen(dest, "r");
 
-    char *array;
-    size_t n = 0;
-    int c;
+    ssize_t read;
 
     if (fp == NULL)
-        return NULL; //could not open file
-
-    array = malloc(1000);
-
-    while ((c = fgetc(fp)) != EOF)
-    {
-        array[n++] = (char) c;
-    }
-
-    // don't forget to terminate with the null character
-    array[n] = '\0';
+        exit(EXIT_FAILURE);
 
     int x = 0;
     int y = 0;
 
-    while(array[y] != '\0') {
-        while (array[x] != '\n') {
-            printf("%c", array[x]);
-            //printf("X = %d\n", x);
-            x++;
+    while ((read = getc(fp)) != EOF)
+    {
+        if (read != '\n')
+        {
+            //map_array[x++][y] = ((int) read) - 48;
+            game_map.map_array[x++][y] = ((int) read) - 48;
         }
-        printf("\n");
-        y = y + x;
-        x=0;
+        else
+        {
+            x = 0;
+
+            y++;
+        }
     }
 
-    return 0;
+    //n = sizeof(a)/sizeof(a[0]);
+
+    fclose(fp);
+
+    return game_map;
 }
