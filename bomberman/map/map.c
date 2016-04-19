@@ -2,6 +2,7 @@
 // Created by Timothy Friberg Holmsten on 19/04/16.
 //
 
+#include <stdlib.h>
 #include "map.h"
 
 int load_map(char map[])
@@ -14,16 +15,31 @@ int load_map(char map[])
     FILE *fp;
     fp = fopen(dest, "r");
 
-    char *ch;
+    char *code;
+    size_t n = 0;
+    int c;
 
-    int count;
-    if (fp) {
-        while ((count = getc(fp)) != EOF)
+    if (fp == NULL)
+        return NULL; //could not open file
+
+    code = malloc(1000);
+
+    while ((c = fgetc(fp)) != EOF)
+    {
+        code[n++] = (char) c;
+        if (c == '1')
         {
-            putchar(count);
+            printf("Wall\n");
         }
-        fclose(fp);
+
+        if (c == '0')
+        {
+            printf("floor\n");
+        }
     }
-    else{printf("error cant find file");}
+
+    // don't forget to terminate with the null character
+    code[n] = '\0';
+
     return 0;
 }
