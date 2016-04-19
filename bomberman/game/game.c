@@ -3,17 +3,56 @@
 //
 
 #include "game.h"
+#include <SDL.h>
+#include <stdio.h>
+#include <stdbool.h>
 
-SDL_Window *init_window(int w, int h, char *title) {
-    return NULL;
-}
-
-SDL_Renderer *init_renderer(SDL_Window *window) {
-    return NULL;
-}
 
 int game_loop(SDL_Window *window, SDL_Renderer *renderer) {
+
+    bool running = true;
+    SDL_Surface *playerSurface = NULL;
+    SDL_Event event;
+
+    while (running)
+    {
+        if(event.type == SDL_QUIT)
+        {
+            running = false;
+        }
+    }
+
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+
     return 0;
+}
+
+SDL_Window * init_window(int w, int h, char *title) {
+
+    SDL_Init(SDL_INIT_EVERYTHING);
+
+    SDL_Window *window = SDL_CreateWindow(
+            title,
+            SDL_WINDOWPOS_UNDEFINED,
+            SDL_WINDOWPOS_UNDEFINED,
+            w,
+            h,
+            SDL_WINDOW_OPENGL);
+
+    return window;
+}
+
+SDL_Renderer * init_renderer(SDL_Window *window) {
+
+
+
+    SDL_Renderer *renderer = SDL_CreateRenderer(
+            window,
+            -1,
+            SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+    return renderer;
 }
 
 
