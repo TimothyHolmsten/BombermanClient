@@ -5,7 +5,7 @@
 #include "game.h"
 
 
-int game_loop(SDL_Window *window, SDL_Renderer *renderer) {
+int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall * walls) {
 
     bool running = true;
     SDL_Event event;
@@ -17,6 +17,12 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer) {
                 running = false;
             }
         }
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_RenderClear(renderer);
+        render_walls(renderer, walls);
+
+        SDL_RenderPresent(renderer);
+
     }
 
     SDL_DestroyWindow(window);

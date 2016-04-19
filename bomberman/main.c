@@ -18,7 +18,6 @@ int main(void)
 
     Wall * walls = load_walls(_map);
 
-    printf("%d", walls[10].y);
 
     /* GOOD STUFF
     for (int i = 0; i < GAME_MAX_Y; i++)
@@ -30,10 +29,15 @@ int main(void)
         printf("\n");
     }
      */
+    int i = 0;
 
+    while(i < 16)
+    {
+        //printf("X: %d, Y: %d", walls[i].x, walls[i].y);
+        i++;
+    }
 
-
-    game_loop(window, renderer);
+    game_loop(window, renderer, &walls);
 
     return 0;
 }

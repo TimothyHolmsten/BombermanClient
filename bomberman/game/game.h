@@ -7,10 +7,11 @@
 
 #include <stdbool.h>
 #include <SDL.h>
+#include "renderer/object/renderObject.h"
 
 SDL_Window * init_window(int w, int h, char *title);
 SDL_Renderer * init_renderer(SDL_Window *window);
-int game_loop(SDL_Window *window, SDL_Renderer *renderer);
+int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall * walls);
 
 #endif //CLIENT_GAME_H
 

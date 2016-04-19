@@ -11,6 +11,8 @@
       <sourceFolder url="file://$MODULE_DIR$/bomberman/main.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/game.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/game.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/bomberman/game/renderer/object/renderObject.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/bomberman/game/renderer/object/renderObject.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/FindSDL2_ttf.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/FindSDL2_image.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/FindSDL2.cmake" isTestSource="false" />

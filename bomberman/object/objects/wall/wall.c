@@ -26,11 +26,13 @@ Wall * load_walls(Map map)
         {
             if (map.map_array[x][y] == 1)
             {
-                wall = create_wall(x,y);
-                walls[i++] = wall;
+                walls[i].x = x;
+                walls[i].y = y;
+                i++;
             }
         }
+        i = 0;
     }
-
+    printf("%d ", walls[17].x);
     return walls;
 }

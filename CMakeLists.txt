@@ -30,6 +30,9 @@ file(GLOB BOMBERMAN_SRC
 
      bomberman/object/objects/wall/*.c
      bomberman/object/objects/wall/*.h
+
+     bomberman/game/renderer/object/*.c
+     bomberman/game/renderer/object/*.h
      )
 
 set(SOURCE_FILES ${BOMBERMAN_SRC})
