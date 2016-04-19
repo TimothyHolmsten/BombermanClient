@@ -7,16 +7,19 @@
 int main(void)
 {
     SDL_Window *window;
-    window = init_window(500,500,"hej");
+    window = init_window(1024,600,"hej");
 
     SDL_Renderer *renderer;
     renderer = init_renderer(window);
+
+    Wall walls[GAME_MAX_X*GAME_MAX_Y] = {0};
 
     Map _map;
 
     _map = load_map("level1.map");
 
-    Wall * walls = load_walls(_map);
+    load_walls(_map, walls);
+
 
 
     /* GOOD STUFF
@@ -31,13 +34,13 @@ int main(void)
      */
     int i = 0;
 
-    while(i < 16)
+    while(i < 100)
     {
-        //printf("X: %d, Y: %d", walls[i].x, walls[i].y);
+        printf("X: %d, Y: %d", walls[i].x, walls[i].y);
         i++;
     }
 
-    game_loop(window, renderer, &walls);
+    game_loop(window, renderer, walls);
 
     return 0;
 }

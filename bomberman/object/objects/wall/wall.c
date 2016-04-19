@@ -13,11 +13,8 @@ Wall create_wall(int x, int y)
     return wall;
 }
 
-Wall * load_walls(Map map)
+void load_walls(Map map, Wall walls[GAME_MAX_X*GAME_MAX_Y])
 {
-    Wall wall;
-    Wall walls[GAME_MAX_X*GAME_MAX_Y];
-
     int i = 0;
 
     for (int y = 0; y < GAME_MAX_Y; y++)
@@ -28,11 +25,8 @@ Wall * load_walls(Map map)
             {
                 walls[i].x = x;
                 walls[i].y = y;
-                i++;
             }
+            i++;
         }
-        i = 0;
     }
-    printf("%d ", walls[17].x);
-    return walls;
 }

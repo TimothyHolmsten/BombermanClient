@@ -5,7 +5,7 @@
 #include "game.h"
 
 
-int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall * walls) {
+int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*GAME_MAX_Y]) {
 
     bool running = true;
     SDL_Event event;

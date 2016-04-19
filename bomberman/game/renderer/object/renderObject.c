@@ -4,11 +4,11 @@
 
 #include "renderObject.h"
 
-void render_walls(SDL_Renderer *renderer, Wall * walls)
+void render_walls(SDL_Renderer *renderer, Wall walls[GAME_MAX_X*GAME_MAX_Y])
 {
     int i = 0;
 
-    while (i < 16)
+    while(i < GAME_MAX_X*GAME_MAX_Y)
     {
         SDL_Rect rect = {walls[i].x * 32, walls[i].y * 32, 32, 32};
         SDL_SetRenderDrawColor(renderer, 150,150,150,255);
