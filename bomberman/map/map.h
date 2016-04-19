@@ -6,7 +6,8 @@
 #define CLIENT_MAP_H
 
 #include <stdio.h>
+#include <string.h>
 
-int load_map(char *map);
+int load_map(char map[]);
 
 #endif //CLIENT_MAP_H

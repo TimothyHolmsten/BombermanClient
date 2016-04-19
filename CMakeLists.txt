@@ -24,6 +24,8 @@ file(GLOB BOMBERMAN_SRC
 
      bomberman/map/*.c
      bomberman/map/*.h
+
+     bomberman/map/maps/*
      )
 
 set(SOURCE_FILES ${BOMBERMAN_SRC})

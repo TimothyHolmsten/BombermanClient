@@ -11,7 +11,7 @@ int main(void)
     SDL_Renderer *renderer;
     renderer = init_renderer(window);
 
-    load_map("map/maps/level1.map");
+    load_map("level1.map");
 
     game_loop(window, renderer);
 

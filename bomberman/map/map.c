@@ -4,19 +4,22 @@
 
 #include "map.h"
 
-int load_map(char *map)
+int load_map(char map[])
 {
+    char dest[100];
+    // Loading map from right destination
+    strcpy(dest, "bomberman/map/maps/");
+    strcat(dest,map);
+
     FILE *fp;
-    fp = fopen(map, "r");
+    fp = fopen(dest, "r");
 
-    char ch = getc(fp);
-
-    int count = 0;
-
-    while (ch != '\n')
+    if(fp)
     {
-        printf("%c", ch);
+        printf("Found file");
     }
+
+    fclose(fp);
 
     return 0;
 }
