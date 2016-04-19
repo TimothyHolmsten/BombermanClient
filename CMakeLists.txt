@@ -14,7 +14,7 @@ link_libraries(${SDL2_LIBRARY}
                ${SDL2_IMAGE_LIBRARIES}
                ${SDL2_TTF_LIBRARIES})
 
-set("-std=c99")
+set(CMAKE_C_FLAGS "-std=c99")
 
 file(GLOB BOMBERMAN_SRC
 

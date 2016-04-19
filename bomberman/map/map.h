@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include <string.h>
-
+#include <monetary.h>
 #define GAME_MAX_X 16
 #define GAME_MAX_Y 16
 
