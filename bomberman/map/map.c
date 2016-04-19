@@ -17,26 +17,36 @@ int load_map(char map[])
     FILE *fp;
     fp = fopen(dest, "r");
 
-    char *code;
+    char *array;
     size_t n = 0;
     int c;
 
     if (fp == NULL)
         return NULL; //could not open file
 
-    code = malloc(1000);
+    array = malloc(1000);
 
     while ((c = fgetc(fp)) != EOF)
     {
-        while (c != '\n')
-        {
-            printf("%c", c);
-        }
-        code[n++] = (char) c;
+        array[n++] = (char) c;
     }
 
     // don't forget to terminate with the null character
-    code[n] = '\0';
+    array[n] = '\0';
+
+    int x = 0;
+    int y = 0;
+
+    while(array[y] != '\0') {
+        while (array[x] != '\n') {
+            printf("%c", array[x]);
+            //printf("X = %d\n", x);
+            x++;
+        }
+        printf("\n");
+        y = y + x;
+        x=0;
+    }
 
     return 0;
 }
