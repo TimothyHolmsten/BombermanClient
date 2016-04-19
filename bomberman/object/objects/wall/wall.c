@@ -23,8 +23,7 @@ void load_walls(Map map, Wall walls[GAME_MAX_X*GAME_MAX_Y])
         {
             if (map.map_array[x][y] == 1)
             {
-                walls[i].x = x;
-                walls[i].y = y;
+                walls[i] = create_wall(x,y);
             }
             i++;
         }

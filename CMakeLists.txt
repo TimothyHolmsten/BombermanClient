@@ -19,7 +19,7 @@ set(CMAKE_C_FLAGS "-std=c99")
 file(GLOB BOMBERMAN_SRC
 
         bomberman/main.c
-    bomberman/map/test.txt
+
      bomberman/game/*.c
      bomberman/game/*.h
 
@@ -33,6 +33,12 @@ file(GLOB BOMBERMAN_SRC
 
      bomberman/game/renderer/object/*.c
      bomberman/game/renderer/object/*.h
+
+     bomberman/game/renderer/player/*.c
+     bomberman/game/renderer/player/*.h
+
+     bomberman/player/*.c
+     bomberman/player/*.h
      )
 
 set(SOURCE_FILES ${BOMBERMAN_SRC})

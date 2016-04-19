@@ -5,7 +5,7 @@
 #include "game.h"
 
 
-int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*GAME_MAX_Y]) {
+int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*GAME_MAX_Y], Player players[]) {
 
     bool running = true;
     SDL_Event event;
@@ -19,7 +19,9 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*
         }
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderClear(renderer);
+
         render_walls(renderer, walls);
+        render_players(renderer, players);
 
         SDL_RenderPresent(renderer);
 

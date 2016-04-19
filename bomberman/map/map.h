@@ -15,7 +15,8 @@ typedef struct map{
     int map_array[GAME_MAX_X][GAME_MAX_Y];
 } Map;
 
-
 Map load_map(char map[]);
+
+int map_is_blocked(Map map, int x, int y);
 
 #endif //CLIENT_MAP_H

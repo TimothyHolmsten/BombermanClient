@@ -7,7 +7,6 @@
 
 Map load_map(char map[])
 {
-    //int map_array[GAME_MAX_X][GAME_MAX_Y];
     Map game_map;
 
     char dest[100];
@@ -41,9 +40,15 @@ Map load_map(char map[])
         }
     }
 
-    //n = sizeof(a)/sizeof(a[0]);
-
     fclose(fp);
 
     return game_map;
+}
+
+int map_is_blocked(Map map, int x, int y) {
+
+    if (map.map_array[x][y] == 1)
+        return 1;
+
+    return 0;
 }

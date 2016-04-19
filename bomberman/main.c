@@ -3,22 +3,31 @@
 #include "game/game.h"
 #include "map/map.h"
 #include "object/objects/wall/wall.h"
+#include "player/player.h"
 
 int main(void)
 {
     SDL_Window *window;
-    window = init_window(1024,600,"hej");
+    window = init_window(1024,512,"Bomberman");
 
     SDL_Renderer *renderer;
     renderer = init_renderer(window);
 
-    Wall walls[GAME_MAX_X*GAME_MAX_Y] = {0};
+    Wall walls[GAME_MAX_X*GAME_MAX_Y];
 
     Map _map;
 
     _map = load_map("level1.map");
 
     load_walls(_map, walls);
+
+    Player ply1 = create_player(1,1,0);
+
+    //Player *players[] = {ply1};
+
+    Player players[8];
+    players[0] = ply1;
+
 
 
 
@@ -31,16 +40,9 @@ int main(void)
         }
         printf("\n");
     }
-     */
-    int i = 0;
+    */
 
-    while(i < 100)
-    {
-        printf("X: %d, Y: %d", walls[i].x, walls[i].y);
-        i++;
-    }
-
-    game_loop(window, renderer, walls);
+    game_loop(window, renderer, walls, players);
 
     return 0;
 }
