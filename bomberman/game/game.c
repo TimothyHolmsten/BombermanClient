@@ -12,9 +12,10 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer) {
 
     while (running)
     {
-        if(event.type == SDL_QUIT)
-        {
-            running = false;
+        while(SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                running = false;
+            }
         }
     }
 
