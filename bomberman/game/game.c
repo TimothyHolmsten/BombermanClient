@@ -3,15 +3,11 @@
 //
 
 #include "game.h"
-#include <SDL.h>
-#include <stdio.h>
-#include <stdbool.h>
 
 
 int game_loop(SDL_Window *window, SDL_Renderer *renderer) {
 
     bool running = true;
-    SDL_Surface *playerSurface = NULL;
     SDL_Event event;
 
     while (running)
@@ -44,8 +40,6 @@ SDL_Window * init_window(int w, int h, char *title) {
 }
 
 SDL_Renderer * init_renderer(SDL_Window *window) {
-
-
 
     SDL_Renderer *renderer = SDL_CreateRenderer(
             window,
