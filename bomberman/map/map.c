@@ -7,6 +7,8 @@
 
 int load_map(char map[])
 {
+    int map_array[MAX_X][MAX_Y];
+
     char dest[100];
     // Loading map from right destination
     strcpy(dest, "bomberman/map/maps/");
@@ -26,16 +28,11 @@ int load_map(char map[])
 
     while ((c = fgetc(fp)) != EOF)
     {
+        while (c != '\n')
+        {
+            printf("%c", c);
+        }
         code[n++] = (char) c;
-        if (c == '1')
-        {
-            printf("Wall\n");
-        }
-
-        if (c == '0')
-        {
-            printf("floor\n");
-        }
     }
 
     // don't forget to terminate with the null character
