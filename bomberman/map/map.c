@@ -14,12 +14,16 @@ int load_map(char map[])
     FILE *fp;
     fp = fopen(dest, "r");
 
-    if(fp)
-    {
-        printf("Found file");
+    char *ch;
+
+    int count;
+    if (fp) {
+        while ((count = getc(fp)) != EOF)
+        {
+            putchar(count);
+        }
+        fclose(fp);
     }
-
-    fclose(fp);
-
+    else{printf("error cant find file");}
     return 0;
 }

@@ -13,3 +13,4 @@ SDL_Renderer * init_renderer(SDL_Window *window);
 int game_loop(SDL_Window *window, SDL_Renderer *renderer);
 
 #endif //CLIENT_GAME_H
+
