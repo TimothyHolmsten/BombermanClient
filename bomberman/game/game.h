@@ -5,6 +5,7 @@
 #ifndef CLIENT_GAME_H
 #define CLIENT_GAME_H
 
+#include <pthread.h>
 #include <stdbool.h>
 #include <SDL.h>
 #include "renderer/object/renderObject.h"

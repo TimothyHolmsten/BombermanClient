@@ -5,6 +5,8 @@
 #include "object/objects/wall/wall.h"
 #include "player/player.h"
 
+
+
 int main(void)
 {
     SDL_Window *window;
@@ -28,6 +30,8 @@ int main(void)
     Player players[8];
     players[0] = ply1;
     players[1] = ply2;
+
+
 
 
 

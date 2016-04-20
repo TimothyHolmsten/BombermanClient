@@ -9,7 +9,26 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*
 
     bool running = true;
     SDL_Event event;
+    struct args{
+        Wall *walls;
+        Player *players;
+    };
 
+    void* test(void* arg)
+    {
+
+        struct args *arguments = (struct  args*) arg;
+        while(1) {
+            update_players(arguments->players, arguments->walls);
+        }
+
+
+    }
+    struct args data;
+    data.walls = walls;
+    data.players = players;
+    pthread_t thread_id;
+    pthread_create(&thread_id, NULL,test, &data );
     while (running)
     {
         while(SDL_PollEvent(&event)) {
@@ -22,7 +41,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*
 
         render_walls(renderer, walls);
         render_players(renderer, players);
-        update_players(players, walls);
+
 
         SDL_RenderPresent(renderer);
 
