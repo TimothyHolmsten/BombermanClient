@@ -22,6 +22,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*
 
         render_walls(renderer, walls);
         render_players(renderer, players);
+        update_players(players);
 
         SDL_RenderPresent(renderer);
 

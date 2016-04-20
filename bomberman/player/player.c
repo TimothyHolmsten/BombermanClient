@@ -4,7 +4,7 @@
 
 #include "player.h"
 
-Player create_player(int x, int y, int id)
+Player create_player(float x, float y, int id)
 {
     Player ply;
     ply.x = x;

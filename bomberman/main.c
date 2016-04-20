@@ -21,12 +21,13 @@ int main(void)
 
     load_walls(_map, walls);
 
-    Player ply1 = create_player(1,1,0);
-
+    Player ply1 = create_player(1.0,1.0,0);
+    Player ply2 = create_player(4.0,1.0,0);
     //Player *players[] = {ply1};
 
     Player players[8];
     players[0] = ply1;
+    players[1] = ply2;
 
 
 

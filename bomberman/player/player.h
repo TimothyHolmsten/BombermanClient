@@ -6,11 +6,11 @@
 #define CLIENT_PLAYER_H
 
 typedef struct Player{
-    int x;
-    int y;
+    float x;
+    float y;
     int id;
 } Player;
 
-Player create_player(int x, int y, int id);
+Player create_player(float x, float y, int id);
 
 #endif //CLIENT_PLAYER_H
