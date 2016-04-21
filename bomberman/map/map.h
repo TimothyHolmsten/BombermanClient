@@ -8,8 +8,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <monetary.h>
-#define GAME_MAX_X 16
-#define GAME_MAX_Y 16
+#define GAME_MAX_X 15
+#define GAME_MAX_Y 15
 
 typedef struct map{
     int map_array[GAME_MAX_X][GAME_MAX_Y];

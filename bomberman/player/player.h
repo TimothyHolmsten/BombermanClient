@@ -10,12 +10,12 @@
 #include "../map/map.h"
 
 typedef struct Player{
-    float x;
-    float y;
+    int x;
+    int y;
     int id;
 } Player;
 
-Player create_player(float x, float y, int id);
+Player create_player(int x, int y, int id);
 
 void update_players(Player players[]);
 void update_local_player(Player *player, Map map);
