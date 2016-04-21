@@ -33,7 +33,7 @@ void initServer()
 
         if(client)
         {
-            SDLNet_TCP_Send(client,  test, strlen(test)+1); // Sends the data "test", make struct of postions in future
+            SDLNet_TCP_Send(client,  test, strlen(test)+1); // Sends the data "test", make struct of postion in future
             SDLNet_TCP_Close(client); //Close socket after one transmission
             break;
         }
