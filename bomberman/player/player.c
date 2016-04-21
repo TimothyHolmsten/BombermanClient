@@ -41,7 +41,7 @@ void update_local_player(Player *player, Map map) {
     if (!map_is_blocked(map, player->x, player->y + y))
         player->y += y;
 
-    SDL_Delay(100);
+    SDL_Delay(200);
 
 }
 
