@@ -34,12 +34,13 @@ void update_local_player(Player *player, Map map) {
     if (state[SDL_SCANCODE_W])
         y = -1;
 
-    if(!map_is_blocked(map, player->x + x, player->y + y)) {
+    if(!map_is_blocked(map, player->x + x, player->y))
         player->x += x;
+
+    if (!map_is_blocked(map, player->x, player->y + y))
         player->y += y;
 
-        SDL_Delay(100);
-    }
+    SDL_Delay(100);
 }
 
 
