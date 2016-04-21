@@ -44,7 +44,7 @@ void update_local_player(Player *player, Map map) {
         player->y += y;
     }
 
-    SDL_Delay(100);
+    SDL_Delay(200);
 
     //SDL_Delay(200);
 }
