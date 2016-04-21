@@ -13,4 +13,6 @@ typedef struct Player{
 
 Player create_player(float x, float y, int id);
 
+
+
 #endif //CLIENT_PLAYER_H

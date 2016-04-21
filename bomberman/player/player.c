@@ -13,4 +13,3 @@ Player create_player(float x, float y, int id)
 
     return ply;
 }
-

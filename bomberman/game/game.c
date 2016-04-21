@@ -4,28 +4,23 @@
 
 #include "game.h"
 
+// Arguments to be passed to new thread
+struct args{
+    Wall *walls;
+    Player *players;
+};
 
-int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*GAME_MAX_Y], Player players[]) {
-
-    bool running = true;
-    SDL_Event event;
-
-    // Arguments to be passed to new thread
-    struct args{
-        Wall *walls;
-        Player *players;
-    };
-
-    //multithreading to make update and render run on seperate threads
-    void* init_update(void* arg)
-    {
-        struct args *arguments = (struct  args*) arg;
-        while(1) {
-            update_players(arguments->players, arguments->walls);
-        }
-
-
+//multithreading to make update and render run on seperate threads
+void * init_update(void* arg)
+{
+    int x = 1;
+    struct args *arguments = (struct  args*) arg;
+    while(x) {
+        update_players(arguments->players, arguments->walls);
     }
+}
+
+int init_game(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X * GAME_MAX_Y], Player players[]) {
     struct args data;
     data.walls = walls;
     data.players = players;
@@ -34,7 +29,14 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*
     //Initialize new thread
     pthread_create(&thread_id, NULL,init_update, &data );
 
+    game_loop(window,renderer,walls,players);
+}
 
+
+int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*GAME_MAX_Y], Player players[]) {
+
+    bool running = true;
+    SDL_Event event;
 
     while (running)
     {
