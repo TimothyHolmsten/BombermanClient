@@ -24,10 +24,7 @@ void update_local_player(Player *player, Map map) {
 
     float x = 0;
     float y = 0;
-    float speed = 0.1;
-    int tempx;
-    int tempy;
-    int steps = 10;
+
 
     if (state[SDL_SCANCODE_A])
         x = -1;
@@ -39,44 +36,12 @@ void update_local_player(Player *player, Map map) {
         y = -1;
 
     if(!map_is_blocked(map, player->x + x, player->y))
-        tempx = (int) (player->x + x);
+        player->x += x;
 
     if (!map_is_blocked(map, player->x, player->y + y))
-        tempy = (int) (player->y+ y);
+        player->y += y;
 
-
-
-        if(tempy < player->y){
-            for(int i = 0; i<steps; i++){
-                player->y -= speed;
-                SDL_Delay(10);
-            }
-            player->y = tempy;
-        }
-        if(tempy > player->y){
-            for(int i = 0; i<steps; i++){
-                player->y += speed;
-                SDL_Delay(10);
-            }
-            player->y = tempy;
-        }
-
-        if(tempx < player->x){
-            for(int i = 0; i<steps; i++){
-                player->x -= speed;
-                SDL_Delay(10);
-            }
-            player->x = tempx;
-        }
-        if(tempx > player->x){
-            for(int i = 0; i<steps; i++){
-                player->x += speed;
-                SDL_Delay(10);
-            }
-            player->x = tempx;
-        }
-
-
+    SDL_Delay(100);
 
 }
 
