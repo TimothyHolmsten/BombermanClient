@@ -22,25 +22,62 @@ void update_players(Player *players) {
 void update_local_player(Player *player, Map map) {
     const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-    int x = 0;
-    int y = 0;
+    float x = 0;
+    float y = 0;
+    float speed = 0.1;
+    int tempx;
+    int tempy;
+    int steps = 10;
 
     if (state[SDL_SCANCODE_A])
         x = -1;
     if (state[SDL_SCANCODE_D])
-        x = 1;
+        x =  1;
     if (state[SDL_SCANCODE_S])
-        y = 1;
+        y =  1;
     if (state[SDL_SCANCODE_W])
         y = -1;
 
     if(!map_is_blocked(map, player->x + x, player->y))
-        player->x += x;
+        tempx = (int) (player->x + x);
 
     if (!map_is_blocked(map, player->x, player->y + y))
-        player->y += y;
+        tempy = (int) (player->y+ y);
 
-    SDL_Delay(100);
+
+
+        if(tempy < player->y){
+            for(int i = 0; i<steps; i++){
+                player->y -= speed;
+                SDL_Delay(10);
+            }
+            player->y = tempy;
+        }
+        if(tempy > player->y){
+            for(int i = 0; i<steps; i++){
+                player->y += speed;
+                SDL_Delay(10);
+            }
+            player->y = tempy;
+        }
+
+        if(tempx < player->x){
+            for(int i = 0; i<steps; i++){
+                player->x -= speed;
+                SDL_Delay(10);
+            }
+            player->x = tempx;
+        }
+        if(tempx > player->x){
+            for(int i = 0; i<steps; i++){
+                player->x += speed;
+                SDL_Delay(10);
+            }
+            player->x = tempx;
+        }
+
+
+
 }
 
 

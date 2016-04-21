@@ -16,3 +16,4 @@ void render_players(SDL_Renderer *renderer, Player players[])
         i++;
     }
 }
+
