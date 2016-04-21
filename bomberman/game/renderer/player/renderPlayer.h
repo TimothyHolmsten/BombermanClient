@@ -14,7 +14,5 @@
 #include <math.h>
 void render_players(SDL_Renderer *renderer, Player players[]);
 
-void  update_players(Player players[], Wall walls[]);
-
 #endif //CLIENT_RENDERPLAYER_H
 

@@ -5,6 +5,10 @@
 #ifndef CLIENT_PLAYER_H
 #define CLIENT_PLAYER_H
 
+#include <SDL_types.h>
+#include <SDL_system.h>
+#include "../map/map.h"
+
 typedef struct Player{
     float x;
     float y;
@@ -14,5 +18,6 @@ typedef struct Player{
 Player create_player(float x, float y, int id);
 
 void update_players(Player players[]);
+void update_local_player(Player *player, Map map);
 
 #endif //CLIENT_PLAYER_H

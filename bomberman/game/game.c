@@ -10,33 +10,53 @@ struct args{
     Player *players;
 };
 
+struct local_player_args{
+    Map map;
+    Player *player;
+};
+
 //multithreading to make update and render run on seperate threads
 void* init_update(void* arg)
 {
-    int x = 1;
     struct args *arguments = (struct  args*) arg;
-    while(x) {
+    while(1) {
         update_players(arguments->players);
     }
 }
 
+void* thread_update_player(void* arg) {
 
+    struct local_player_args *arguments = (struct local_player_args*) arg;
+
+    while(1) {
+        update_local_player(arguments->player, arguments->map);
+    }
+
+}
+
+int init_game(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X * GAME_MAX_Y], Player players[], Map map) {
+
+    struct args data;
+    data.walls = walls;
+    data.players = players;
+    pthread_t t1, t2;
+
+    pthread_create(&t1, NULL,init_update, &data );
+
+    struct local_player_args local_p_data;
+    local_p_data.map = map;
+    local_p_data.player = &players[0];
+
+    pthread_create(&t2, NULL, thread_update_player, &local_p_data);
+
+    game_loop(window, renderer, walls, players);
+}
 
 
 int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*GAME_MAX_Y], Player players[]) {
 
     bool running = true;
     SDL_Event event;
-
-    struct args data;
-    data.walls = walls;
-    data.players = players;
-    pthread_t thread_id;
-
-    pthread_create(&thread_id, NULL,init_update, &data );
-    //Initialize new thread
-
-
 
     while (running)
     {

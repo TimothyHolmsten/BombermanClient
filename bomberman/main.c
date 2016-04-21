@@ -48,7 +48,7 @@ int main(void)
     */
 
 
-    game_loop(window, renderer, walls, players);
+    init_game(window, renderer, walls, players, _map);
 
     return 0;
 }
