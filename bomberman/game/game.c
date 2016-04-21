@@ -11,32 +11,32 @@ struct args{
 };
 
 //multithreading to make update and render run on seperate threads
-void * init_update(void* arg)
+void* init_update(void* arg)
 {
     int x = 1;
     struct args *arguments = (struct  args*) arg;
     while(x) {
-        update_players(arguments->players, arguments->walls);
+        update_players(arguments->players);
     }
 }
 
-int init_game(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X * GAME_MAX_Y], Player players[]) {
-    struct args data;
-    data.walls = walls;
-    data.players = players;
-    pthread_t thread_id;
 
-    //Initialize new thread
-    pthread_create(&thread_id, NULL,init_update, &data );
-
-    game_loop(window,renderer,walls,players);
-}
 
 
 int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*GAME_MAX_Y], Player players[]) {
 
     bool running = true;
     SDL_Event event;
+
+    struct args data;
+    data.walls = walls;
+    data.players = players;
+    pthread_t thread_id;
+
+    pthread_create(&thread_id, NULL,init_update, &data );
+    //Initialize new thread
+
+
 
     while (running)
     {

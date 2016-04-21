@@ -13,6 +13,6 @@ typedef struct Player{
 
 Player create_player(float x, float y, int id);
 
-
+void update_players(Player players[]);
 
 #endif //CLIENT_PLAYER_H
