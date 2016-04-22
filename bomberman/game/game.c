@@ -50,6 +50,8 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X 
     pthread_create(&t2, NULL, thread_update_player, &local_p_data);
 
     game_loop(window, renderer, walls, players);
+
+    return 0;
 }
 
 

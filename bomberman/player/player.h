@@ -9,7 +9,7 @@
 #include <SDL_system.h>
 #include "../map/map.h"
 
-typedef struct Player{
+typedef struct player{
     int x;
     int y;
     int id;

@@ -2,6 +2,10 @@
 // Created by Timothy Friberg Holmsten on 19/04/16.
 //
 
+/**
+ * Hello
+ */
+
 #ifndef CLIENT_RENDERPLAYER_H
 #define CLIENT_RENDERPLAYER_H
 

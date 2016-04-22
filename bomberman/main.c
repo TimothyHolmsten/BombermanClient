@@ -32,10 +32,6 @@ int main(void)
     players[1] = ply2;
 
 
-
-
-
-
     /* GOOD STUFF
     for (int i = 0; i < GAME_MAX_Y; i++)
     {
