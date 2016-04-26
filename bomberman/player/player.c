@@ -43,8 +43,8 @@ void update_local_player(Player *player, Map map) {
     {
         player->y += y;
     }
-
-    SDL_Delay(200);
+    if (x != 0 || y != 0)
+        SDL_Delay(200);
 
     //SDL_Delay(200);
 }
