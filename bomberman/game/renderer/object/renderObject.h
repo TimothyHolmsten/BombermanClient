@@ -7,7 +7,7 @@
 
 #include <SDL_render.h>
 #include "../../../object/objects/wall/wall.h"
-#include <SDL_image.h>
+#include "../../../image/image.h"
 
 void render_walls(SDL_Window *window, Wall * walls);
 
