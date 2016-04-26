@@ -8,6 +8,7 @@
 #include <SDL_types.h>
 #include <SDL_system.h>
 #include "../map/map.h"
+#include <SDL_timer.h>
 
 typedef struct Player{
     int x;

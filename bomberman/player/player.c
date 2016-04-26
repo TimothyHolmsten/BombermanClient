@@ -1,9 +1,8 @@
 //
 // Created by Timothy Friberg Holmsten on 19/04/16.
 //
-#include <SDL_timer.h>
+#include <SDL_events.h>
 #include "player.h"
-#include "../map/map.h"
 
 Player create_player(int x, int y, int id)
 {
@@ -20,6 +19,8 @@ void update_players(Player *players) {
 }
 
 void update_local_player(Player *player, Map map) {
+
+    SDL_PumpEvents();
     const Uint8 *state = SDL_GetKeyboardState(NULL);
 
     int x = 0;
@@ -43,8 +44,8 @@ void update_local_player(Player *player, Map map) {
     {
         player->y += y;
     }
-
-    SDL_Delay(100);
+    if (x != 0 || y != 0)
+        SDL_Delay(100);
 
     //SDL_Delay(200);
 }

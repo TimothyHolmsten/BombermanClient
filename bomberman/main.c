@@ -8,8 +8,6 @@
 #include "client/client.h"
 #include <pthread.h>
 
-
-
 void* start_server(void* arg) {
 
     initServer();
