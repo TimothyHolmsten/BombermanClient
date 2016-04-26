@@ -79,8 +79,8 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*
         SDL_RenderClear(renderer);
 
         //render all element from bottom and up
-        render_walls(renderer, walls);
-        render_players(renderer, players);
+        render_walls(window, walls);
+        render_players(window, players);
 
         //Show whats rendered
         SDL_RenderPresent(renderer);
