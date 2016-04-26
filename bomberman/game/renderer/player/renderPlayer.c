@@ -4,8 +4,10 @@
 
 #include "renderPlayer.h"
 
-void render_players(SDL_Renderer *renderer, Player players[])
+void render_players(SDL_Window *window, Player players[])
 {
+    SDL_Renderer *renderer = SDL_GetRenderer(window);
+
     int i = 0;
     int players_inGame = 2;  // Render only if player is in game
     while(i < players_inGame) {
