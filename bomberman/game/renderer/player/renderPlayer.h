@@ -12,7 +12,7 @@
 #include <SDL.h>
 #include "stdbool.h"
 #include <math.h>
-void render_players(SDL_Renderer *renderer, Player players[]);
+void render_players(SDL_Window * window, Player players[]);
 
 #endif //CLIENT_RENDERPLAYER_H
 
