@@ -23,22 +23,39 @@ void initServer()
         printf("SDLNet_TCP_Open: %s\n",SDLNet_GetError());
         exit(4);
     }
+    printf("Awaiting clients...\n");
 
-
-    const char* test = "This is the server!\n"; // Send this to connected device
-
+    const char* test = "This was sent from the server!\n"; // Send this to connected device
+    char buffer[512];
     int x = 1;
-    while(x){
-        client=SDLNet_TCP_Accept(server); //Accept connecting devices
+    int clientConnected = 0;
+    do{
 
-        if(client)
-        {
-            SDLNet_TCP_Send(client,  test, strlen(test)+1); // Sends the data "test", make struct of postion in future
-            SDLNet_TCP_Close(client); //Close socket after one transmission
-            break;
+    if (!clientConnected) {
+        client = SDLNet_TCP_Accept(server);
+        if (client) {
+
+            printf("test\n");
+            SDLNet_TCP_Recv(client, buffer, 512); // Recivie packet from server
+            printf("%s", buffer);
+            clientConnected = 1;
         }
-
     }
+
+        // If there is activity on our server socket (i.e. a client has trasmitted data to us) then...
+        if (clientConnected)
+        {
+            SDLNet_TCP_Recv(client, buffer, 512); // Recivie packet from server
+            int playerX = buffer - '0';
+
+
+            printf("%s", buffer);
+        }
+        SDL_Delay(16); //Dont fry the CPU
+    }while(x);
+
+    SDLNet_TCP_Close(client); //Close socket after one transmission
+
     SDLNet_TCP_Close(server);
 
 

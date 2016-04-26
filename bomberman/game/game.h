@@ -11,10 +11,11 @@
 #include "renderer/object/renderObject.h"
 #include "../player/player.h"
 #include "renderer/player/renderPlayer.h"
+#include "../client/client.h"
 
 SDL_Window * init_window(int w, int h, char *title);
 SDL_Renderer * init_renderer(SDL_Window *window);
-int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall * walls, Player * players);
+int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall * walls, Player * players, TCPsocket client);
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X * GAME_MAX_Y], Player players[], Map map);
 
 #endif //CLIENT_GAME_H

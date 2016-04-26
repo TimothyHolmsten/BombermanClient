@@ -7,5 +7,6 @@
 #include <SDL.h>
 #include <SDL_net.h>
 
-void initClient();
+TCPsocket initClient();
+void client_DATA(TCPsocket client, int playerX, int playerY);
 #endif //CLIENT_CLIENT_H
