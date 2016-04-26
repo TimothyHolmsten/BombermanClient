@@ -21,34 +21,36 @@ set(CMAKE_C_FLAGS "-std=c99")
 
 file(GLOB BOMBERMAN_SRC
 
-         bomberman/main.c
+        bomberman/main.c
 
-         bomberman/tempServer.c
-         bomberman/tempServer.h
+        bomberman/tempServer.c
+        bomberman/tempServer.h
 
         bomberman/client/*.c
         bomberman/client/*.h
 
-         bomberman/game/*.c
-         bomberman/game/*.h
+        bomberman/game/*.c
+        bomberman/game/*.h
 
+        bomberman/map/*.c
+        bomberman/map/*.h
 
-         bomberman/map/*.c
-         bomberman/map/*.h
+        bomberman/map/maps/*
 
-         bomberman/map/maps/*
+        bomberman/object/objects/wall/*.c
+        bomberman/object/objects/wall/*.h
 
-         bomberman/object/objects/wall/*.c
-         bomberman/object/objects/wall/*.h
+        bomberman/game/renderer/object/*.c
+        bomberman/game/renderer/object/*.h
 
-         bomberman/game/renderer/object/*.c
-         bomberman/game/renderer/object/*.h
+        bomberman/game/renderer/player/*.c
+        bomberman/game/renderer/player/*.h
 
-         bomberman/game/renderer/player/*.c
-         bomberman/game/renderer/player/*.h
+        bomberman/player/*.c
+        bomberman/player/*.h
 
-         bomberman/player/*.c
-         bomberman/player/*.h
+        bomberman/image/*.c
+        bomberman/image/*.h
      )
 
 set(SOURCE_FILES ${BOMBERMAN_SRC})

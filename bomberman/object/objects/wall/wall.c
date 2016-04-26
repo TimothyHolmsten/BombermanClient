@@ -13,7 +13,11 @@ Wall create_wall(int x, int y)
     return wall;
 }
 
-void load_walls(Map map, Wall walls[GAME_MAX_X*GAME_MAX_Y])
+/*TODO
+ * Fix a better way to iterate walls
+ * */
+
+void load_walls(Map map, Wall walls[])
 {
     int i = 0;
 
@@ -24,6 +28,11 @@ void load_walls(Map map, Wall walls[GAME_MAX_X*GAME_MAX_Y])
             if (map.map_array[x][y] == 1)
             {
                 walls[i] = create_wall(x,y);
+            }
+            else
+            {
+                // Really ugly
+                //walls[i] = create_wall(10000,10000);
             }
             i++;
         }
