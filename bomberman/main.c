@@ -30,8 +30,6 @@ int main(void)
     pthread_create(&t3, NULL,start_server, NULL );
     SDL_Delay(500); //While server is local make sure it starts before client
 
-    initClient();
-
     Wall walls[GAME_MAX_X*GAME_MAX_Y];
 
     Map _map;
