@@ -3,6 +3,7 @@
 //
 #include <SDL_events.h>
 #include "player.h"
+#include "../game/game.h"
 
 Player create_player(int x, int y, int id)
 {
@@ -16,6 +17,20 @@ Player create_player(int x, int y, int id)
 
 void update_players(Player *players) {
 
+}
+
+void player_place_bomb(Player * player)
+{
+    for(int bomb = 0; bomb < GAME_MAX_BOMBS;bomb++) {
+
+        if (player->bombs[bomb].placed != 1) {
+            player->bombs[bomb] = create_bomb(player->x, player->y, 1, player->id);
+            player->bombs_count += 1;
+            player->bombs[bomb].placed = 1;
+            SDL_Delay(100);
+            break;
+        }
+    }
 }
 
 void update_local_player(Player *player, Map map) {
@@ -34,14 +49,7 @@ void update_local_player(Player *player, Map map) {
     if (state[SDL_SCANCODE_W])
         y = -1;
     if (state[SDL_SCANCODE_SPACE])
-    {
-        if (player->bombs_count < 2)
-        {
-            player->bombs[player->bombs_count] = create_bomb(player->x, player->y, 5, player->id);
-            player->bombs_count += 1;
-            SDL_Delay(100);
-        }
-    }
+        player_place_bomb(player);
 
     if(!map_is_blocked(map, player->x + x, player->y) && x != 0)
     {

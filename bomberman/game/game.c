@@ -33,6 +33,7 @@ void* thread_update_player(void* arg) {
 
     while(1) {
         update_local_player(arguments->player, arguments->map);
+        update_bombs(arguments->player->bombs);
         SDL_Delay(16); //Dont fry the CPU
     }
 
@@ -89,7 +90,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, TCPsocket
         SDL_RenderPresent(renderer);
 
         //Multiplayer
-        client_DATA(client,game->players[0].x, game->players[0].y);
+        //client_DATA(client,game->players[0].x, game->players[0].y);
 
         //Spare the cpu, 16 =~ 60 fps
         SDL_Delay(16);

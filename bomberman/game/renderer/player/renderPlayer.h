@@ -10,7 +10,6 @@
 #define CLIENT_RENDERPLAYER_H
 
 
-#include "../../../player/player.h"
 #include "../../../object/objects/wall/wall.h"
 #include "../../../map/map.h"
 #include <SDL.h>

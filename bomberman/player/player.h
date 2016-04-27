@@ -10,6 +10,7 @@
 #include "../map/map.h"
 #include "../object/objects/bomb/bomb.h"
 #include <SDL_timer.h>
+#include <time.h>
 
 typedef struct player{
     int x;
@@ -20,6 +21,7 @@ typedef struct player{
 } Player;
 
 Player create_player(int x, int y, int id);
+void player_place_bomb(Player * player);
 
 void update_players(Player players[]);
 void update_local_player(Player *player, Map map);

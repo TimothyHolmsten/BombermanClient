@@ -17,8 +17,6 @@ link_libraries(${SDL2_LIBRARY}
                ${SDL2_TTF_LIBRARIES}
                 ${SDL2_NET_LIBRARIES})
 
-set(CMAKE_C_FLAGS "-std=c99")
-
 file(GLOB BOMBERMAN_SRC
 
         bomberman/main.c
