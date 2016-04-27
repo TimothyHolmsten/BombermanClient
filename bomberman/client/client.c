@@ -11,7 +11,7 @@ TCPsocket initClient()
     TCPsocket client;
     IPaddress ip;
     SDLNet_Init();
-    if(SDLNet_ResolveHost(&ip,"127.0.0.1",21423)==-1) //Change loopback ip to our server IP
+    if(SDLNet_ResolveHost(&ip,"127.0.0.1",22222)==-1) //Change loopback ip to our server IP
     {
         printf("SDLNet_ResolveHost: %s\n",SDLNet_GetError());
         exit(3);
@@ -43,7 +43,7 @@ void client_DATA(TCPsocket client, int playerX, int playerY){
 
     char test[100]; // Send this to connected device
 
-    sprintf(test, "%d \n",playerX);
+    sprintf(test, "1 %d \n",playerX);
 
     SDLNet_TCP_Send(client,  test, (int)strlen(test)+1); // Sends the data "test", make struct of postion in future
 

@@ -6,6 +6,11 @@
 #define CLIENT_TEMPSERVER_H
 #include <SDL.h>
 #include <SDL_net.h>
+#include <stdbool.h>
+#include <stdio.h>
+
+#define MAX_PLAYER 8
+
 #endif //CLIENT_TEMPSERVER_H
 
 void initServer();

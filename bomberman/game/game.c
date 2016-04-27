@@ -90,7 +90,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, TCPsocket
         SDL_RenderPresent(renderer);
 
         //Multiplayer
-        //client_DATA(client,game->players[0].x, game->players[0].y);
+        client_DATA(client,game->players[0].x, game->players[0].y);
 
         //Spare the cpu, 16 =~ 60 fps
         SDL_Delay(16);
