@@ -14,6 +14,7 @@ typedef struct wall{
 
 Wall create_wall(int x, int y);
 
-void load_walls(Map map, Wall walls[GAME_MAX_X*GAME_MAX_Y]);
+void load_walls(Map map, Wall walls[]);
+Wall * load_walls_improved(Map map);
 
 #endif //CLIENT_WALL_H

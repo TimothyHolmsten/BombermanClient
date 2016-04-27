@@ -21,6 +21,7 @@ void* init_update(void* arg)
     struct args *arguments = (struct  args*) arg;
     while(1) {
         update_players(arguments->players);
+        SDL_Delay(16); //Dont fry the CPU
     }
 }
 
@@ -30,52 +31,65 @@ void* thread_update_player(void* arg) {
 
     while(1) {
         update_local_player(arguments->player, arguments->map);
+        SDL_Delay(16); //Dont fry the CPU
     }
 
 }
 
-int init_game(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X * GAME_MAX_Y], Player players[], Map map) {
+int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
+
+    TCPsocket client;
+    client = initClient();
+
+    //Arguments for update thread
     struct args data;
-    data.walls = walls;
-    data.players = players;
+    data.walls = game->walls;
+    data.players = game->players;
     pthread_t t1, t2;
 
     pthread_create(&t1, NULL,init_update, &data );
 
     struct local_player_args local_p_data;
-    local_p_data.map = map;
-    local_p_data.player = &players[0];
+    local_p_data.map = game->map;
+    local_p_data.player = &game->players[0];
 
     pthread_create(&t2, NULL, thread_update_player, &local_p_data);
 
-    game_loop(window, renderer, walls, players);
-
-    return 0;
+    game_loop(window, renderer, game,client);
 }
 
 
-int game_loop(SDL_Window *window, SDL_Renderer *renderer, Wall walls[GAME_MAX_X*GAME_MAX_Y], Player players[]) {
+int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, TCPsocket client) {
 
     bool running = true;
     SDL_Event event;
 
     while (running)
     {
+        //On exit pressed, exit
         while(SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 running = false;
             }
         }
+
+        //Clear screen
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderClear(renderer);
 
-        render_walls(renderer, walls);
-        render_players(renderer, players);
+        //render all element from bottom and up
+        render_walls(window, game->walls);
+        render_players(window, game->players);
 
-
+        //Show whats rendered
         SDL_RenderPresent(renderer);
 
+        //Multiplayer
+        client_DATA(client,game->players[0].x, game->players[0].y);
+
+        //Spare the cpu, 16 =~ 60 fps
+        SDL_Delay(16);
     }
 
     SDL_DestroyWindow(window);
