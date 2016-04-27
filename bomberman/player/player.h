@@ -8,12 +8,14 @@
 #include <SDL_types.h>
 #include <SDL_system.h>
 #include "../map/map.h"
+#include "../object/objects/bomb/bomb.h"
 #include <SDL_timer.h>
 
 typedef struct player{
     int x;
     int y;
     int id;
+    int bombs;
 } Player;
 
 Player create_player(int x, int y, int id);

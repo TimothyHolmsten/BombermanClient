@@ -33,6 +33,11 @@ void update_local_player(Player *player, Map map) {
         y =  1;
     if (state[SDL_SCANCODE_W])
         y = -1;
+    if (state[SDL_SCANCODE_SPACE])
+    {
+        create_bomb(player->x, player->y, 5, player->id);
+        player->bombs += 1;
+    }
 
     if(!map_is_blocked(map, player->x + x, player->y) && x != 0)
     {
