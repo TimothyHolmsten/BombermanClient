@@ -8,15 +8,16 @@
 #include <pthread.h>
 #include <stdbool.h>
 #include <SDL.h>
-#include "renderer/object/renderObject.h"
 #include "../player/player.h"
-#include "renderer/player/renderPlayer.h"
 #include "../client/client.h"
+#include "../map/map.h"
+#include "../object/objects/wall/wall.h"
 
 typedef struct Game {
     Player players[8];
     Wall walls[GAME_MAX_X*GAME_MAX_Y];
     Map map;
+    int player_count;
 }Game;
 
 SDL_Window * init_window(int w, int h, char *title);

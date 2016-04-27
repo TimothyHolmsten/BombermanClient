@@ -45,7 +45,7 @@ Map load_map(char map[])
     return game_map;
 }
 
-int get_objects_count(Map map, char object_type[])
+int get_objects_count(Map map, char * object_type)
 {
     int walls = 0;
 
@@ -61,8 +61,8 @@ int get_objects_count(Map map, char object_type[])
         }
     }
 
-   // if (object_type == "Walls")
-    //    return walls;
+    if (object_type == "Walls")
+        return walls;
 
     return -1;
 

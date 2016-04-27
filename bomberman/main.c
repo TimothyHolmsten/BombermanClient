@@ -7,6 +7,7 @@
 #include "tempServer.h"
 #include "client/client.h"
 #include <pthread.h>
+#include "map/map.h"
 
 void* start_server(void* arg) {
 
@@ -30,7 +31,9 @@ int main(void)
     game.map = load_map("level1.map");
     load_walls(game.map, game.walls);
     game.players[0] = create_player(1,1,0);
+    game.player_count = 1;
 
+    printf("%d", get_objects_count(game.map, "Walls"));
 
 
     /* GOOD STUFF

@@ -28,13 +28,8 @@ void load_walls(Map map, Wall walls[])
             if (map.map_array[x][y] == 1)
             {
                 walls[i] = create_wall(x,y);
+                i++;
             }
-            else
-            {
-                // Really ugly
-                walls[i] = create_wall(10000,10000);
-            }
-            i++;
         }
     }
 }

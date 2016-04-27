@@ -16,7 +16,10 @@
 #include <SDL.h>
 #include "stdbool.h"
 #include <math.h>
-void render_players(SDL_Window * window, Player players[]);
+#include "../../game.h"
+#include "../../../image/image.h"
+
+void render_players(SDL_Window * window, Game * game);
 
 #endif //CLIENT_RENDERPLAYER_H
 
