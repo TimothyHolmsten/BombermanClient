@@ -45,6 +45,29 @@ Map load_map(char map[])
     return game_map;
 }
 
+int get_objects_count(Map map, char object_type[])
+{
+    int walls = 0;
+
+    int i = 0;
+
+    for (int y = 0; y < GAME_MAX_Y; y++)
+    {
+        for(int x = 0; x < GAME_MAX_X; x++)
+        {
+            if (map.map_array[x][y] == 1)
+                walls++;
+            i++;
+        }
+    }
+
+   // if (object_type == "Walls")
+    //    return walls;
+
+    return -1;
+
+}
+
 int map_is_blocked(Map map, int x, int y) {
 
     if (map.map_array[x][y] == 1)

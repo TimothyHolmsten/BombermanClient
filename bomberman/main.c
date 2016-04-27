@@ -15,35 +15,21 @@ void* start_server(void* arg) {
 
 int main(void)
 {
-
-
     SDL_Window *window;
     window = init_window(1024,512,"Bomberman");
 
     SDL_Renderer *renderer;
     renderer = init_renderer(window);
 
-
     pthread_t t3;
     pthread_create(&t3, NULL,start_server, NULL );
     SDL_Delay(500); //While server is local make sure it starts before client
 
-    Wall walls[GAME_MAX_X*GAME_MAX_Y];
+    Game game;
 
-    Map _map;
-
-    _map = load_map("level1.map");
-
-    load_walls(_map, walls);
-
-    Player ply1 = create_player(1.0,1.0,0);
-    Player ply2 = create_player(4.0,1.0,0);
-    //Player *players[] = {ply1};
-
-    Player players[8];
-    players[0] = ply1;
-    players[1] = ply2;
-
+    game.map = load_map("level1.map");
+    load_walls(game.map, game.walls);
+    game.players[0] = create_player(1,1,0);
 
     /* GOOD STUFF
     for (int i = 0; i < GAME_MAX_Y; i++)
@@ -57,7 +43,7 @@ int main(void)
     */
 
 
-    init_game(window, renderer, walls, players, _map);
+    init_game(window, renderer, &game);
 
 
 
