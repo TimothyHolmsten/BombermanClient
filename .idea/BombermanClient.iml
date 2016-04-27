@@ -14,6 +14,8 @@
       <sourceFolder url="file://$MODULE_DIR$/bomberman/tempServer.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/image/image.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/image/image.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/bomberman/object/objects/bomb/bomb.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/bomberman/object/objects/bomb/bomb.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/object/objects/wall/wall.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/object/objects/wall/wall.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/map/maps/level1.map" isTestSource="false" />

@@ -37,8 +37,8 @@ file(GLOB BOMBERMAN_SRC
 
         bomberman/map/maps/*
 
-        bomberman/object/objects/wall/*.c
-        bomberman/object/objects/wall/*.h
+        bomberman/object/objects/*/*.c
+        bomberman/object/objects/*/*.h
 
         bomberman/game/renderer/object/*.c
         bomberman/game/renderer/object/*.h
