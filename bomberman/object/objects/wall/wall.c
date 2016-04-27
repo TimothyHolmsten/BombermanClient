@@ -32,9 +32,37 @@ void load_walls(Map map, Wall walls[])
             else
             {
                 // Really ugly
-                //walls[i] = create_wall(10000,10000);
+                walls[i] = create_wall(10000,10000);
             }
             i++;
         }
     }
 }
+
+Wall * load_walls_improved(Map map) {
+
+    Wall walls[100];
+
+    int i = 0;
+
+    for (int y = 0; y < GAME_MAX_Y; y++)
+    {
+        for(int x = 0; x < GAME_MAX_X; x++)
+        {
+            if (map.map_array[x][y] == 1)
+            {
+                walls[i] = create_wall(x,y);
+            }
+            else
+            {
+                // Really ugly
+                walls[i] = create_wall(10000,10000);
+            }
+            i++;
+        }
+    }
+
+    return walls;
+}
+
+
