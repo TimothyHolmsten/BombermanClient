@@ -31,6 +31,8 @@ int main(void)
     load_walls(game.map, game.walls);
     game.players[0] = create_player(1,1,0);
 
+
+
     /* GOOD STUFF
     for (int i = 0; i < GAME_MAX_Y; i++)
     {

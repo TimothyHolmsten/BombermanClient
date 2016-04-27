@@ -20,7 +20,6 @@ void update_players(Player *players) {
 
 void update_local_player(Player *player, Map map) {
 
-    SDL_PumpEvents();
     const Uint8 *state = SDL_GetKeyboardState(NULL);
 
     int x = 0;
