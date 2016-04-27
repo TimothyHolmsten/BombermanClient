@@ -111,8 +111,30 @@ void initServer()
                 }
             }
         }
+        for(int j=0; j<playernum; j++) // Handles dc'ed player, disconnect after 10 sec
+        {
+            int timeoutLimit;
+            if (SDL_GetTicks() < 5000)
+                timeoutLimit = SDL_GetTicks()-500;
+            else
+                timeoutLimit = SDL_GetTicks() - 5000;
+         if(data[j].timeout ==-1)
+         {
+             printf("DC: id % d ",data[j].id);
+             printf("time %d \n",data[j].timeout);
+             sprintf(tmp, "3 %d \n", data[j].id);
+             for(int k=0; k<playernum; k++)
+             {
+
+                     SDLNet_TCP_Send(data[k].socket,tmp,(int) strlen(tmp)+1);
+             }
+            SDLNet_TCP_DelSocket(sockets, data[j].socket);
 
 
+            //Make data array linked list and delete socket from it here
+            playernum--;
+         }
+        }
         SDL_Delay(1);
     }
     for(int i=0; i<playernum; i++)
