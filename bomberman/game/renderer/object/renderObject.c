@@ -20,3 +20,12 @@ void render_walls(SDL_Window *window, Game * game)
         i++;
     }
 }
+
+void render_bombs(SDL_Window * window, Game * game)
+{
+    int i = 0;
+    SDL_Renderer * renderer = SDL_GetRenderer(window);
+
+    SDL_Texture * texture;
+    texture = load_texture(renderer,"Bomb.png");
+};

@@ -11,5 +11,6 @@
 #include "../../../image/image.h"
 
 void render_walls(SDL_Window *window, Game * game);
+void render_bombs(SDL_Window * window, Game * game);
 
 #endif //CLIENT_RENDEROBJECT_H
