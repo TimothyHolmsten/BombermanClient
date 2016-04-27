@@ -28,4 +28,12 @@ void render_bombs(SDL_Window * window, Game * game)
 
     SDL_Texture * texture;
     texture = load_texture(renderer,"Bomb.png");
+
+    for (int pl_count = 0; pl_count < game->player_count; pl_count++) {
+        while (i < 2) {
+            SDL_Rect rect = {256 + game->players[pl_count].bombs[i].x * 32, game->players[pl_count].bombs[i].y * 32, 32, 32};
+            SDL_RenderCopyEx(renderer, texture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
+            i++;
+        }
+    }
 };

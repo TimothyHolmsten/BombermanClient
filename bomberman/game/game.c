@@ -3,6 +3,8 @@
 //
 
 #include "game.h"
+#include "renderer/player/renderPlayer.h"
+#include "renderer/object/renderObject.h"
 
 // Arguments to be passed to new thread
 struct args{
@@ -80,6 +82,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, TCPsocket
 
         //render all element from bottom and up
         render_walls(window, game);
+        render_bombs(window, game);
         render_players(window, game);
 
         //Show whats rendered

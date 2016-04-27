@@ -15,7 +15,8 @@ typedef struct player{
     int x;
     int y;
     int id;
-    int bombs;
+    Bomb bombs[2];
+    int bombs_count;
 } Player;
 
 Player create_player(int x, int y, int id);

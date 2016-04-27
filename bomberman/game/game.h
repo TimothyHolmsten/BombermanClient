@@ -13,6 +13,8 @@
 #include "../map/map.h"
 #include "../object/objects/wall/wall.h"
 
+#define GAME_MAX_BOMBS 2
+
 typedef struct Game {
     Player players[8];
     Wall walls[GAME_MAX_X*GAME_MAX_Y];
