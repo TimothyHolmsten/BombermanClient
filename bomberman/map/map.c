@@ -61,8 +61,11 @@ int get_objects_count(Map map, char * object_type)
         }
     }
 
-    if (object_type == "Walls")
+    int rc = strcmp(object_type, "Walls");
+    if (!rc)
         return walls;
+
+
 
     return -1;
 
