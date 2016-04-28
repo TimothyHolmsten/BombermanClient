@@ -51,6 +51,9 @@ file(GLOB BOMBERMAN_SRC
 
         bomberman/image/*.c
         bomberman/image/*.h
+
+        bomberman/tools/*.c
+        bomberman/tools/*.h
      )
 
 set(SOURCE_FILES ${BOMBERMAN_SRC})

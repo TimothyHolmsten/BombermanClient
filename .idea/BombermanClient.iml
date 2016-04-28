@@ -2,6 +2,8 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/bomberman/tools/linked_list.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/bomberman/tools/linked_list.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/main.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/game.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/game.h" isTestSource="false" />

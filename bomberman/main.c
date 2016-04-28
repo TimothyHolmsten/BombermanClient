@@ -8,6 +8,7 @@
 #include "client/client.h"
 #include <pthread.h>
 #include "map/map.h"
+#include "tools/linked_list.h"
 
 void* start_server(void* arg) {
 
@@ -16,6 +17,7 @@ void* start_server(void* arg) {
 
 int main(void)
 {
+
     SDL_Window *window;
     window = init_window(1024,512,"Bomberman");
 
@@ -34,7 +36,7 @@ int main(void)
     game.player_count = 1;
     game.players[0].bombs_count = 0;
 
-    printf("%d", get_objects_count(game.map, "Walls"));
+   //printf("%d", get_objects_count(game.map, "Walls"));
 
 
     /* GOOD STUFF

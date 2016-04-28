@@ -1,15 +1,9 @@
 //
 // Created by martin on 4/21/16.
 //
-
-
 #include "tempServer.h"
 
-typedef struct data{
-    TCPsocket socket;
-    Uint32   timeout; //In case someone dc's
-    int id; //Unique ID for all players
-}Data;
+
 
 void initServer()
 {
@@ -27,7 +21,7 @@ void initServer()
         exit(3);
     }
 
-    Data data[MAX_PLAYER];
+    Data* socketList = NULL;
 
     char tmp[1400];
     bool running = true;
@@ -40,7 +34,6 @@ void initServer()
             if(event.type == SDL_QUIT)
                 running = false;
 
-
         TCPsocket  tmpsocket = SDLNet_TCP_Accept(server);
         if(tmpsocket)
         {
@@ -48,30 +41,30 @@ void initServer()
             {
                 SDLNet_TCP_AddSocket(sockets, tmpsocket); //Adds player to list of connections
 
-                data[playernum].socket = tmpsocket;
-                data[playernum].id = curID;
-                data[playernum].timeout = SDL_GetTicks();
-
-                sprintf(tmp, "0%d\n", curID);
+                add_front(&socketList, tmpsocket, SDL_GetTicks(), curID); // Adds new connection to our connection list
                 printf("New connection: %d \n", curID);
+
                 playernum++;
                 curID++;
             }else{
-                sprintf(tmp, "3\n");
+                sprintf(tmp, "4\n");
 
             }
+
             SDLNet_TCP_Send(tmpsocket, tmp, (int) strlen(tmp)+1);
         }
 
         //check for incoming data
         while(SDLNet_CheckSockets(sockets,0) > 0)
         {
-            for(int i=0; i<playernum; i++ )
+
+            for(int i=0; i<list_size(socketList); i++ )
             {
-                if(SDLNet_SocketReady(data[i].socket))
+
+                if(SDLNet_SocketReady(get_list_postition(&socketList,i)->socket))
                 {
-                    data[i].timeout = SDL_GetTicks(); // Client is still connected
-                    SDLNet_TCP_Recv(data[i].socket, tmp, 1400);
+                    socketList[i].timeout = SDL_GetTicks(); // Client is still connected
+                    SDLNet_TCP_Recv(get_list_postition(&socketList,i)->socket, tmp, 1400);
                     int num= (int) tmp[0] - '0';
                     int j = 1;
                     while(tmp[j]>= '0' && tmp[j] <= '9')
@@ -85,11 +78,12 @@ void initServer()
 
                     if(num==1) //Postition
                     {
+
                         for(int k=0; k<playernum; k++) //Sends to all connected players except the player that sent the data
                         {
                             if(k==i)
                                 continue;
-                            SDLNet_TCP_Send(data[k].socket,tmp,(int) strlen(tmp)+1);
+                            SDLNet_TCP_Send(get_list_postition(&socketList,k)->socket,tmp,(int) strlen(tmp)+1);
 
                         }
                     }
@@ -100,10 +94,10 @@ void initServer()
                         {
                             if(k==i)
                                 continue;
-                            SDLNet_TCP_Send(data[k].socket,tmp,(int) strlen(tmp)+1);
+                            SDLNet_TCP_Send(get_list_postition(&socketList,k)->socket,tmp,(int) strlen(tmp)+1);
                         }
-                        SDLNet_TCP_DelSocket(sockets, data[i].socket);
-                        SDLNet_TCP_Close(data[i].socket);
+                        SDLNet_TCP_DelSocket(sockets, get_list_postition(&socketList,i)->socket);
+                        SDLNet_TCP_Close(get_list_postition(&socketList,i)->socket);
 
                         //Make data array linked list and delete socket from it here
                         playernum--;
@@ -118,17 +112,17 @@ void initServer()
                 timeoutLimit = SDL_GetTicks()-500;
             else
                 timeoutLimit = SDL_GetTicks() - 5000;
-         if(data[j].timeout ==-1)
+         if(socketList[j].timeout ==-1)
          {
-             printf("DC: id % d ",data[j].id);
-             printf("time %d \n",data[j].timeout);
-             sprintf(tmp, "3 %d \n", data[j].id);
+             printf("DC: id % d ",get_list_postition(&socketList,j)->id);
+             printf("time %d \n",get_list_postition(&socketList,j)->timeout);
+             sprintf(tmp, "3 %d \n", get_list_postition(&socketList,j)->id);
              for(int k=0; k<playernum; k++)
              {
 
-                     SDLNet_TCP_Send(data[k].socket,tmp,(int) strlen(tmp)+1);
+                     SDLNet_TCP_Send(get_list_postition(&socketList,k)->socket,tmp,(int) strlen(tmp)+1);
              }
-            SDLNet_TCP_DelSocket(sockets, data[j].socket);
+            SDLNet_TCP_DelSocket(sockets, get_list_postition(&socketList,j)->socket);
 
 
             //Make data array linked list and delete socket from it here
@@ -138,7 +132,7 @@ void initServer()
         SDL_Delay(1);
     }
     for(int i=0; i<playernum; i++)
-        SDLNet_TCP_Close(data[i].socket);
+        SDLNet_TCP_Close(get_list_postition(&socketList,i)->socket);
         SDLNet_FreeSocketSet(sockets);
         SDLNet_TCP_Close(server);
         SDLNet_Quit();
