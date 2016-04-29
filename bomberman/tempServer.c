@@ -21,7 +21,8 @@ void initServer()
         exit(3);
     }
 
-    Data* socketList = NULL;
+    Dlist socketList;
+    dlist_init(&socketList);
 
     char tmp[1400];
     bool running = true;
@@ -30,6 +31,8 @@ void initServer()
 
     while(running)
     {
+
+
         while(SDL_PollEvent(&event))
             if(event.type == SDL_QUIT)
                 running = false;
@@ -49,9 +52,11 @@ void initServer()
         {
             if (playernum < MAX_PLAYER)
             {
+
                 SDLNet_TCP_AddSocket(sockets, tmpsocket); //Adds player to list of connections
 
-                add_front(&socketList, tmpsocket, SDL_GetTicks(), curID); // Adds new connection to our connection list
+                dlist_insert_last(&socketList,dlist_createElement(curID, tmpsocket, SDL_GetTicks())); // Adds new connection to our connection list
+
                 printf("New connection: %d \n", curID);
 
                 playernum++;
@@ -62,18 +67,21 @@ void initServer()
             }
 
             SDLNet_TCP_Send(tmpsocket, tmp, (int) strlen(tmp)+1);
+
         }
 
         //check for incoming data
         while(SDLNet_CheckSockets(sockets,0) > 0)
         {
 
-            for(int i=0; i<list_size(socketList); i++ )
+            for(int i=0; i<dlist_size(&socketList); i++ )
             {
-                printf("%d\n",get_list_postition(&socketList,i)->id);
+                dlist_print(&socketList);
+
+
                 if(SDLNet_SocketReady(get_list_postition(&socketList,i)->socket))
                 {
-                    socketList[i].timeout = SDL_GetTicks(); // Client is still connected
+                    get_list_postition(&socketList,i)->timeout = SDL_GetTicks(); // Client is still connected
                     SDLNet_TCP_Recv(get_list_postition(&socketList,i)->socket, tmp, 1400);
                     int num= (int) tmp[0] - '0';
                     int j = 1;
@@ -89,12 +97,12 @@ void initServer()
                     if(num==1) //Postition
                     {
 
-                        for(int k=0; k<playernum; k++) //Sends to all connected players except the player that sent the data
+                        for(int k=0; k<dlist_size(&socketList); k++) //Sends to all connected players except the player that sent the data
                         {
                             if(k==i)
                                 continue;
-                            SDLNet_TCP_Send(get_list_postition(&socketList,k)->socket,tmp,(int) strlen(tmp)+1);
 
+                            SDLNet_TCP_Send(get_list_postition(&socketList,k)->socket,tmp,(int) strlen(tmp)+1);
                         }
                     }
 
@@ -139,15 +147,15 @@ void initServer()
             playernum--;
          }
         } */
-        SDL_Delay(1);
-    }
-    for(int i=0; i<playernum; i++)
-        SDLNet_TCP_Close(get_list_postition(&socketList,i)->socket);
+       SDL_Delay(1);
+  }
+   for(int i=0; i<playernum; i++)
+       SDLNet_TCP_Close(get_list_postition(&socketList,i)->socket);
 
-        clear_list(socketList);
-        SDLNet_FreeSocketSet(sockets);
-        SDLNet_TCP_Close(server);
-        SDLNet_Quit();
+
+       SDLNet_FreeSocketSet(sockets);
+       SDLNet_TCP_Close(server);
+       SDLNet_Quit();
 
 
 }
