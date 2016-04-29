@@ -43,7 +43,7 @@ void client_DATA(TCPsocket client, int playerX, int playerY){
 
     char test[100]; // Send this to connected device
 
-    sprintf(test, "1 %d \n",playerX);
+    sprintf(test, "1 %d %d \n",playerY,playerX);
 
     SDLNet_TCP_Send(client,  test, (int)strlen(test)+1); // Sends the data "test", make struct of postion in future
 

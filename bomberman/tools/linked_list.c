@@ -5,10 +5,13 @@
 
 
 Data * get_list_postition(Data** head, int postion){
+
     Data* cur_node = *head;
+
     for(int i=0; i<postion;i++){
-            cur_node = cur_node->next;
+        cur_node = cur_node->next;
     }
+
     return  cur_node;
 }
 
@@ -74,15 +77,29 @@ void display_list(Data* head){
     }
 }
 
+void clear_list(Data* head)
+{
+    Data *curNode = head;
+    Data *tempNode = NULL;
+
+    while(curNode != NULL)
+    {
+        tempNode = curNode->next;
+        free(curNode);
+        curNode = tempNode;
+    }
+}
+
 void initLinkedList()
 {
     Data *socketListHead = NULL;
 
+    add_front(&socketListHead, NULL, SDL_GetTicks(),1);
     add_front(&socketListHead, NULL, SDL_GetTicks(),2);
-    add_front(&socketListHead, NULL, SDL_GetTicks(),2);
-    add_front(&socketListHead, NULL, SDL_GetTicks(),2);
+    add_front(&socketListHead, NULL, SDL_GetTicks(),3);
 
     display_list(socketListHead);
     int i = list_size(socketListHead);
+    clear_list(socketListHead);
     printf("%d",i);
 }

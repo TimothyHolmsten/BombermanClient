@@ -60,7 +60,7 @@ void initServer()
 
             for(int i=0; i<list_size(socketList); i++ )
             {
-
+                printf("%d\n",get_list_postition(&socketList,i)->id);
                 if(SDLNet_SocketReady(get_list_postition(&socketList,i)->socket))
                 {
                     socketList[i].timeout = SDL_GetTicks(); // Client is still connected
@@ -105,7 +105,7 @@ void initServer()
                 }
             }
         }
-        for(int j=0; j<playernum; j++) // Handles dc'ed player, disconnect after 10 sec
+        /*for(int j=0; j<playernum; j++) // Handles dc'ed player, disconnect after 10 sec
         {
             int timeoutLimit;
             if (SDL_GetTicks() < 5000)
@@ -128,11 +128,13 @@ void initServer()
             //Make data array linked list and delete socket from it here
             playernum--;
          }
-        }
+        } */
         SDL_Delay(1);
     }
     for(int i=0; i<playernum; i++)
         SDLNet_TCP_Close(get_list_postition(&socketList,i)->socket);
+
+        clear_list(socketList);
         SDLNet_FreeSocketSet(sockets);
         SDLNet_TCP_Close(server);
         SDLNet_Quit();

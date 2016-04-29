@@ -20,6 +20,7 @@ typedef struct data{
 void add_front(Data** head,TCPsocket socket, Uint32 timeout, int id);
 Data * get_list_postition(Data** head, int postion);
 void remove_link(Data** head, int value_to_remove);
+void clear_list(Data* head);
 int list_size(Data* head);
 void display_list(Data* head);
 
