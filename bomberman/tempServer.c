@@ -35,6 +35,16 @@ void initServer()
                 running = false;
 
         TCPsocket  tmpsocket = SDLNet_TCP_Accept(server);
+
+        /*TODO
+
+         Make check for connection seperate function.
+         Make check for incomming data seperate function.
+         Fix memory bug
+         */
+
+
+        //Check if new connection
         if(tmpsocket)
         {
             if (playernum < MAX_PLAYER)
