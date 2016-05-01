@@ -12,6 +12,7 @@ typedef struct Bomb {
     int y;
     time_t time; // until explosion
     int owner; // player id
+    int order;
     int placed;
 }Bomb;
 

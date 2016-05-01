@@ -16,5 +16,3 @@
 
 #endif //CLIENT_TEMPSERVER_H
 
-
-void initServer();

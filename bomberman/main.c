@@ -33,7 +33,8 @@ int main(void)
     game.map = load_map("level1.map");
     load_walls(game.map, game.walls);
     game.players[0] = create_player(1,1,0);
-    game.player_count = 1;
+    game.players[1] = create_player(3,1,1);
+    game.player_count = 2;
     game.players[0].bombs_count = 0;
 
    //printf("%d", get_objects_count(game.map, "Walls"));

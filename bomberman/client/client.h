@@ -6,7 +6,9 @@
 #define CLIENT_CLIENT_H
 #include <SDL.h>
 #include <SDL_net.h>
+#include "../game/game.h"
 
-TCPsocket initClient();
-void client_DATA(TCPsocket client, int playerX, int playerY);
+
+void initClient(connection *con);
+void client_DATA(connection *con, Game *game);
 #endif //CLIENT_CLIENT_H

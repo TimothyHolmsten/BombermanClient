@@ -5,6 +5,7 @@
 #include "game.h"
 #include "renderer/player/renderPlayer.h"
 #include "renderer/object/renderObject.h"
+#include "../client/client.h"
 
 // Arguments to be passed to new thread
 struct args{
@@ -42,8 +43,8 @@ void* thread_update_player(void* arg) {
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
 
-    TCPsocket client;
-    client = initClient();
+    connection con;
+    initClient(&con);
 
     //Arguments for update thread
     struct args data;
@@ -59,11 +60,11 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
     pthread_create(&t2, NULL, thread_update_player, &local_p_data);
 
-    game_loop(window, renderer, game,client);
+    game_loop(window, renderer, game,&con);
 }
 
 
-int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, TCPsocket client) {
+int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Connection *con) {
 
     bool running = true;
     SDL_Event event;
@@ -90,7 +91,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, TCPsocket
         SDL_RenderPresent(renderer);
 
         //Multiplayer
-        client_DATA(client,game->players[0].x, game->players[0].y);
+        client_DATA(con,game);
 
         //Spare the cpu, 16 =~ 60 fps
         SDL_Delay(16);
