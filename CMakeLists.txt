@@ -26,32 +26,6 @@ file(GLOB BOMBERMAN_SRC
         bomberman/tempServer.c
         bomberman/tempServer.h
 
-        bomberman/client/*.c
-        bomberman/client/*.h
-
-        bomberman/game/*.c
-        bomberman/game/*.h
-
-        bomberman/map/*.c
-        bomberman/map/*.h
-
-        bomberman/map/maps/*
-
-        bomberman/object/objects/*/*.c
-        bomberman/object/objects/*/*.h
-
-        bomberman/game/renderer/object/*.c
-        bomberman/game/renderer/object/*.h
-
-        bomberman/game/renderer/player/*.c
-        bomberman/game/renderer/player/*.h
-
-        bomberman/player/*.c
-        bomberman/player/*.h
-
-        bomberman/image/*.c
-        bomberman/image/*.h
-
         bomberman/tools/*.c
         bomberman/tools/*.h
      )

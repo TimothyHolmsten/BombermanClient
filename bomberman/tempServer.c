@@ -5,8 +5,10 @@
 
 
 
-void initServer()
+void init_server()
 {
+    SDL_Init(SDL_INIT_EVERYTHING);
+
     SDLNet_Init();
     int curID = 0; //Used for unique ID
     int playernum = 0; // Amount of players on server
@@ -30,6 +32,7 @@ void initServer()
 
     while(running)
     {
+
         while(SDL_PollEvent(&event))
             if(event.type == SDL_QUIT)
                 running = false;

@@ -5,7 +5,6 @@
 #ifndef CLIENT_LINKED_LIST_H
 #define CLIENT_LINKED_LIST_H
 
-#include "../tempServer.h"
 #include <SDL.h>
 #include <SDL_net.h>
 
