@@ -16,7 +16,7 @@ void initClient(connection *con)
 
     if(SDLNet_ResolveHost(&ip,"127.0.0.1",22222)==-1) //Change loopback ip to our server IP
     {
-        printf("SDLNet_ResolveHost: %s\n",SDLNet_GetError());
+        printf("SDLN2et_ResolveHost: %s\n",SDLNet_GetError());
         exit(3);
     }
 
