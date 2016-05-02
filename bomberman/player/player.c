@@ -15,12 +15,13 @@ Player create_player(int x, int y, int id)
     return ply;
 }
 
-void update_players(Player *players) {
+void update_players(Player * players) {
 
 }
 
-void player_place_bomb(Player * player)
+void player_place_bomb(Player * player, Map * map)
 {
+
     for(int bomb = 0; bomb < GAME_MAX_BOMBS;bomb++) {
 
         if (player->bombs[bomb].placed != 1) {
@@ -34,7 +35,7 @@ void player_place_bomb(Player * player)
     }
 }
 
-void update_local_player(Player *player, Map map) {
+void update_local_player(Player *player, Map * map) {
 
     const Uint8 *state = SDL_GetKeyboardState(NULL);
 
@@ -50,7 +51,7 @@ void update_local_player(Player *player, Map map) {
     if (state[SDL_SCANCODE_W])
         y = -1;
     if (state[SDL_SCANCODE_SPACE])
-        player_place_bomb(player);
+        player_place_bomb(player, map);
 
     if(!map_is_blocked(map, player->x + x, player->y) && x != 0)
     {

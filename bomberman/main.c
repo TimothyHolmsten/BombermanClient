@@ -10,9 +10,10 @@
 #include "map/map.h"
 #include "tools/linked_list.h"
 
-void* start_server(void* arg) {
+void * start_server(void* arg) {
 
     initServer();
+    return NULL;
 }
 
 int main(void)
@@ -30,7 +31,7 @@ int main(void)
 
     Game game;
 
-    game.map = load_map("level1.map");
+    game.map = load_map("level2.map");
     load_walls(game.map, game.walls);
     game.players[0] = create_player(1,1,0);
     game.players[1] = create_player(3,1,1);

@@ -45,6 +45,16 @@ Map load_map(char map[])
     return game_map;
 }
 
+int get_object_from_position(Map map, int x, int y)
+{
+    return map.map_array[x][y];
+}
+
+void set_object_from_position(Map * map, int x, int y, int new_object)
+{
+    map->map_array[x][y] = new_object;
+}
+
 int get_objects_count(Map map, char * object_type)
 {
     int walls = 0;
@@ -61,19 +71,16 @@ int get_objects_count(Map map, char * object_type)
         }
     }
 
-    int rc = strcmp(object_type, "Walls");
-    if (!rc)
+    if (strcmp(object_type, "Walls") == 0)
         return walls;
-
-
 
     return -1;
 
 }
 
-int map_is_blocked(Map map, int x, int y) {
+int map_is_blocked(Map * map, int x, int y) {
 
-    if (map.map_array[x][y] == 1)
+    if (map->map_array[x][y] == 1)
         return 1;
 
     return 0;

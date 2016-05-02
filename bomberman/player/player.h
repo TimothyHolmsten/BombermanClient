@@ -21,9 +21,9 @@ typedef struct player{
 } Player;
 
 Player create_player(int x, int y, int id);
-void player_place_bomb(Player * player);
+void player_place_bomb(Player * player, Map * map);
 
 void update_players(Player players[]);
-void update_local_player(Player *player, Map map);
+void update_local_player(Player *player, Map * map);
 
 #endif //CLIENT_PLAYER_H

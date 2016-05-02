@@ -6,6 +6,7 @@
 #define CLIENT_BOMB_H
 
 #include <time.h>
+#include "../../../map/map.h"
 
 typedef struct Bomb {
     int x;
@@ -17,6 +18,6 @@ typedef struct Bomb {
 }Bomb;
 
 Bomb create_bomb(int x, int y, time_t time, int owner);
-void update_bombs(Bomb * bombs);
+void update_bombs(Bomb * bombs, Map * map);
 
 #endif //CLIENT_BOMB_H

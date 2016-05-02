@@ -33,8 +33,8 @@ void* thread_update_player(void* arg) {
     struct local_player_args *arguments = (struct local_player_args*) arg;
 
     while(1) {
-        update_local_player(arguments->player, arguments->map);
-        update_bombs(arguments->player->bombs);
+        update_local_player(arguments->player, &arguments->map);
+        update_bombs(arguments->player->bombs, &arguments->map);
         SDL_Delay(16); //Dont fry the CPU
     }
 
@@ -60,7 +60,13 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
     pthread_create(&t2, NULL, thread_update_player, &local_p_data);
 
+<<<<<<< Updated upstream
     game_loop(window, renderer, game,&con);
+=======
+    game_loop(window, renderer, game, client);
+
+    return 0;
+>>>>>>> Stashed changes
 }
 
 
@@ -85,7 +91,10 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
         //render all element from bottom and up
         render_walls(window, game);
         render_bombs(window, game);
+        render_grass(window,game);
         render_players(window, game);
+
+        printf("%d\n", get_object_from_position(game->map, 1, 1));
 
         //Show whats rendered
         SDL_RenderPresent(renderer);

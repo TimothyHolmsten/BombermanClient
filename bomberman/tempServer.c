@@ -162,6 +162,7 @@ void check_DC(){
             playernum--;
          }
         } */
+<<<<<<< Updated upstream
 }
 
 
@@ -220,3 +221,17 @@ void check_DC(){
 
 
 
+=======
+       SDL_Delay(1);
+  }
+   for(int i=0; i<playernum; i++)
+       SDLNet_TCP_Close(get_list_postition(&socketList,i)->socket);
+
+
+       SDLNet_FreeSocketSet(sockets);
+       SDLNet_TCP_Close(server);
+       SDLNet_Quit();
+
+
+}
+>>>>>>> Stashed changes

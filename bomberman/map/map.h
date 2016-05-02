@@ -17,7 +17,9 @@ typedef struct map{
 
 Map load_map(char map[]);
 
-int map_is_blocked(Map map, int x, int y);
+int map_is_blocked(Map * map, int x, int y);
 int get_objects_count(Map map, char * object_type);
+void set_object_from_position(Map * map, int x, int y, int new_object);
+int get_object_from_position(Map map, int x, int y);
 
 #endif //CLIENT_MAP_H
