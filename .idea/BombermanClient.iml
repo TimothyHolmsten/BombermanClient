@@ -6,14 +6,12 @@
       <sourceFolder url="file://$MODULE_DIR$/bomberman/tools/linked_list.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/tools/linked_list.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/main.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/bomberman/tempServer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/game.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/game.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/renderer/player/renderPlayer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/renderer/player/renderPlayer.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/renderer/object/renderObject.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/renderer/object/renderObject.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/bomberman/tempServer.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/image/image.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/image/image.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/object/objects/bomb/bomb.c" isTestSource="false" />

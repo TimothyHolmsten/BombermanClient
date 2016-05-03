@@ -60,13 +60,9 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
     pthread_create(&t2, NULL, thread_update_player, &local_p_data);
 
-<<<<<<< Updated upstream
     game_loop(window, renderer, game,&con);
-=======
-    game_loop(window, renderer, game, client);
 
     return 0;
->>>>>>> Stashed changes
 }
 
 

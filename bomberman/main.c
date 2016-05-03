@@ -4,17 +4,10 @@
 #include "map/map.h"
 #include "object/objects/wall/wall.h"
 #include "player/player.h"
-#include "tempServer.h"
 #include "client/client.h"
 #include <pthread.h>
 #include "map/map.h"
 #include "tools/linked_list.h"
-
-void * start_server(void* arg) {
-
-    initServer();
-    return NULL;
-}
 
 int main(void)
 {
@@ -24,10 +17,6 @@ int main(void)
 
     SDL_Renderer *renderer;
     renderer = init_renderer(window);
-
-    pthread_t t3;
-    pthread_create(&t3, NULL,start_server, NULL );
-    SDL_Delay(500); //While server is local make sure it starts before client
 
     Game game;
 
