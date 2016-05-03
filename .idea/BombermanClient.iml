@@ -11,7 +11,6 @@
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/renderer/object/renderObject.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/renderer/player/renderPlayer.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/game/renderer/player/renderPlayer.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/bomberman/tempServer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/image/image.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/image/image.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/object/objects/wall/wall.c" isTestSource="false" />
@@ -21,7 +20,6 @@
       <sourceFolder url="file://$MODULE_DIR$/bomberman/map/maps/level1.map" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/map/map.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/map/map.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/bomberman/tempServer.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/client/client.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/client/client.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bomberman/player/player.h" isTestSource="false" />

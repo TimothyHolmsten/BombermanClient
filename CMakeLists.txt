@@ -23,9 +23,6 @@ file(GLOB BOMBERMAN_SRC
 
         bomberman/main.c
 
-        bomberman/tempServer.c
-        bomberman/tempServer.h
-
         bomberman/client/*.c
         bomberman/client/*.h
 

@@ -18,7 +18,6 @@
 
 typedef struct Connection{
     TCPsocket client;
-    TCPsocket client2;
     SDLNet_SocketSet server;
 }connection;
 
