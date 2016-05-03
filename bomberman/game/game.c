@@ -90,7 +90,6 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
         render_grass(window,game);
         render_players(window, game);
 
-        printf("%d\n", get_object_from_position(game->map, 1, 1));
 
         //Show whats rendered
         SDL_RenderPresent(renderer);

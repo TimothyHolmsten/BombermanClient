@@ -10,18 +10,16 @@ void initClient(connection *con)
 {
 
     TCPsocket client;
-    TCPsocket client2;
     IPaddress ip;
     SDLNet_Init();
 
-    if(SDLNet_ResolveHost(&ip,"130.237.84.165",22222)==-1) //Change loopback ip to our server IP
+    if(SDLNet_ResolveHost(&ip,"127.0.0.1",22222)==-1) //Change loopback ip to our server IP
     {
         printf("SDLNet_ResolveHost: %s\n",SDLNet_GetError());
         exit(3);
     }
 
     client = SDLNet_TCP_Open(&ip);      //Open socket, if error occurs exit with error code 9
-    client2 = SDLNet_TCP_Open(&ip);
     if(!client)
     {
         printf("SDLNet_TCP_Open: %s\n",SDLNet_GetError());
@@ -31,7 +29,6 @@ void initClient(connection *con)
     SDLNet_TCP_AddSocket(server, client);
 
     con->client = client;
-    con->client2 = client2;
     con->server = server;
 }
 
@@ -46,10 +43,10 @@ void client_DATA(connection *con, Game *game){
     char tmp[1400];
     char test[100]; // Send this to connected device
     int offset=0;
-    sprintf(test, "1 %d %d %d \n",game->players[1].id, game->players[0].x +1,game->players[0].y);
+    sprintf(test, "1 %d %d %d \n",game->players[0].id, game->players[0].x,game->players[0].y);
 
 
-            SDLNet_TCP_Send(con->client2,  test, (int)strlen(test)+1);
+    SDLNet_TCP_Send(con->client,  test, (int)strlen(test)+1);
 
 
 
