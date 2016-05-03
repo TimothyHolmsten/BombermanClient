@@ -38,15 +38,15 @@ void client_EXIT(TCPsocket client){
     SDLNet_Quit();
 }
 
-void client_DATA(connection *con, Game *game){
+void client_DATA(connection *con, Game *game, char *msg){
 
     char tmp[1400];
-    char test[100]; // Send this to connected device
+
     int offset=0;
-    sprintf(test, "1 %d %d %d \n",game->players[0].id, game->players[0].x,game->players[0].y);
 
 
-    SDLNet_TCP_Send(con->client,  test, (int)strlen(test)+1);
+
+    SDLNet_TCP_Send(con->client,  msg, (int)strlen(msg)+1);
 
 
 

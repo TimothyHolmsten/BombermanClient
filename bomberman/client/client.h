@@ -10,5 +10,5 @@
 
 
 void initClient(connection *con);
-void client_DATA(connection *con, Game *game);
+void client_DATA(connection *con, Game *game, char *msg);
 #endif //CLIENT_CLIENT_H
