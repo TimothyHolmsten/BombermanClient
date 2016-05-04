@@ -34,7 +34,7 @@ void * thread_update_player(void * arg) {
 
     while(1) {
         update_local_player(arguments->player, arguments->map);
-        update_bombs(arguments->player->bombs, arguments->map);
+        //update_bombs(arguments->player->bombs, arguments->map);
         SDL_Delay(16); //Dont fry the CPU
     }
 }

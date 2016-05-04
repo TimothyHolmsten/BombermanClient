@@ -28,7 +28,7 @@ void render_boxes(SDL_Window *window, Game * game)
     SDL_Renderer *renderer = SDL_GetRenderer(window);
 
     SDL_Texture *texture;
-    texture = load_texture(renderer, "Box.png");
+    texture = load_texture(renderer, "box.png");
 
     for (int y = 0; y < GAME_MAX_Y; y++)
     {
