@@ -84,8 +84,8 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
 
         //render all element from bottom and up
         render_walls(window, game);
-        render_bombs(window, game);
         render_grass(window,game);
+        render_bombs(window, game);
         render_players(window, game);
 
 
