@@ -14,7 +14,7 @@ int main(void)
 
     dlist_init(&game.players);
 
-    game.map = load_map("level2.map");
+    game.map = load_map("level1.map");
     load_walls(game.map, game.walls);
     create_player(&game.players,1,1,0);
 
