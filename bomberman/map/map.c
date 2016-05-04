@@ -82,6 +82,8 @@ int map_is_blocked(Map * map, int x, int y) {
 
     if (map->map_array[x][y] == 1)
         return 1;
+    if (map->map_array[x][y] == 3)
+        return 1;
 
     return 0;
 }

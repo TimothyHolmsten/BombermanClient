@@ -85,12 +85,11 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
         SDL_RenderClear(renderer);
 
         //render all element from bottom and up
-        render_walls(window, game);
         render_grass(window,game);
+        render_walls(window, game);
+        render_boxes(window,game);
         render_bombs(window, game);
         render_players(window, game);
-
-        printf("%d\n", get_object_from_position(game->map,1,1));
 
         //Show whats rendered
         SDL_RenderPresent(renderer);

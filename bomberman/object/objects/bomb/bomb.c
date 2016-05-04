@@ -18,6 +18,38 @@ Bomb create_bomb(int x, int y, time_t tim, int owner) {
     return bomb;
 }
 
+void bomb_explode(Bomb * bomb, Map * map)
+{
+
+    // Exploding X
+    for(int x = 0; x < 5; x++)
+    {
+        if (get_object_from_position(*map, bomb->x + x, bomb->y) == 1)
+            break;
+        set_object_from_position(map, bomb->x + x, bomb->y, 0);
+    }
+    for(int x = 0; x > -5; x--)
+    {
+        if (get_object_from_position(*map, bomb->x + x, bomb->y) == 1)
+            break;
+        set_object_from_position(map, bomb->x + x, bomb->y, 0);
+    }
+
+    // Exploding Y
+    for(int y = 0; y < 5; y++)
+    {
+        if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1)
+            break;
+        set_object_from_position(map, bomb->x, bomb->y + y, 0);
+    }
+    for(int y = 0; y > -5; y--)
+    {
+        if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1)
+            break;
+        set_object_from_position(map, bomb->x, bomb->y + y, 0);
+    }
+}
+
 void update_bombs(Bomb * bombs, Map * map) {
 
     time_t end_time;
@@ -29,9 +61,9 @@ void update_bombs(Bomb * bombs, Map * map) {
     for (int i = 0; i < GAME_MAX_BOMBS; i++) {
         diff = difftime(end_time, bombs[i].time);
         if (diff > 0) {
+            bomb_explode(&bombs[i], map);
             bombs[i].x = 0;
             bombs[i].y = 0;
-            map->map_array[1][1] = 1;
             bombs[i].placed = 0;
         }
     }
