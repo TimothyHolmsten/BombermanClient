@@ -44,15 +44,11 @@ void client_DATA(connection *con, Game *game, char *msg){
 
     int offset=0;
 
-
-
     SDLNet_TCP_Send(con->client,  msg, (int)strlen(msg)+1);
-
-
 
     if(SDLNet_CheckSockets(con->server,0)>0 && SDLNet_SocketReady(con->client)){
 
-        SDLNet_TCP_Recv(con->client,  tmp, 1400);
+        SDLNet_TCP_Recv(con->client, tmp, 1400);
 
         int type, id;
         //Check the type of message and who sent it
@@ -68,9 +64,4 @@ void client_DATA(connection *con, Game *game, char *msg){
             }
         }
     }
-
-
-
-
-
 }

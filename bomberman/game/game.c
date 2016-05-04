@@ -37,14 +37,12 @@ void* thread_update_player(void* arg) {
         update_bombs(arguments->player->bombs, &arguments->map);
         SDL_Delay(16); //Dont fry the CPU
     }
-
 }
 
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
-
     connection con;
-    initClient(&con);
+    //initClient(&con);
 
     //Arguments for update thread
     struct args data;
@@ -97,14 +95,14 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
         //Multiplayer
         char msg[100]; // Send this to connected device
         sprintf(msg, "1 %d %d %d \n",game->players[0].id, game->players[0].x,game->players[0].y);
-        client_DATA(con,game, &msg);
+        //client_DATA(con,game, &msg);
 
         //Spare the cpu, 16 =~ 60 fps
         SDL_Delay(16);
     }
     char msg[100]; // Send this to connected device
     sprintf(msg, "2 %d \n",game->players[0].id);
-    client_DATA(con,game, &msg);
+    //client_DATA(con,game, &msg);
     SDL_DestroyWindow(window);
     SDL_Quit();
 

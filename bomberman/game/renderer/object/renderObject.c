@@ -22,6 +22,7 @@ void render_grass(SDL_Window *window, Game * game)
             }
         }
     }
+    SDL_DestroyTexture(texture);
 }
 
 void render_walls(SDL_Window *window, Game * game) {
@@ -49,6 +50,7 @@ void render_walls(SDL_Window *window, Game * game) {
             }
         }
     }
+    SDL_DestroyTexture(texture);
 }
 
 void render_bombs(SDL_Window *window, Game *game) {
@@ -72,4 +74,5 @@ void render_bombs(SDL_Window *window, Game *game) {
             i++;
         }
     }
+    SDL_DestroyTexture(texture);
 };

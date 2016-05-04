@@ -16,5 +16,6 @@ void render_players(SDL_Window *window, Game * game)
         SDL_RenderCopy(renderer,texture,NULL,&rect);
         i++;
     }
+    SDL_DestroyTexture(texture);
 }
 
