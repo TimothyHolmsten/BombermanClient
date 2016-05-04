@@ -23,7 +23,7 @@ typedef struct Connection{
 }connection;
 
 typedef struct Game {
-    Player players[8];
+    Dlist players;
     Wall walls[GAME_MAX_X*GAME_MAX_Y];
     Map map;
     int player_count;

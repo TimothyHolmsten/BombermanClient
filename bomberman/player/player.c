@@ -5,21 +5,16 @@
 #include "player.h"
 #include "../game/game.h"
 
-Player create_player(int x, int y, int id)
+void create_player(Dlist *list, int x, int y, int id)
 {
-    Player ply;
-    ply.x = x;
-    ply.y = y;
-    ply.id = id;
-
-    return ply;
+    dlist_insert_last(list, dlist_createElement(id,x,y));
 }
 
-void update_players(Player * players) {
+void update_players(Dlist * players) {
 
 }
 
-void player_place_bomb(Player * player, Map * map)
+void player_place_bomb(DlistElement * player, Map * map)
 {
     for(int bomb = 0; bomb < GAME_MAX_BOMBS;bomb++) {
         if (player->bombs[bomb].placed != 1) {
@@ -33,7 +28,7 @@ void player_place_bomb(Player * player, Map * map)
     }
 }
 
-void update_local_player(Player *player, Map * map) {
+void update_local_player(DlistElement *player, Map * map) {
 
     const Uint8 *state = SDL_GetKeyboardState(NULL);
 

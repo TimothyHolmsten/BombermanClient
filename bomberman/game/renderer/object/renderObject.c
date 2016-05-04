@@ -62,10 +62,10 @@ void render_bombs(SDL_Window *window, Game *game) {
 
     for (int pl_count = 0; pl_count < game->player_count; pl_count++) {
         while (i < GAME_MAX_BOMBS) {
-            if (game->players[pl_count].bombs[i].placed != 0 ) {
+            if (get_list_postition(&game->players, pl_count)->bombs[i].placed != 0 ) {
                 SDL_Rect rect = {
-                        256 + game->players[pl_count].bombs[i].x * 32,
-                        game->players[pl_count].bombs[i].y * 32,
+                        256 + get_list_postition(&game->players, pl_count)->bombs[i].x * 32,
+                        get_list_postition(&game->players, pl_count)->bombs[i].y * 32,
                         32,
                         32
                 };

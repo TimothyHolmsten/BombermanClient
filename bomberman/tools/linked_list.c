@@ -9,7 +9,6 @@
 
 
 
-
 void dlist_init(Dlist* list)    // sets the first element to null (because no elements have been created)
 {
     list->element = NULL;
@@ -17,14 +16,13 @@ void dlist_init(Dlist* list)    // sets the first element to null (because no el
 
 
 
-DlistElement* dlist_createElement(int id, TCPsocket socket, Uint32 timeout)  // Creates the element for the list
+DlistElement* dlist_createElement(int id, int x, int y)  // Creates the element for the list
 {
     DlistElement* element = malloc(sizeof(DlistElement));
     element->id = id;
-    element->socket = socket;
-    element->timeout= timeout;
+    element->x = x;
+    element->y= y;
     element->next = NULL;
-
     return element;
 }
 

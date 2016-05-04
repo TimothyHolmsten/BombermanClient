@@ -10,12 +10,12 @@
 // Arguments to be passed to new thread
 struct args{
     Wall *walls;
-    Player *players;
+    Dlist *players;
 };
 
 struct local_player_args{
     Map * map;
-    Player *player;
+    DlistElement *player;
 };
 
 //multithreading to make update and render run on seperate threads
@@ -47,14 +47,14 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     //Arguments for update thread
     struct args data;
     data.walls = game->walls;
-    data.players = game->players;
+    data.players = &game->players;
     pthread_t t1, t2;
 
     pthread_create(&t1, NULL,init_update, &data );
 
     struct local_player_args local_p_data;
     local_p_data.map = &game->map;
-    local_p_data.player = &game->players[0];
+    local_p_data.player = get_list_postition(&game->players, 0);
 
     pthread_create(&t2, NULL, thread_update_player, &local_p_data);
 
@@ -97,14 +97,14 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
 
         //Multiplayer
         char msg[100]; // Send this to connected device
-        sprintf(msg, "1 %d %d %d \n",game->players[0].id, game->players[0].x,game->players[0].y);
+        sprintf(msg, "1 %d %d %d \n",get_list_postition(&game->players, 0)->id,get_list_postition(&game->players, 0)->x,get_list_postition(&game->players, 0)->y);
         //client_DATA(con,game, &msg);
 
         //Spare the cpu, 16 =~ 60 fps
         SDL_Delay(16);
     }
     char msg[100]; // Send this to connected device
-    sprintf(msg, "2 %d \n",game->players[0].id);
+    sprintf(msg, "2 %d \n",get_list_postition(&game->players, 0)->id);
     //client_DATA(con,game, &msg);
     SDL_DestroyWindow(window);
     SDL_Quit();

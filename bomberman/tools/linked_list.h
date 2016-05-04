@@ -7,25 +7,27 @@
 
 #include <SDL.h>
 #include <SDL_net.h>
-
+#include "../object/objects/bomb/bomb.h"
 
 typedef struct _DlistElement
 {
-    TCPsocket socket;
-    Uint32   timeout; //In case someone dc's
-    int id; //Unique ID for all players
-    struct _DlistElement *next;
+    int x;
+    int y;
+    int id;
+    Bomb bombs[2];
+    int bombs_count;
+    struct  _DlistElement *next;
 }DlistElement;
 
 
-typedef struct _Dlist
+typedef struct PlayerList
 {
     DlistElement* element;
 }Dlist;
 
 void dlist_init(Dlist *list);
 
-DlistElement* dlist_createElement(int id, TCPsocket socket, Uint32 timeout);
+DlistElement* dlist_createElement(int id, int x, int y);
 
 void dlist_insert_first(Dlist* list, DlistElement* element);
 

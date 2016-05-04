@@ -11,19 +11,15 @@
 #include "../object/objects/bomb/bomb.h"
 #include <SDL_timer.h>
 #include <time.h>
+#include "../tools/linked_list.h"
 
-typedef struct player{
-    int x;
-    int y;
-    int id;
-    Bomb bombs[2];
-    int bombs_count;
-} Player;
 
-Player create_player(int x, int y, int id);
-void player_place_bomb(Player * player, Map * map);
 
-void update_players(Player players[]);
-void update_local_player(Player *player, Map * map);
+
+void create_player(Dlist *list, int x, int y, int id);
+void player_place_bomb(DlistElement * player, Map * map);
+
+void update_players(Dlist *players);
+void update_local_player(DlistElement *player, Map * map);
 
 #endif //CLIENT_PLAYER_H

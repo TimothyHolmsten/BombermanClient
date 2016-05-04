@@ -41,7 +41,6 @@ void client_EXIT(TCPsocket client){
 void client_DATA(connection *con, Game *game, char *msg){
 
     char tmp[1400];
-
     int offset=0;
 
     SDLNet_TCP_Send(con->client,  msg, (int)strlen(msg)+1);
@@ -55,10 +54,10 @@ void client_DATA(connection *con, Game *game, char *msg){
         sscanf(tmp, "%d %d",&type, &id);
         if (type == 1){
             for(int i = 0; i < 8; i++){
-                if(id== game->players[i].id){
+                if(id== get_list_postition(&game->players,i)->id){
                     int tmp2;
 
-                    sscanf(tmp, "1 %d %d %d \n", &tmp2, &game->players[i].x, &game->players[i].y);
+                    sscanf(tmp, "1 %d %d %d \n", &tmp2, &get_list_postition(&game->players,i)->x, &get_list_postition(&game->players,i)->y);
 
                 }
             }

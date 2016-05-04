@@ -11,16 +11,16 @@ int main(void)
     renderer = init_renderer(window);
 
     Game game;
-    Player * ply = &game.players[0];
+
+    dlist_init(&game.players);
 
     game.map = load_map("level2.map");
     load_walls(game.map, game.walls);
-    *ply = create_player(1,1,0);
+    create_player(&game.players,1,1,0);
 
+    dlist_print(&game.players);
     game.player_count = 1;
-    ply->bombs_count = 0;
-    ply->bombs[0] = create_bomb(1,1,1,ply->id);
-    ply->bombs[1] = create_bomb(1,1,1,ply->id);
+
 
     init_game(window, renderer, &game);
 

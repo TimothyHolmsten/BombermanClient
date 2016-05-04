@@ -17,6 +17,7 @@
 #include <math.h>
 #include "../../game.h"
 #include "../../../image/image.h"
+#include "../../../tools/linked_list.h"
 
 void render_players(SDL_Window * window, Game * game);
 

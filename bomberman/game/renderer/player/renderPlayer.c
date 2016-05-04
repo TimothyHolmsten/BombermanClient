@@ -4,7 +4,7 @@
 
 #include "renderPlayer.h"
 
-void render_players(SDL_Window *window, Game * game)
+void render_players(SDL_Window *window, Game *game)
 {
     SDL_Renderer *renderer = SDL_GetRenderer(window);
 
@@ -12,7 +12,7 @@ void render_players(SDL_Window *window, Game * game)
 
     int i = 0;
     while(i < game->player_count) {
-        SDL_Rect rect = {256 + game->players[i].x * 32, game->players[i].y * 32, 32, 32};
+        SDL_Rect rect = {256 + get_list_postition(&game->players,i)->x * 32, get_list_postition(&game->players,i)->y * 32, 32, 32};
         SDL_RenderCopy(renderer,texture,NULL,&rect);
         i++;
     }
