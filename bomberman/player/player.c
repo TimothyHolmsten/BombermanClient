@@ -21,7 +21,6 @@ void update_players(Player * players) {
 
 void player_place_bomb(Player * player, Map * map)
 {
-
     for(int bomb = 0; bomb < GAME_MAX_BOMBS;bomb++) {
         if (player->bombs[bomb].placed != 1) {
             player->bombs[bomb] = create_bomb(player->x, player->y, 1, player->id);

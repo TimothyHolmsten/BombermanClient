@@ -31,6 +31,7 @@ void update_bombs(Bomb * bombs, Map * map) {
         if (diff > 0) {
             bombs[i].x = 0;
             bombs[i].y = 0;
+            map->map_array[1][1] = 1;
             bombs[i].placed = 0;
         }
     }
