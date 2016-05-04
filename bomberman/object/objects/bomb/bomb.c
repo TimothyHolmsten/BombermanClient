@@ -29,8 +29,6 @@ void update_bombs(Bomb * bombs, Map * map) {
     for (int i = 0; i < GAME_MAX_BOMBS; i++) {
         diff = difftime(end_time, bombs[i].time);
         if (diff > 0) {
-            bombs[i].x = 13+bombs[i].order;
-            bombs[i].y = 14;
             bombs[i].placed = 0;
         }
     }

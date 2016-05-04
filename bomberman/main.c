@@ -22,7 +22,6 @@ int main(void)
     ply->bombs[0] = create_bomb(1,1,1,ply->id);
     ply->bombs[1] = create_bomb(1,1,1,ply->id);
 
-
     init_game(window, renderer, &game);
 
     return 0;
