@@ -13,9 +13,9 @@ int main(void)
     Game game;
     Player * ply = &game.players[0];
 
-    game.map = load_map("level2.map");
+    game.map = load_map("level1.map");
     load_walls(game.map, game.walls);
-    *ply = create_player(1,1,0);
+    * ply = create_player(1,1,0);
 
     game.player_count = 1;
     ply->bombs_count = 0;

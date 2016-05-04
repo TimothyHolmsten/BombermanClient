@@ -18,6 +18,7 @@ typedef struct Bomb {
 }Bomb;
 
 Bomb create_bomb(int x, int y, time_t time, int owner);
+void bomb_explode(Bomb * bomb, Map * map);
 void update_bombs(Bomb * bombs, Map * map);
 
 #endif //CLIENT_BOMB_H
