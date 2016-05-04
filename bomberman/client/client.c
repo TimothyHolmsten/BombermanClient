@@ -42,7 +42,7 @@ void client_DATA(connection *con, Game *game, char *msg){
 
     char tmp[1400];
     int offset=0;
-
+//wtf
     SDLNet_TCP_Send(con->client,  msg, (int)strlen(msg)+1);
 
     if(SDLNet_CheckSockets(con->server,0)>0 && SDLNet_SocketReady(con->client)){
