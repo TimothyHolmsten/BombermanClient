@@ -37,7 +37,7 @@ void * thread_update_player(void * arg) {
         while (1) {
 
                 update_local_player(arguments->player, arguments->map);
-                //update_bombs(arguments->player->bombs, arguments->map); casues memory problem
+                update_bombs(arguments->player->bombs, arguments->map);
                 SDL_Delay(16); //Dont fry the CPU
     }
 }
@@ -61,8 +61,6 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     local_p_data.player = get_list_postition(&game->players, 0);
 
     pthread_create(&t2, NULL, thread_update_player, &local_p_data);
-
-    //set_object_from_position(&game->map,1,1,1);
 
     game_loop(window, renderer, game,&con);
 

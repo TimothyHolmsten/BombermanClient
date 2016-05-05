@@ -24,13 +24,13 @@ void bomb_explode(Bomb * bomb, Map * map)
     // Exploding X
     for(int x = 0; x < 5; x++)
     {
-        if (get_object_from_position(*map, bomb->x + x, bomb->y) == 1)
+        if (get_object_from_position(*map, bomb->x + x, bomb->y) == 1 || bomb->x + x == GAME_MAX_X)
             break;
         set_object_from_position(map, bomb->x + x, bomb->y, 0);
     }
     for(int x = 0; x > -5; x--)
     {
-        if (get_object_from_position(*map, bomb->x + x, bomb->y) == 1)
+        if (get_object_from_position(*map, bomb->x + x, bomb->y) == 1 || bomb->x + x == 0)
             break;
         set_object_from_position(map, bomb->x + x, bomb->y, 0);
     }
@@ -38,13 +38,13 @@ void bomb_explode(Bomb * bomb, Map * map)
     // Exploding Y
     for(int y = 0; y < 5; y++)
     {
-        if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1)
+        if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1 || bomb->y + y == GAME_MAX_Y)
             break;
         set_object_from_position(map, bomb->x, bomb->y + y, 0);
     }
     for(int y = 0; y > -5; y--)
     {
-        if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1)
+        if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1 || bomb->y + y == 0)
             break;
         set_object_from_position(map, bomb->x, bomb->y + y, 0);
     }
