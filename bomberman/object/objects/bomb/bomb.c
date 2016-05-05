@@ -5,7 +5,7 @@
 #include "bomb.h"
 #include "../../../game/game.h"
 
-Bomb create_bomb(int x, int y, time_t tim, int owner) {
+Bomb create_bomb(int x, int y, time_t tim, int owner, int radius) {
 
     Bomb bomb;
     time_t t;
@@ -14,6 +14,7 @@ Bomb create_bomb(int x, int y, time_t tim, int owner) {
     bomb.y = y;
     bomb.time = time(&t) + tim;
     bomb.owner = owner;
+    bomb.radius = radius;
 
     return bomb;
 }
@@ -22,13 +23,13 @@ void bomb_explode(Bomb * bomb, Map * map)
 {
 
     // Exploding X
-    for(int x = 0; x < 5; x++)
+    for(int x = 0; x < bomb->radius; x++)
     {
         if (get_object_from_position(*map, bomb->x + x, bomb->y) == 1 || bomb->x + x == GAME_MAX_X)
             break;
         set_object_from_position(map, bomb->x + x, bomb->y, 0);
     }
-    for(int x = 0; x > -5; x--)
+    for(int x = 0; x > -bomb->radius; x--)
     {
         if (get_object_from_position(*map, bomb->x + x, bomb->y) == 1 || bomb->x + x == 0)
             break;
@@ -36,13 +37,13 @@ void bomb_explode(Bomb * bomb, Map * map)
     }
 
     // Exploding Y
-    for(int y = 0; y < 5; y++)
+    for(int y = 0; y < bomb->radius; y++)
     {
         if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1 || bomb->y + y == GAME_MAX_Y)
             break;
         set_object_from_position(map, bomb->x, bomb->y + y, 0);
     }
-    for(int y = 0; y > -5; y--)
+    for(int y = 0; y > -bomb->radius; y--)
     {
         if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1 || bomb->y + y == 0)
             break;

@@ -15,9 +15,10 @@ typedef struct Bomb {
     int owner; // player id
     int order;
     int placed;
+    int radius;
 }Bomb;
 
-Bomb create_bomb(int x, int y, time_t time, int owner);
+Bomb create_bomb(int x, int y, time_t time, int owner, int radius);
 void bomb_explode(Bomb * bomb, Map * map);
 void update_bombs(Bomb * bombs, Map * map);
 
