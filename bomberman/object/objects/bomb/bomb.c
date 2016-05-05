@@ -61,7 +61,8 @@ void update_bombs(Bomb * bombs, Map * map) {
     for (int i = 0; i < GAME_MAX_BOMBS; i++) {
         diff = difftime(end_time, bombs[i].time);
         if (diff > 0) {
-            bomb_explode(&bombs[i], map);
+            if (bombs[i].placed == 1)
+                bomb_explode(&bombs[i], map);
             bombs[i].x = 0;
             bombs[i].y = 0;
             bombs[i].placed = 0;

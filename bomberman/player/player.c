@@ -28,7 +28,7 @@ void player_place_bomb(DlistElement * player, Map * map)
     }
 }
 
-void update_local_player(DlistElement *player, Map * map) {
+void update_local_player(DlistElement * player, Map * map) {
 
     const Uint8 *state = SDL_GetKeyboardState(NULL);
 
