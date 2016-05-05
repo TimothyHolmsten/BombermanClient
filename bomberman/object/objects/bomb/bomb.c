@@ -21,33 +21,40 @@ Bomb create_bomb(int x, int y, time_t tim, int owner, int radius) {
 
 void bomb_explode(Bomb * bomb, Map * map)
 {
+    int i = 0;
+    int object = 9;
 
-    // Exploding X
-    for(int x = 0; x < bomb->radius; x++)
-    {
-        if (get_object_from_position(*map, bomb->x + x, bomb->y) == 1 || bomb->x + x == GAME_MAX_X)
-            break;
-        set_object_from_position(map, bomb->x + x, bomb->y, 0);
-    }
-    for(int x = 0; x > -bomb->radius; x--)
-    {
-        if (get_object_from_position(*map, bomb->x + x, bomb->y) == 1 || bomb->x + x == 0)
-            break;
-        set_object_from_position(map, bomb->x + x, bomb->y, 0);
-    }
+    while (i < 2) {
 
-    // Exploding Y
-    for(int y = 0; y < bomb->radius; y++)
-    {
-        if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1 || bomb->y + y == GAME_MAX_Y)
-            break;
-        set_object_from_position(map, bomb->x, bomb->y + y, 0);
-    }
-    for(int y = 0; y > -bomb->radius; y--)
-    {
-        if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1 || bomb->y + y == 0)
-            break;
-        set_object_from_position(map, bomb->x, bomb->y + y, 0);
+        if (i != 0)
+            object = 0;
+
+        // Exploding X
+        for (int x = 0; x < bomb->radius; x++) {
+            if (get_object_from_position(*map, bomb->x + x, bomb->y) == 1 || bomb->x + x == GAME_MAX_X)
+                break;
+            set_object_from_position(map, bomb->x + x, bomb->y, object);
+        }
+        for (int x = 0; x > -bomb->radius; x--) {
+            if (get_object_from_position(*map, bomb->x + x, bomb->y) == 1 || bomb->x + x == 0)
+                break;
+            set_object_from_position(map, bomb->x + x, bomb->y, object);
+        }
+
+        // Exploding Y
+        for (int y = 0; y < bomb->radius; y++) {
+            if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1 || bomb->y + y == GAME_MAX_Y)
+                break;
+            set_object_from_position(map, bomb->x, bomb->y + y, object);
+        }
+        for (int y = 0; y > -bomb->radius; y--) {
+            if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1 || bomb->y + y == 0)
+                break;
+                set_object_from_position(map, bomb->x, bomb->y + y, object);
+        }
+        if (i == 0)
+            SDL_Delay(100);
+        i++;
     }
 }
 
@@ -55,7 +62,7 @@ void update_bombs(Bomb * bombs, Map * map) {
 
     time_t end_time;
 
-    double diff;
+    double diff = 0;
 
     time(&end_time);
 

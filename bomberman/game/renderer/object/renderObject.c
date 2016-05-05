@@ -4,6 +4,26 @@
 
 #include "renderObject.h"
 
+void render_explosion(SDL_Window *window, Game * game)
+{
+    int i = 0;
+    SDL_Renderer *renderer = SDL_GetRenderer(window);
+
+    SDL_Texture *texture;
+    texture = load_texture(renderer, "Explosion.png");
+
+    for (int y = 0; y < GAME_MAX_Y; y++)
+    {
+        for (int x = 0; x < GAME_MAX_X; x++) {
+            if (get_object_from_position(game->map, x, y) == 9) {
+                SDL_Rect rect = {256 + x * 32, y * 32, 32, 32};
+                SDL_RenderCopyEx(renderer, texture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
+            }
+        }
+    }
+    SDL_DestroyTexture(texture);
+}
+
 void render_grass(SDL_Window *window, Game * game)
 {
     int i = 0;

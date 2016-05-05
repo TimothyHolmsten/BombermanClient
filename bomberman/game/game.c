@@ -34,15 +34,25 @@ void * thread_update_player(void * arg) {
 
     struct local_player_args *arguments = (struct local_player_args*) arg;
 
-        while (1) {
+    while (1) {
+        update_local_player(arguments->player, arguments->map);
+        SDL_Delay(16); //Dont fry the CPU
+    }
+}
 
-                update_local_player(arguments->player, arguments->map);
-                update_bombs(arguments->player->bombs, arguments->map);
-                SDL_Delay(16); //Dont fry the CPU
+void * thread_update_bombs(void * arg)
+{
+    struct local_player_args *arguments = (struct local_player_args*) arg;
+
+    while (1) {
+        update_bombs(arguments->player->bombs, arguments->map);
+        SDL_Delay(16); //Dont fry the CPU
     }
 }
 
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
+
+    pthread_t t1, t2, t3;
 
     connection con;
     //initClient(&con, game);
@@ -52,7 +62,6 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     struct args data;
     data.walls = game->walls;
     data.players = &game->players;
-    pthread_t t1, t2;
 
     pthread_create(&t1, NULL,init_update, &data );
 
@@ -61,6 +70,7 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     local_p_data.player = get_list_postition(&game->players, 0);
 
     pthread_create(&t2, NULL, thread_update_player, &local_p_data);
+    pthread_create(&t3, NULL, thread_update_bombs, &local_p_data);
 
     game_loop(window, renderer, game,&con);
 
@@ -95,6 +105,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
             render_walls(window, game);
             render_boxes(window, game);
             render_bombs(window, game);
+            render_explosion(window, game);
             render_players(window, game);
 
         }
