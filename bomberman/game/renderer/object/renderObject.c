@@ -53,7 +53,7 @@ void render_boxes(SDL_Window *window, Game * game)
     for (int y = 0; y < GAME_MAX_Y; y++)
     {
         for (int x = 0; x < GAME_MAX_X; x++) {
-            if (get_object_from_position(game->map, x, y) == 3)
+            if (get_object_from_position(game->map, x, y) == DESTRUCTABLE_WALL)
             {
                 SDL_Rect rect = {256 + x * 32, y * 32, 32, 32};
                 SDL_RenderCopyEx(renderer, texture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
@@ -81,7 +81,7 @@ void render_walls(SDL_Window *window, Game * game) {
     for (int y = 0; y < GAME_MAX_Y; y++)
     {
         for (int x = 0; x < GAME_MAX_X; x++) {
-            if (get_object_from_position(game->map, x, y) == 1)
+            if (get_object_from_position(game->map, x, y) == WALL)
             {
                 SDL_Rect rect = {256 + x * 32, y * 32, 32, 32};
                 SDL_RenderCopyEx(renderer, texture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
