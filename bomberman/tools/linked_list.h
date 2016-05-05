@@ -40,7 +40,9 @@ void dlist_removeAllElements(Dlist *list);
 // remove element from list
 int dlist_removeElement(Dlist *list, int number);
 
-DlistElement *get_list_postition(Dlist *list, int id);
+DlistElement *get_list_postition(Dlist *list, int pos);
+
+int get_pos_from_id(Dlist *list, int id);
 
 int dlist_size(Dlist *list);
 

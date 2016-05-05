@@ -6,7 +6,7 @@
 
 
 
-void initClient(connection *con)
+void initClient(connection *con, Game *game)
 {
 
     TCPsocket client;
@@ -30,6 +30,11 @@ void initClient(connection *con)
 
     con->client = client;
     con->server = server;
+
+
+    char msg[100]; // Send this to connected device
+    sprintf(msg, "0");
+    client_send(con, game, msg);
 }
 
 void client_EXIT(TCPsocket client){
@@ -37,14 +42,8 @@ void client_EXIT(TCPsocket client){
     SDLNet_TCP_Close(client);
     SDLNet_Quit();
 }
-
-void client_DATA(connection *con, Game *game, char *msg){
-
+void client_recv(connection *con, Game *game){
     char tmp[1400];
-    int offset=0;
-//wtf
-    SDLNet_TCP_Send(con->client,  msg, (int)strlen(msg)+1);
-
     if(SDLNet_CheckSockets(con->server,0)>0 && SDLNet_SocketReady(con->client)){
 
         SDLNet_TCP_Recv(con->client, tmp, 1400);
@@ -53,6 +52,16 @@ void client_DATA(connection *con, Game *game, char *msg){
         //Check the type of message and who sent it
         sscanf(tmp, "%d %d",&type, &id);
         if (type == 1){
+            printf("recived start packet\n");
+            int tmp2;
+            int id, x,y;
+            sscanf(tmp, "1 %d %d %d \n", &id, &x,&y);
+            printf("%d %d %d\n", id, x, y);
+            create_player(&game->players, x,y, id);
+            dlist_print(&game->players);
+        }
+
+        if (type == 2 && game->players.element != NULL){
             for(int i = 0; i < 8; i++){
                 if(id== get_list_postition(&game->players,i)->id){
                     int tmp2;
@@ -63,4 +72,11 @@ void client_DATA(connection *con, Game *game, char *msg){
             }
         }
     }
+}
+
+
+void client_send(connection *con, Game *game, char *msg){
+
+    SDLNet_TCP_Send(con->client,  msg, (int)strlen(msg)+1);
+
 }

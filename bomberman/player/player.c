@@ -46,18 +46,17 @@ void update_local_player(DlistElement *player, Map * map) {
     if (state[SDL_SCANCODE_SPACE])
         player_place_bomb(player, map);
 
-    if(!map_is_blocked(map, player->x + x, player->y) && x != 0)
-    {
-        player->x += x;
-    }
+    if(player!= NULL) {
+        if (!map_is_blocked(map, player->x + x, player->y) && x != 0) {
+            player->x += x;
+        }
 
-    if (!map_is_blocked(map, player->x, player->y + y) && y != 0)
-    {
-        player->y += y;
+        if (!map_is_blocked(map, player->x, player->y + y) && y != 0) {
+            player->y += y;
+        }
+        if (x != 0 || y != 0)
+            SDL_Delay(100);
     }
-    if (x != 0 || y != 0)
-        SDL_Delay(100);
-
     //SDL_Delay(200);
 }
 

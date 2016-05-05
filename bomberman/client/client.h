@@ -7,8 +7,10 @@
 #include <SDL.h>
 #include <SDL_net.h>
 #include "../game/game.h"
+#include "../player/player.h"
 
 
-void initClient(connection *con);
-void client_DATA(connection *con, Game *game, char *msg);
+void initClient(connection *con, Game *game);
+void client_recv(connection *con, Game *game);
+void client_send(connection *con, Game *game, char *msg);
 #endif //CLIENT_CLIENT_H

@@ -137,6 +137,26 @@ DlistElement *get_list_postition(Dlist *list, int pos)   // prints the list,tota
 
 }
 
+int get_pos_from_id(Dlist *list, int id)   // prints the list,totalPrice and totalAmount
+{
+    int pos=0;
+    DlistElement* currentElement = list->element;
+
+    for(int i = 0; i < dlist_size(list); i++)
+    {
+        if(currentElement->id == id)
+            break;
+        else {
+            currentElement = currentElement->next;
+            pos++;
+        }
+    }
+
+    return pos;
+
+}
+
+
 int dlist_size(Dlist *list)   // prints the list,totalPrice and totalAmount
 {
     int count=0;
@@ -152,11 +172,14 @@ int dlist_size(Dlist *list)   // prints the list,totalPrice and totalAmount
 
 void dlist_print(Dlist *list)   // prints the list,totalPrice and totalAmount
 {
+    int count = 0;
     DlistElement* currentElement = list->element;
     while(currentElement != NULL)
     {
         printf("Name: %d\n",currentElement->id);
+        printf("Pos: %d\n",count);
         currentElement = currentElement->next;
+        count++;
     }
 }
 

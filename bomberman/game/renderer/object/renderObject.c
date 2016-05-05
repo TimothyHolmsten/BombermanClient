@@ -77,20 +77,21 @@ void render_bombs(SDL_Window *window, Game *game) {
 
     SDL_Texture *texture;
     texture = load_texture(renderer, "Bomb.png");
+    if(game->player_count != 0) {
+        for (int pl_count = 0; pl_count < game->player_count; pl_count++) {
+            while (i < GAME_MAX_BOMBS) {
+                if (get_list_postition(&game->players, pl_count)->bombs[i].placed != 0) {
+                    SDL_Rect rect = {
+                            256 + get_list_postition(&game->players, pl_count)->bombs[i].x * 32,
+                            get_list_postition(&game->players, pl_count)->bombs[i].y * 32,
+                            32,
+                            32
+                    };
 
-    for (int pl_count = 0; pl_count < game->player_count; pl_count++) {
-        while (i < GAME_MAX_BOMBS) {
-            if (get_list_postition(&game->players, pl_count)->bombs[i].placed != 0 ) {
-                SDL_Rect rect = {
-                        256 + get_list_postition(&game->players, pl_count)->bombs[i].x * 32,
-                        get_list_postition(&game->players, pl_count)->bombs[i].y * 32,
-                        32,
-                        32
-                };
-
-                SDL_RenderCopyEx(renderer, texture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
+                    SDL_RenderCopyEx(renderer, texture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
+                }
+                i++;
             }
-            i++;
         }
     }
     SDL_DestroyTexture(texture);

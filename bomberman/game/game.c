@@ -22,9 +22,11 @@ struct local_player_args{
 void * init_update(void* arg)
 {
     struct args *arguments = (struct  args*) arg;
-    while(1) {
-        update_players(arguments->players);
-        SDL_Delay(16); //Dont fry the CPU
+    if(arguments->players != NULL) {
+        while (1) {
+            update_players(arguments->players);
+            SDL_Delay(16); //Dont fry the CPU
+        }
     }
 }
 
@@ -32,18 +34,20 @@ void * thread_update_player(void * arg) {
 
     struct local_player_args *arguments = (struct local_player_args*) arg;
 
-    while(1) {
-        update_local_player(arguments->player, arguments->map);
-        //update_bombs(arguments->player->bombs, arguments->map);
-        SDL_Delay(16); //Dont fry the CPU
+        while (1) {
+
+                update_local_player(arguments->player, arguments->map);
+                //update_bombs(arguments->player->bombs, arguments->map); casues memory problem
+                SDL_Delay(16); //Dont fry the CPU
     }
 }
 
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
     connection con;
-    //initClient(&con);
-
+    //initClient(&con, game);
+    SDL_Delay(500);
+    //client_recv(&con, game);
     //Arguments for update thread
     struct args data;
     data.walls = game->walls;
@@ -77,6 +81,9 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
         while(SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 running = false;
+                char msg[100]; // Send this to connected device
+                sprintf(msg, "3 %d\n", get_list_postition(&game->players, 0)->id);
+                client_send(con, game, &msg);
             }
         }
 
@@ -85,20 +92,26 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
         SDL_RenderClear(renderer);
 
         //render all element from bottom and up
-        render_grass(window,game);
-        render_walls(window, game);
-        render_boxes(window,game);
-        render_bombs(window, game);
-        render_players(window, game);
+        if(get_list_postition(&game->players, 0) != NULL) {
+            render_grass(window, game);
+            render_walls(window, game);
+            render_boxes(window, game);
+            render_bombs(window, game);
+            render_players(window, game);
+
+        }
 
         //Show whats rendered
         SDL_RenderPresent(renderer);
 
         //Multiplayer
-        char msg[100]; // Send this to connected device
-        sprintf(msg, "1 %d %d %d \n",get_list_postition(&game->players, 0)->id,get_list_postition(&game->players, 0)->x,get_list_postition(&game->players, 0)->y);
-        //client_DATA(con,game, &msg);
-
+       // client_recv(con, game);
+        if(get_list_postition(&game->players, 0) != NULL) {
+            char msg[100]; // Send this to connected device
+            sprintf(msg, "2 %d %d %d \n", get_list_postition(&game->players, 0)->id,
+                    get_list_postition(&game->players, 0)->x, get_list_postition(&game->players, 0)->y);
+           // client_send(con, game, &msg);
+        }
         //Spare the cpu, 16 =~ 60 fps
         SDL_Delay(16);
     }
