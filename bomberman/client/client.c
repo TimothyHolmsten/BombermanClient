@@ -6,7 +6,7 @@
 
 
 
-void initClient(connection *con, Game *game)
+void initClient(Game *game)
 {
 
     TCPsocket client;
@@ -28,13 +28,13 @@ void initClient(connection *con, Game *game)
     SDLNet_SocketSet server = SDLNet_AllocSocketSet(1);
     SDLNet_TCP_AddSocket(server, client);
 //c
-    con->client = client;
-    con->server = server;
+    game->client = client;
+    game->server = server;
 
 
     SDL_Delay(50);
 
-    client_recv(con, game);
+    client_recv(game);
 }
 
 void client_EXIT(TCPsocket client){
@@ -42,11 +42,11 @@ void client_EXIT(TCPsocket client){
     SDLNet_TCP_Close(client);
     SDLNet_Quit();
 }
-void client_recv(connection *con, Game *game){
+void client_recv(Game *game){
     char tmp[1400];
-    if(SDLNet_CheckSockets(con->server,0)>0 && SDLNet_SocketReady(con->client)){
+    if(SDLNet_CheckSockets(game->server,0)>0 && SDLNet_SocketReady(game->client)){
 
-        SDLNet_TCP_Recv(con->client, tmp, 1400);
+        SDLNet_TCP_Recv(game->client, tmp, 1400);
         bool add = true;
         int type, id;
         //Check the type of message and who sent it
@@ -89,7 +89,15 @@ void client_recv(connection *con, Game *game){
                 }
             }
         }
+        if (type == 4){
+            printf("recived bomb packet\n");
+            int id,x,y;
+            sscanf(tmp, "9 %d %d %d\n", &id,&x,&y);
+            printf("%d\n", id);
 
+            create_bomb(x,y,0,id, 2);
+
+        }
         if (type == 9){
             printf("recived dc packet\n");
             int id;
@@ -97,15 +105,15 @@ void client_recv(connection *con, Game *game){
             printf("%d \n", id);
 
            dlist_removeElement(&game->players,get_pos_from_id(&game->players, id));
-
+            dlist_print(&game->players);
 
         }
     }
 }
 
 
-void client_send(connection *con, Game *game, char *msg){
+void client_send(Game *game, char *msg){
 
-    SDLNet_TCP_Send(con->client,  msg, (int)strlen(msg)+1);
+    SDLNet_TCP_Send(game->client,  msg, (int)strlen(msg)+1);
 
 }

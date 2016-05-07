@@ -25,7 +25,6 @@ void * init_update(void* arg)
     struct args *arguments = (struct  args*) arg;
     if(arguments->players != NULL) {
         while (1) {
-            update_players(arguments->players);
             SDL_Delay(16); //Dont fry the CPU
         }
     }
@@ -37,7 +36,7 @@ void * thread_update_player(void * arg) {
 
         while (1) {
             if(get_list_postition(&arguments->game->players, 0) != NULL) {
-                update_local_player(arguments->player, arguments->map);
+                update_local_player(arguments->player, arguments->map, arguments->game);
                 update_bombs(arguments->player->bombs, arguments->map);
                 SDL_Delay(16); //Dont fry the CPU
             }
@@ -45,8 +44,7 @@ void * thread_update_player(void * arg) {
 }
 
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
-    connection con;
-    initClient(&con, game);
+    initClient(game);
 
     //Arguments for update thread
     struct args data;
@@ -62,13 +60,13 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     local_p_data.game = game;
     pthread_create(&t2, NULL, thread_update_player, &local_p_data);
 
-    game_loop(window, renderer, game,&con);
+    game_loop(window, renderer, game);
 
     return 0;
 }
 
 
-int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Connection *con) {
+int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
     bool running = true;
     SDL_Event event;
@@ -81,7 +79,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
                 running = false;
                 char msg[100]; // Send this to connected device
                 sprintf(msg, "3 %d\n", get_list_postition(&game->players, 0)->id);
-                client_send(con, game, &msg);
+                client_send(game, &msg);
             }
         }
 
@@ -103,19 +101,15 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
         SDL_RenderPresent(renderer);
 
         //Multiplayer
-        client_recv(con, game);
+        client_recv(game);
         if(get_list_postition(&game->players, 0) != NULL) {
             char msg[100]; // Send this to connected device
-            sprintf(msg, "2 %d %d %d \n", get_list_postition(&game->players, 0)->id,
-                    get_list_postition(&game->players, 0)->x, get_list_postition(&game->players, 0)->y);
-            client_send(con, game, &msg);
+            sprintf(msg, "2 %d %d %d \n", get_list_postition(&game->players, 0)->id, get_list_postition(&game->players, 0)->x, get_list_postition(&game->players, 0)->y);
+            client_send(game, msg);
         }
         //Spare the cpu, 16 =~ 60 fps
         SDL_Delay(1);
     }
-    char msg[100]; // Send this to connected device
-    sprintf(msg, "2 %d \n",get_list_postition(&game->players, 0)->id);
-    //client_DATA(con,game, &msg);
     SDL_DestroyWindow(window);
     SDL_Quit();
 
