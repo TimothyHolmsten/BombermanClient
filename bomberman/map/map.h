@@ -11,6 +11,10 @@
 #define GAME_MAX_X 15
 #define GAME_MAX_Y 15
 
+#define WALL 1
+#define DESTRUCTABLE_WALL 3
+#define EXPLOSION 9
+
 typedef struct map{
     int map_array[GAME_MAX_X][GAME_MAX_Y];
 } Map;
