@@ -27,7 +27,7 @@ void initClient(connection *con, Game *game)
     }
     SDLNet_SocketSet server = SDLNet_AllocSocketSet(1);
     SDLNet_TCP_AddSocket(server, client);
-
+//c
     con->client = client;
     con->server = server;
 
