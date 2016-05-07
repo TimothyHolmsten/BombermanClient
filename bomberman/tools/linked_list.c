@@ -75,7 +75,6 @@ void dlist_removeAllElements(Dlist *list)
         dlist_removeElement(list,0);
     }
 }
-
 int dlist_removeElement(Dlist *list, int number) // removes a give item from the list
 {
     DlistElement* currentElement = list->element;
@@ -120,7 +119,6 @@ int dlist_removeElement(Dlist *list, int number) // removes a give item from the
         currentElement->next = deleteElement->next; // if not we know there is a element after the deleteElement so we assignee that to currentElement next
         free(deleteElement);
     }
-    return 0;
 }
 
 DlistElement *get_list_postition(Dlist *list, int pos)   // prints the list,totalPrice and totalAmount

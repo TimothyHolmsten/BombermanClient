@@ -33,6 +33,7 @@ void initClient(connection *con, Game *game)
 
 
     SDL_Delay(50);
+
     client_recv(con, game);
 }
 
@@ -80,13 +81,24 @@ void client_recv(connection *con, Game *game){
         if (type == 2 && game->players.element != NULL){
             int tmp2;
 
-            sscanf(tmp, "2 %d %d %d \n", &tmp2, &get_list_postition(&game->players,1)->x, &get_list_postition(&game->players,1)->y);
+
 
             for(int i = 0; i < dlist_size(&game->players); i++){
                 if(id== get_list_postition(&game->players,i)->id){
-
+                    sscanf(tmp, "2 %d %d %d \n", &tmp2, &get_list_postition(&game->players,i)->x, &get_list_postition(&game->players,i)->y);
                 }
             }
+        }
+
+        if (type == 9){
+            printf("recived dc packet\n");
+            int id;
+            sscanf(tmp, "9 %d \n", &id);
+            printf("%d \n", id);
+
+           dlist_removeElement(&game->players,get_pos_from_id(&game->players, id));
+
+
         }
     }
 }
