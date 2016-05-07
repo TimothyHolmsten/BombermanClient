@@ -9,7 +9,6 @@ Bomb create_bomb(int x, int y, time_t tim, int owner, int radius) {
 
     Bomb bomb;
     time_t t;
-
     bomb.x = x;
     bomb.y = y;
     bomb.time = time(&t) + tim;

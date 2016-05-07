@@ -32,9 +32,8 @@ void initClient(connection *con, Game *game)
     con->server = server;
 
 
-    char msg[100]; // Send this to connected device
-    sprintf(msg, "0");
-    client_send(con, game, msg);
+    SDL_Delay(50);
+    client_recv(con, game);
 }
 
 void client_EXIT(TCPsocket client){
@@ -58,7 +57,6 @@ void client_recv(connection *con, Game *game){
             sscanf(tmp, "1 %d %d %d \n", &id, &x,&y);
             printf("%d %d %d\n", id, x, y);
             create_player(&game->players, x,y, id);
-            dlist_print(&game->players);
         }
 
         if (type == 2 && game->players.element != NULL){

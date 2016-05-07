@@ -16,7 +16,7 @@ int main(void)
 
     game.map = load_map("level1.map");
     load_walls(game.map, game.walls);
-    create_player(&game.players,1,1,0);
+    //create_player(&game.players,1,1,0);
 
     dlist_print(&game.players);
     game.player_count = 1;

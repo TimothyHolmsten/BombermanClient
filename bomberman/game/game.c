@@ -16,6 +16,7 @@ struct args{
 struct local_player_args{
     Map * map;
     DlistElement *player;
+    Game *game;
 };
 
 //multithreading to make update and render run on seperate threads
@@ -35,19 +36,19 @@ void * thread_update_player(void * arg) {
     struct local_player_args *arguments = (struct local_player_args*) arg;
 
         while (1) {
-
+            if(get_list_postition(&arguments->game->players, 0) != NULL) {
                 update_local_player(arguments->player, arguments->map);
                 update_bombs(arguments->player->bombs, arguments->map);
                 SDL_Delay(16); //Dont fry the CPU
+            }
     }
 }
 
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
     connection con;
-    //initClient(&con, game);
-    SDL_Delay(500);
-    //client_recv(&con, game);
+    initClient(&con, game);
+
     //Arguments for update thread
     struct args data;
     data.walls = game->walls;
@@ -59,7 +60,7 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     struct local_player_args local_p_data;
     local_p_data.map = &game->map;
     local_p_data.player = get_list_postition(&game->players, 0);
-
+    local_p_data.game = game;
     pthread_create(&t2, NULL, thread_update_player, &local_p_data);
 
     game_loop(window, renderer, game,&con);
@@ -103,12 +104,12 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
         SDL_RenderPresent(renderer);
 
         //Multiplayer
-       // client_recv(con, game);
+        client_recv(con, game);
         if(get_list_postition(&game->players, 0) != NULL) {
             char msg[100]; // Send this to connected device
             sprintf(msg, "2 %d %d %d \n", get_list_postition(&game->players, 0)->id,
                     get_list_postition(&game->players, 0)->x, get_list_postition(&game->players, 0)->y);
-           // client_send(con, game, &msg);
+            client_send(con, game, &msg);
         }
         //Spare the cpu, 16 =~ 60 fps
         SDL_Delay(16);

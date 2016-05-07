@@ -18,11 +18,10 @@ void player_place_bomb(DlistElement * player, Map * map)
 {
     for(int bomb = 0; bomb < GAME_MAX_BOMBS;bomb++) {
         if (player->bombs[bomb].placed != 1) {
-            player->bombs[bomb] = create_bomb(player->x, player->y, 1, player->id, 2);
+            player->bombs[bomb] = create_bomb(player->x, player->y, 1, player->id, 3);
             player->bombs[bomb].order = GAME_MAX_BOMBS-1-bomb;
             player->bombs_count += 1;
             player->bombs[bomb].placed = 1;
-            SDL_Delay(100);
             break;
         }
     }
