@@ -19,6 +19,7 @@ void dlist_init(Dlist* list)    // sets the first element to null (because no el
 DlistElement* dlist_createElement(int id, int x, int y)  // Creates the element for the list
 {
     DlistElement* element = malloc(sizeof(DlistElement));
+    element->local = 0;
     element->id = id;
     element->x = x;
     element->y= y;

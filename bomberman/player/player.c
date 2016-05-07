@@ -5,9 +5,11 @@
 #include "player.h"
 #include "../game/game.h"
 
-void create_player(Dlist *list, int x, int y, int id)
+void create_player(Dlist *list,int *playerCount, int x, int y, int id)
 {
+    printf("%d\n", *playerCount);
     dlist_insert_last(list, dlist_createElement(id,x,y));
+    *playerCount+=1;
 }
 
 void update_players(Dlist * players) {
