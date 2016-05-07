@@ -45,7 +45,6 @@ void * thread_update_player(void * arg) {
 }
 
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
-
     connection con;
     initClient(&con, game);
 
@@ -112,7 +111,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
             client_send(con, game, &msg);
         }
         //Spare the cpu, 16 =~ 60 fps
-        SDL_Delay(16);
+        SDL_Delay(1);
     }
     char msg[100]; // Send this to connected device
     sprintf(msg, "2 %d \n",get_list_postition(&game->players, 0)->id);
