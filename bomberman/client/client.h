@@ -8,6 +8,7 @@
 #include <SDL_net.h>
 #include "../main.h"
 #include "../player/player.h"
+#include "../object/objects/bomb/bomb.h"
 
 
 void initClient(Game *game);

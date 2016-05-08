@@ -16,7 +16,7 @@ void update_players(Dlist * players) {
 
 }
 
-void player_place_bomb(DlistElement * player, Map * map, Game *game)
+void player_place_bomb(DlistElement * player, Game *game)
 {
     for(int bomb = 0; bomb < GAME_MAX_BOMBS;bomb++) {
         if (player->bombs[bomb].placed != 1) {
@@ -48,7 +48,7 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
     if (state[SDL_SCANCODE_W])
         y = -1;
     if (state[SDL_SCANCODE_SPACE])
-        player_place_bomb(player, map, game);
+        player_place_bomb(player, game);
 
     if(player!= NULL) {
         if (!map_is_blocked(map, player->x + x, player->y) && x != 0) {

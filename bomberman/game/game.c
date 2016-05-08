@@ -33,11 +33,14 @@ void * init_update(void* arg)
 void * thread_update_player(void * arg) {
 
     struct local_player_args *arguments = (struct local_player_args*) arg;
-
-        while (1) {
+        int i = 1;
+        while (i) {
             if(get_list_postition(&arguments->game->players, 0) != NULL) {
                 update_local_player(arguments->player, arguments->map, arguments->game);
-                update_bombs(arguments->player->bombs, arguments->map);
+                for(int k = 0; k< dlist_size(&arguments->game->players); k++){
+                    update_bombs(get_list_postition(&arguments->game->players,k)->bombs, arguments->map);
+                }
+
                 SDL_Delay(16); //Dont fry the CPU
             }
     }

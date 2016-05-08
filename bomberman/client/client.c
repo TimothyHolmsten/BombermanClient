@@ -92,10 +92,12 @@ void client_recv(Game *game){
         if (type == 4){
             printf("recived bomb packet\n");
             int id,x,y;
-            sscanf(tmp, "9 %d %d %d\n", &id,&x,&y);
-            printf("%d\n", id);
+            sscanf(tmp, "4 %d %d %d\n", &id,&x,&y);
+            printf("%d %d %d\n", id,x,y);
 
-            create_bomb(x,y,0,id, 2);
+
+            struct _DlistElement *player = get_list_postition(&game->players,get_pos_from_id(&game->players, id));
+            player_place_bomb(player, game);
 
         }
         if (type == 9){
@@ -113,7 +115,11 @@ void client_recv(Game *game){
 
 
 void client_send(Game *game, char *msg){
-
+    /*
+    int id;
+    sscanf(msg, "%d \n", &id);
+    if(id == 4)
+    printf("%d\n", id);*/
     SDLNet_TCP_Send(game->client,  msg, (int)strlen(msg)+1);
 
 }
