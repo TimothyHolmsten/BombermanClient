@@ -97,7 +97,7 @@ void client_recv(Game *game){
 
 
             struct _DlistElement *player = get_list_postition(&game->players,get_pos_from_id(&game->players, id));
-            player_place_bomb(player, game);
+            player_place_bomb(player, game, x,y);
 
         }
         if (type == 9){

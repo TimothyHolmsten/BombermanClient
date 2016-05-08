@@ -17,7 +17,7 @@
 
 
 void create_player(Dlist *list, int *playerCount, int x, int y, int id);
-void player_place_bomb(DlistElement * player, Game *game);
+void player_place_bomb(DlistElement * player, Game *game,int x,int y);
 
 void update_players(Dlist *players);
 void update_local_player(DlistElement *player, Map * map,Game *game);

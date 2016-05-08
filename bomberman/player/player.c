@@ -16,18 +16,22 @@ void update_players(Dlist * players) {
 
 }
 
-void player_place_bomb(DlistElement * player, Game *game)
+void player_place_bomb(DlistElement * player, Game *game, int x, int y)
 {
+
     for(int bomb = 0; bomb < GAME_MAX_BOMBS;bomb++) {
         if (player->bombs[bomb].placed != 1) {
-            player->bombs[bomb] = create_bomb(player->x, player->y, 1, player->id, 3);
+            player->bombs[bomb] = create_bomb(x, y, 1, player->id, 3);
             player->bombs[bomb].order = GAME_MAX_BOMBS-1-bomb;
             player->bombs_count += 1;
             player->bombs[bomb].placed = 1;
-            char msg[100]; // Send this to connected device
-            sprintf(msg, "4 %d %d %d \n", get_list_postition(&game->players, 0)->id, get_list_postition(&game->players, 0)->x, get_list_postition(&game->players, 0)->y);
-            client_send(game, msg);
-            break;
+
+            if(player->local == 1) {
+                char msg[100]; // Send this to connected device
+                sprintf(msg, "4 %d %d %d \n", get_list_postition(&game->players, 0)->id, x, y);
+                client_send(game, msg);
+            }
+                break;
         }
     }
 }
@@ -48,7 +52,7 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
     if (state[SDL_SCANCODE_W])
         y = -1;
     if (state[SDL_SCANCODE_SPACE])
-        player_place_bomb(player, game);
+        player_place_bomb(player, game,player->x,player->y);
 
     if(player!= NULL) {
         if (!map_is_blocked(map, player->x + x, player->y) && x != 0) {
