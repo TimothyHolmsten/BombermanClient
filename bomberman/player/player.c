@@ -44,26 +44,35 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
     int y = 0;
 
     if (state[SDL_SCANCODE_A])
-        x = -1;
+        x = -1*32;
     if (state[SDL_SCANCODE_D])
-        x =  1;
+        x =  1*32;
     if (state[SDL_SCANCODE_S])
-        y =  1;
+        y =  1*32;
     if (state[SDL_SCANCODE_W])
-        y = -1;
+        y = -1*32;
     if (state[SDL_SCANCODE_SPACE])
         player_place_bomb(player, game,player->x,player->y);
 
     if(player!= NULL) {
-        if (!map_is_blocked(map, player->x + x, player->y) && x != 0) {
-            player->x += x;
+        if (!map_is_blocked(map, player->x + x/32, player->y) && x != 0) {
+
+            for(int i = 0; i<8; i++){
+                player->anix += x/8;
+                SDL_Delay(10);
+            }
+            player->x = (int)player->anix/32;
         }
 
-        if (!map_is_blocked(map, player->x, player->y + y) && y != 0) {
-            player->y += y;
+        if (!map_is_blocked(map, player->x, player->y+ y/32) && y != 0) {
+
+            for(int i = 0; i<8; i++){
+                player->aniY += y/8;
+                SDL_Delay(10);
+            }
+            player->y = (int)player->aniY/32;
         }
-        if (x != 0 || y != 0)
-            SDL_Delay(100);
+
     }
     //SDL_Delay(200);
 }

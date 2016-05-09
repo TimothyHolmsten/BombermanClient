@@ -23,6 +23,8 @@ DlistElement* dlist_createElement(int id, int x, int y)  // Creates the element 
     element->id = id;
     element->x = x;
     element->y= y;
+    element->aniY=y*32;
+    element->anix=y*32;
     element->next = NULL;
     return element;
 }

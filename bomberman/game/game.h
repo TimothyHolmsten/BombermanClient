@@ -14,7 +14,7 @@
 #include "../object/objects/wall/wall.h"
 #include "../main.h"
 
-#define GAME_MAX_BOMBS 2
+#define GAME_MAX_BOMBS 1
 
 typedef struct Connection{
 
