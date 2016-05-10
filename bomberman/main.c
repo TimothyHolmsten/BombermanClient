@@ -11,15 +11,16 @@ int main(void)
     renderer = init_renderer(window);
 
     Game game;
-
+    game.player_count = 0;
     dlist_init(&game.players);
 
     game.map = load_map("level1.map");
     load_walls(game.map, game.walls);
-    create_player(&game.players,1,1,0);
+
+
 
     dlist_print(&game.players);
-    game.player_count = 1;
+    printf("%d\n", game.player_count);
 
 
     init_game(window, renderer, &game);

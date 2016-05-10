@@ -12,7 +12,7 @@ void render_players(SDL_Window *window, Game *game)
 
     int i = 0;
     while(i < game->player_count) {
-        SDL_Rect rect = {256 + get_list_postition(&game->players,i)->x * 32, get_list_postition(&game->players,i)->y * 32, 32, 32};
+        SDL_Rect rect = {256 + (int)get_list_postition(&game->players,i)->anix, (int)get_list_postition(&game->players,i)->aniY, 32, 32};
         SDL_RenderCopy(renderer,texture,NULL,&rect);
         i++;
     }

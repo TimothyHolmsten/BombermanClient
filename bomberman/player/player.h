@@ -12,14 +12,14 @@
 #include <SDL_timer.h>
 #include <time.h>
 #include "../tools/linked_list.h"
+#include "../client/client.h"
+#include "../main.h"
 
 
-
-
-void create_player(Dlist *list, int x, int y, int id);
-void player_place_bomb(DlistElement * player, Map * map);
+void create_player(Dlist *list, int *playerCount, int x, int y, int id);
+void player_place_bomb(DlistElement * player, Game *game,int x,int y);
 
 void update_players(Dlist *players);
-void update_local_player(DlistElement *player, Map * map);
+void update_local_player(DlistElement *player, Map * map,Game *game);
 
 #endif //CLIENT_PLAYER_H

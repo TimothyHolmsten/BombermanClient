@@ -19,9 +19,12 @@ void dlist_init(Dlist* list)    // sets the first element to null (because no el
 DlistElement* dlist_createElement(int id, int x, int y)  // Creates the element for the list
 {
     DlistElement* element = malloc(sizeof(DlistElement));
+    element->local = 0;
     element->id = id;
     element->x = x;
     element->y= y;
+    element->aniY=y*32;
+    element->anix=y*32;
     element->next = NULL;
     return element;
 }
@@ -74,7 +77,6 @@ void dlist_removeAllElements(Dlist *list)
         dlist_removeElement(list,0);
     }
 }
-
 int dlist_removeElement(Dlist *list, int number) // removes a give item from the list
 {
     DlistElement* currentElement = list->element;
@@ -119,7 +121,6 @@ int dlist_removeElement(Dlist *list, int number) // removes a give item from the
         currentElement->next = deleteElement->next; // if not we know there is a element after the deleteElement so we assignee that to currentElement next
         free(deleteElement);
     }
-    return 0;
 }
 
 DlistElement *get_list_postition(Dlist *list, int pos)   // prints the list,totalPrice and totalAmount

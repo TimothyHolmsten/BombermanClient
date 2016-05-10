@@ -13,7 +13,10 @@ typedef struct _DlistElement
 {
     int x;
     int y;
+    float anix;
+    float aniY;
     int id;
+    int local;
     Bomb bombs[2];
     int bombs_count;
     struct  _DlistElement *next;
