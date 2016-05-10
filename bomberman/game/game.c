@@ -107,7 +107,6 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game, struct Co
             render_bombs(window, game);
             render_explosion(window, game);
             render_players(window, game);
-
         }
 
         //Show whats rendered

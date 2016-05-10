@@ -33,11 +33,20 @@ void bomb_explode(Bomb * bomb, Map * map)
         for (int x = 0; x < bomb->radius; x++) {
             if (get_object_from_position(*map, bomb->x + x, bomb->y) == WALL || bomb->x + x == GAME_MAX_X)
                 break;
+
+            if (get_object_from_position(*map, bomb->x + x, bomb->y) == DESTRUCTABLE_WALL) {
+                set_object_from_position(map, bomb->x + x, bomb->y, object);
+                break;
+            }
             set_object_from_position(map, bomb->x + x, bomb->y, object);
         }
         for (int x = 0; x > -bomb->radius; x--) {
             if (get_object_from_position(*map, bomb->x + x, bomb->y) == WALL || bomb->x + x == 0)
                 break;
+            if (get_object_from_position(*map, bomb->x + x, bomb->y) == DESTRUCTABLE_WALL) {
+                set_object_from_position(map, bomb->x + x, bomb->y, object);
+                break;
+            }
             set_object_from_position(map, bomb->x + x, bomb->y, object);
         }
 
@@ -45,12 +54,20 @@ void bomb_explode(Bomb * bomb, Map * map)
         for (int y = 0; y < bomb->radius; y++) {
             if (get_object_from_position(*map, bomb->x, bomb->y + y) == WALL || bomb->y + y == GAME_MAX_Y)
                 break;
+            if (get_object_from_position(*map, bomb->x, bomb->y + y) == DESTRUCTABLE_WALL) {
+                set_object_from_position(map, bomb->x, bomb->y + y, object);
+                break;
+            }
             set_object_from_position(map, bomb->x, bomb->y + y, object);
         }
         for (int y = 0; y > -bomb->radius; y--) {
             if (get_object_from_position(*map, bomb->x, bomb->y + y) == WALL || bomb->y + y == 0)
                 break;
+            if (get_object_from_position(*map, bomb->x, bomb->y + y) == DESTRUCTABLE_WALL) {
                 set_object_from_position(map, bomb->x, bomb->y + y, object);
+                break;
+            }
+            set_object_from_position(map, bomb->x, bomb->y + y, object);
         }
         if (i == 0)
             SDL_Delay(100);
