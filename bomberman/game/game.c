@@ -104,11 +104,6 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
         //Multiplayer
         client_recv(game);
-        if(get_list_postition(&game->players, 0) != NULL) {
-            char msg[100]; // Send this to connected device
-            sprintf(msg, "2 %d %d %d \n", get_list_postition(&game->players, 0)->id, (int)get_list_postition(&game->players, 0)->anix, (int)get_list_postition(&game->players, 0)->aniY);
-            client_send(game, msg);
-        }
         //Spare the cpu, 16 =~ 60 fps
         SDL_Delay(1);
     }

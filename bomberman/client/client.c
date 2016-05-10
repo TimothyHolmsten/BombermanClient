@@ -51,6 +51,7 @@ void client_recv(Game *game){
         int type, id;
         //Check the type of message and who sent it
         sscanf(tmp, "%d %d",&type, &id);
+        printf("type: %d \n", type);
         if (type == 1){
             printf("recived start packet\n");
             int tmp2;
@@ -77,18 +78,6 @@ void client_recv(Game *game){
 
 
         }
-
-        if (type == 2 && game->players.element != NULL){
-            int tmp2;
-
-
-
-            for(int i = 0; i < dlist_size(&game->players); i++){
-                if(id== get_list_postition(&game->players,i)->id){
-                    sscanf(tmp, "2 %d %f %f \n", &tmp2, &get_list_postition(&game->players,i)->anix, &get_list_postition(&game->players,i)->aniY);
-                }
-            }
-        }
         if (type == 4){
             printf("recived bomb packet\n");
             int id,x,y;
@@ -100,6 +89,18 @@ void client_recv(Game *game){
             player_place_bomb(player, game, x,y);
 
         }
+        if (type == 2 && game->players.element != NULL){
+            int tmp2;
+
+
+
+            for(int i = 0; i < dlist_size(&game->players); i++){
+                if(id== get_list_postition(&game->players,i)->id){
+                    sscanf(tmp, "2 %d %f %f \n", &tmp2, &get_list_postition(&game->players,i)->anix, &get_list_postition(&game->players,i)->aniY);
+                }
+            }
+        }
+
         if (type == 9){
             printf("recived dc packet\n");
             int id;

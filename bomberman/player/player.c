@@ -36,6 +36,13 @@ void player_place_bomb(DlistElement * player, Game *game, int x, int y)
     }
 }
 
+
+void send_player_pos(Game *game){
+    char msg[100]; // Send this to connected device
+    sprintf(msg, "2 %d %d %d \n", get_list_postition(&game->players, 0)->id, (int)get_list_postition(&game->players, 0)->anix, (int)get_list_postition(&game->players, 0)->aniY);
+    client_send(game, msg);
+}
+
 void update_local_player(DlistElement * player, Map * map, Game *game) {
 
     const Uint8 *state = SDL_GetKeyboardState(NULL);
@@ -59,6 +66,7 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
 
             for(int i = 0; i<8; i++){
                 player->anix += x/8;
+                send_player_pos(game); // Sends position whenever player moves to server
                 SDL_Delay(10);
             }
             player->x = (int)player->anix/32;
@@ -68,11 +76,14 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
 
             for(int i = 0; i<8; i++){
                 player->aniY += y/8;
+                send_player_pos(game); // Sends position whenever player moves to server
                 SDL_Delay(10);
             }
             player->y = (int)player->aniY/32;
         }
+        if(x != 0 || y!=0){
 
+        }
     }
     //SDL_Delay(200);
 }
