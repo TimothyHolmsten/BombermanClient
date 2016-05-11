@@ -43,7 +43,7 @@ void * thread_update_player(void * arg) {
                     update_bombs(get_list_postition(&arguments->game->players,k)->bombs, arguments->map);
                 }
 
-                SDL_Delay(0); //Dont fry the CPU
+                SDL_Delay(0); //If we have a delay packets are lost from server.
             }
     }
 }
