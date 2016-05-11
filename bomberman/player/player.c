@@ -46,7 +46,6 @@ void send_player_pos(Game *game){
 void update_local_player(DlistElement * player, Map * map, Game *game) {
 
     const Uint8 *state = SDL_GetKeyboardState(NULL);
-
     int x = 0;
     int y = 0;
 
@@ -81,9 +80,11 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
             }
             player->y = (int)player->aniY/32;
         }
-        if(x != 0 || y!=0){
-
+        if(game->checkPos > 40){
+            send_player_pos(game); // Sends position whenever player moves to server
+            game->checkPos = 0;
         }
+        game->checkPos += 1;
     }
     //SDL_Delay(200);
 }

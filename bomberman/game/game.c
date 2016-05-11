@@ -105,7 +105,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
         //Multiplayer
         client_recv(game);
         //Spare the cpu, 16 =~ 60 fps
-        SDL_Delay(1);
+        SDL_Delay(16);
     }
     SDL_DestroyWindow(window);
     SDL_Quit();

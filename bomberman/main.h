@@ -19,6 +19,7 @@ typedef struct Game {
     int player_count;
     TCPsocket client;
     SDLNet_SocketSet server;
+    int checkPos;
 }Game;
 
 #endif //CLIENT_MAIN_H
