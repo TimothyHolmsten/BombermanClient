@@ -92,8 +92,6 @@ void client_recv(Game *game){
         if (type == 2 && game->players.element != NULL){
             int tmp2;
 
-
-
             for(int i = 0; i < dlist_size(&game->players); i++){
                 if(id== get_list_postition(&game->players,i)->id){
                     sscanf(tmp, "2 %d %f %f \n", &tmp2, &get_list_postition(&game->players,i)->anix, &get_list_postition(&game->players,i)->aniY);

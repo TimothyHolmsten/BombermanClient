@@ -80,11 +80,11 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
             }
             player->y = (int)player->aniY/32;
         }
-        if(game->checkPos > 40){
-            send_player_pos(game); // Sends position whenever player moves to server
-            game->checkPos = 0;
-        }
-        game->checkPos += 1;
+
+        //This is to make sure that all clients has the most recent postition without having to flood
+        // the server with postions all the time. If any client has any lag and misses an update this will
+        // fix it and allways keep everyone updated.
+
     }
     //SDL_Delay(200);
 }

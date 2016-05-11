@@ -35,13 +35,15 @@ void * thread_update_player(void * arg) {
     struct local_player_args *arguments = (struct local_player_args*) arg;
         int i = 1;
         while (i) {
+            //Multiplayer
+            client_recv(arguments->game);
             if(get_list_postition(&arguments->game->players, 0) != NULL) {
                 update_local_player(arguments->player, arguments->map, arguments->game);
                 for(int k = 0; k< dlist_size(&arguments->game->players); k++){
                     update_bombs(get_list_postition(&arguments->game->players,k)->bombs, arguments->map);
                 }
 
-                SDL_Delay(16); //Dont fry the CPU
+                SDL_Delay(0); //Dont fry the CPU
             }
     }
 }
@@ -102,8 +104,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
         //Show whats rendered
         SDL_RenderPresent(renderer);
 
-        //Multiplayer
-        client_recv(game);
+
         //Spare the cpu, 16 =~ 60 fps
         SDL_Delay(16);
     }
