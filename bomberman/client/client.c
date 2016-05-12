@@ -12,7 +12,7 @@ void initClient(Game *game)
     TCPsocket client;
     IPaddress ip;
     SDLNet_Init();
-
+//e
     if(SDLNet_ResolveHost(&ip,"130.237.84.165",22222)==-1) //Change loopback ip to our server IP
     {
         printf("SDLNet_ResolveHost: %s\n",SDLNet_GetError());
