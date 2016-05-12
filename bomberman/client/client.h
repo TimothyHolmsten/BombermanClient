@@ -6,6 +6,7 @@
 #define CLIENT_CLIENT_H
 #include <SDL.h>
 #include <SDL_net.h>
+#include <stdbool.h>
 #include "../main.h"
 #include "../player/player.h"
 #include "../object/objects/bomb/bomb.h"
