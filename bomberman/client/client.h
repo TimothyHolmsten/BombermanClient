@@ -15,4 +15,5 @@
 void initClient(Game *game);
 void client_recv( Game *game);
 void client_send(Game *game, char *msg);
+void client_EXIT(TCPsocket client);
 #endif //CLIENT_CLIENT_H

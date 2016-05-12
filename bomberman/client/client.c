@@ -12,7 +12,7 @@ void initClient(Game *game)
     TCPsocket client;
     IPaddress ip;
     SDLNet_Init();
-//e
+//er
     if(SDLNet_ResolveHost(&ip,"130.237.84.165",22222)==-1) //Change loopback ip to our server IP
     {
         printf("SDLNet_ResolveHost: %s\n",SDLNet_GetError());
@@ -42,6 +42,7 @@ void client_EXIT(TCPsocket client){
     SDLNet_TCP_Close(client);
     SDLNet_Quit();
 }
+
 void client_recv(Game *game){
     char tmp[1400];
     if(SDLNet_CheckSockets(game->server,0)>0 && SDLNet_SocketReady(game->client)){
@@ -54,7 +55,7 @@ void client_recv(Game *game){
         printf("type: %d \n", type);
         if (type == 1){
             printf("recived start packet\n");
-            int id, x,y, map;
+            int x,y, map;
             sscanf(tmp, "1 %d %d %d %d\n", &id, &x,&y, &map);
             printf("%d %d \n", id, map);
 
@@ -97,7 +98,7 @@ void client_recv(Game *game){
         }
         if (type == 4){
             printf("recived bomb packet\n");
-            int id,x,y;
+            int x,y;
             sscanf(tmp, "4 %d %d %d\n", &id,&x,&y);
             printf("%d %d %d\n", id,x,y);
 
@@ -118,7 +119,6 @@ void client_recv(Game *game){
 
         if (type == 9){
             printf("recived dc packet\n");
-            int id;
             sscanf(tmp, "9 %d \n", &id);
             printf("%d \n", id);
 

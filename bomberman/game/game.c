@@ -5,7 +5,7 @@
 #include "game.h"
 #include "renderer/player/renderPlayer.h"
 #include "renderer/object/renderObject.h"
-#include "../client/client.h"
+
 
 // Arguments to be passed to new thread
 struct args{
@@ -83,6 +83,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
                 char msg[100]; // Send this to connected device
                 sprintf(msg, "3 %d\n", get_list_postition(&game->players, 0)->id);
                 client_send(game, &msg);
+                client_EXIT(game->client);
                 running = false;
             }
         }
