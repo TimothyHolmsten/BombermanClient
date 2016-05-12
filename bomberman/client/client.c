@@ -54,23 +54,40 @@ void client_recv(Game *game){
         printf("type: %d \n", type);
         if (type == 1){
             printf("recived start packet\n");
-            int tmp2;
-            int id, x,y;
-            sscanf(tmp, "1 %d %d %d \n", &id, &x,&y);
-            printf("%d %d %d\n", id, x, y);
+            int id, x,y, map;
+            sscanf(tmp, "1 %d %d %d %d\n", &id, &x,&y, &map);
+            printf("%d %d \n", id, map);
 
+            // If there is no players locally, add first as local player, also get and set the map
             if(get_list_postition(&game->players, 0) == NULL)
             {
                 create_player(&game->players, &game->player_count, x,y, id);
                 get_list_postition(&game->players,0)->local = 1;  //This is how we know this is the local player
+
+                switch(map) {
+                    case 0:
+                        printf("lvl1\n");
+                        game->map = load_map("level1.map");
+                        break;
+                    case 1:
+                        printf("lvl2\n");
+                        game->map = load_map("level2.map");
+                        break;
+
+                    default:
+                        printf("error with map");
+                        break;
+                }
             }
 
+            //Check if players allready are exist locally
             for(int i=0; i < dlist_size(&game->players); i++)
             {
                 if(get_list_postition(&game->players, i)->id == id ){
                     add = false;
                 }
             }
+            //If not add them
             if (add)
             {
                 create_player(&game->players, &game->player_count, x,y, id);

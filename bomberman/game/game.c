@@ -75,16 +75,15 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
     bool running = true;
     SDL_Event event;
-
     while (running)
     {
         //On exit pressed, exit
         while(SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
-                running = false;
                 char msg[100]; // Send this to connected device
                 sprintf(msg, "3 %d\n", get_list_postition(&game->players, 0)->id);
                 client_send(game, &msg);
+                running = false;
             }
         }
 
