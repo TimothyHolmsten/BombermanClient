@@ -2,6 +2,7 @@
 // Created by Timothy Friberg Holmsten on 19/04/16.
 //
 
+#include <SDL_ttf.h>
 #include "game.h"
 #include "renderer/player/renderPlayer.h"
 #include "renderer/object/renderObject.h"
@@ -72,28 +73,23 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
 
 int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
-
+    SDL_Rect startButton;
     bool running = true;
     SDL_Event event;
+    SDL_MouseButtonEvent mouseEvent;
     while (running)
     {
-        //On exit pressed, exit
-        while(SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                char msg[100]; // Send this to connected device
-                sprintf(msg, "3 %d\n", get_list_postition(&game->players, 0)->id);
-                client_send(game, &msg);
-                client_EXIT(game->client);
-                running = false;
-            }
-        }
+
 
         //Clear screen
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderClear(renderer);
 
+
         //render all element from bottom and up
         if(get_list_postition(&game->players, 0) != NULL) {
+            if(get_list_postition(&game->players, 0)->id == 0)  //If you were the first one to connect you can decide when to start the game
+                startButton = render_button(window, game);
             render_grass(window, game);
             render_walls(window, game);
             render_boxes(window, game);
@@ -104,7 +100,33 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
         //Show whats rendered
         SDL_RenderPresent(renderer);
 
+        //On exit pressed, exit
+        if(SDL_PollEvent(&mouseEvent)) {
+            if (mouseEvent.button == SDL_BUTTON_LEFT && mouseEvent.state == SDL_PRESSED) {
+                int mouseX = mouseEvent.x;
+                int mouseY = mouseEvent.y;
+                if(startButton.w != NULL) {
+                    if ((mouseX > startButton.x) && (mouseX < startButton.x + startButton.w) &&
+                        (mouseY > startButton.y) && (mouseY < startButton.y + startButton.h)) {
+                        //do here all what you want to...
+                        printf("button\n");
+                        char msg[100]; // Send this to connected device
+                        sprintf(msg, "8 %d\n", get_list_postition(&game->players, 0)->id);
+                        client_send(game, &msg);
+                    }
+                }
+            }
+        }
+        if(SDL_PollEvent(&event)) {
 
+            if (event.type == SDL_QUIT) {
+                char msg[100]; // Send this to connected device
+                sprintf(msg, "3 %d\n", get_list_postition(&game->players, 0)->id);
+                client_send(game, &msg);
+
+                running = false;
+            }
+        }
         //Spare the cpu, 16 =~ 60 fps
         SDL_Delay(16);
     }
