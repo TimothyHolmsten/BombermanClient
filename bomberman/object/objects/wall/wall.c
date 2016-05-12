@@ -13,10 +13,6 @@ Wall create_wall(int x, int y)
     return wall;
 }
 
-/*TODO
- * Fix a better way to iterate walls
- * */
-
 void load_walls(Map map, Wall walls[])
 {
     int i = 0;

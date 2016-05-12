@@ -17,11 +17,8 @@ int main(void)
     game.map = load_map("level1.map");
     load_walls(game.map, game.walls);
 
-
-
     dlist_print(&game.players);
     printf("%d\n", game.player_count);
-
 
     init_game(window, renderer, &game);
 
