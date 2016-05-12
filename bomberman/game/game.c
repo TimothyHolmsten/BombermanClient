@@ -100,7 +100,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
         //Show whats rendered
         SDL_RenderPresent(renderer);
 
-        //On exit pressed, exit
+        //On press on start button send start message
         if(SDL_PollEvent(&mouseEvent)) {
             if (mouseEvent.button == SDL_BUTTON_LEFT && mouseEvent.state == SDL_PRESSED) {
                 int mouseX = mouseEvent.x;
