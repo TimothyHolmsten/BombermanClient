@@ -82,6 +82,12 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
             player->y = (int)player->aniY/32;
         }
 
+        if (get_object_from_position(game->map, player->x, player->y) == 9)
+        {
+            player->x = 1;
+            player->y = 1;
+        }
+
         //This is to make sure that all clients has the most recent postition without having to flood
         // the server with postions all the time. If any client has any lag and misses an update this will
         // fix it and allways keep everyone updated.

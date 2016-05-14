@@ -208,6 +208,12 @@
           <root url="file:///System/Library/Frameworks/Accelerate.framework/Frameworks/vImage.framework/Headers" />
           <root url="file:///System/Library/Frameworks/Accelerate.framework/Frameworks/vecLib.framework/Headers" />
           <root url="file:///usr/include" />
+          <root url="file:///Library/Frameworks/SDL2_mixer.framework/Headers" />
+          <root url="file:///Library/Frameworks/SDL2_mixer.framework/Frameworks/FLAC.framework/Headers" />
+          <root url="file:///Library/Frameworks/SDL2_mixer.framework/Frameworks/smpeg2.framework/Headers" />
+          <root url="file:///Library/Frameworks/SDL2_mixer.framework/Frameworks/Ogg.framework/Headers" />
+          <root url="file:///Library/Frameworks/SDL2_mixer.framework/Frameworks/modplug.framework/Headers" />
+          <root url="file:///Library/Frameworks/SDL2_mixer.framework/Frameworks/Vorbis.framework/Headers" />
           <root url="file:///Library/Frameworks/SDL2_net.framework/Headers" />
           <root url="file:///Library/Frameworks/iTunesLibrary.framework/Headers" />
           <root url="file:///Library/Frameworks/SDL2_ttf.framework/Headers" />
@@ -390,6 +396,12 @@
           <root url="file:///System/Library/Frameworks/Accelerate.framework/Frameworks/vImage.framework/Headers" />
           <root url="file:///System/Library/Frameworks/Accelerate.framework/Frameworks/vecLib.framework/Headers" />
           <root url="file:///usr/include" />
+          <root url="file:///Library/Frameworks/SDL2_mixer.framework/Headers" />
+          <root url="file:///Library/Frameworks/SDL2_mixer.framework/Frameworks/FLAC.framework/Headers" />
+          <root url="file:///Library/Frameworks/SDL2_mixer.framework/Frameworks/smpeg2.framework/Headers" />
+          <root url="file:///Library/Frameworks/SDL2_mixer.framework/Frameworks/Ogg.framework/Headers" />
+          <root url="file:///Library/Frameworks/SDL2_mixer.framework/Frameworks/modplug.framework/Headers" />
+          <root url="file:///Library/Frameworks/SDL2_mixer.framework/Frameworks/Vorbis.framework/Headers" />
           <root url="file:///Library/Frameworks/SDL2_net.framework/Headers" />
           <root url="file:///Library/Frameworks/iTunesLibrary.framework/Headers" />
           <root url="file:///Library/Frameworks/SDL2_ttf.framework/Headers" />
