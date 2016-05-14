@@ -15,7 +15,7 @@
 #include "../main.h"
 
 #define GAME_MAX_BOMBS 1
-#define GAME_WINDOW_WIDTH 512
+#define GAME_WINDOW_WIDTH 1024
 #define GAME_WINDOW_HEIGHT 480
 
 typedef struct Connection{
