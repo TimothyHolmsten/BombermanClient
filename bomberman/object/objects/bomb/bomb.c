@@ -45,6 +45,7 @@ void bomb_explode(Bomb * bomb, Map * map)
             if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1 || bomb->y + y == GAME_MAX_Y)
                 break;
             set_object_from_position(map, bomb->x, bomb->y + y, object);
+
         }
         for (int y = 0; y > -bomb->radius; y--) {
             if (get_object_from_position(*map, bomb->x, bomb->y + y) == 1 || bomb->y + y == 0)

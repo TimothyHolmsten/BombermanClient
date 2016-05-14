@@ -84,6 +84,8 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
 
         if (get_object_from_position(game->map, player->x, player->y) == 9)
         {
+            player->aniY=32;
+            player->anix=32;
             player->x = 1;
             player->y = 1;
         }
