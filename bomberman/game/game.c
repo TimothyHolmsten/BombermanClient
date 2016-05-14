@@ -39,12 +39,16 @@ void * thread_update_player(void * arg) {
         if (get_list_postition(&arguments->game->players, 0) != NULL) {
             update_local_player(arguments->player, arguments->map, arguments->game);
         }
+        SDL_Delay(16);
     }
 }
 void * thread_multiplayer(void * arg) {
     //Multiplayer
     struct local_player_args *arguments = (struct local_player_args*) arg;
-    client_recv(arguments->game);
+    int i = 1;
+    while (i) {
+        client_recv(arguments->game);
+    }
 
 }
 
