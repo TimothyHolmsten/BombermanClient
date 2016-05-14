@@ -13,7 +13,7 @@ void initClient(Game *game)
     IPaddress ip;
     SDLNet_Init();
 //er
-    if(SDLNet_ResolveHost(&ip,"127.0.0.1",22222)==-1) //Change loopback ip to our server IP
+    if(SDLNet_ResolveHost(&ip,"130.237.84.165",22222)==-1) //Change loopback ip to our server IP
     {
         printf("SDLNet_ResolveHost: %s\n",SDLNet_GetError());
         exit(3);
@@ -31,9 +31,8 @@ void initClient(Game *game)
     game->client = client;
     game->server = server;
 
-
+    //Make sure we get the firs packet that defines local player
     SDL_Delay(50);
-
     client_recv(game);
 }
 
