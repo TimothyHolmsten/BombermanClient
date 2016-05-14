@@ -20,16 +20,6 @@ struct local_player_args{
     Game * game;
 };
 
-//multithreading to make update and render run on seperate threads
-void * init_update(void* arg)
-{
-    struct args *arguments = (struct  args*) arg;
-    if(arguments->players != NULL) {
-        while (1) {
-            SDL_Delay(16); //Dont fry the CPU
-        }
-    }
-}
 
 void * thread_update_player(void * arg) {
 
@@ -48,6 +38,7 @@ void * thread_multiplayer(void * arg) {
     int i = 1;
     while (i) {
         client_recv(arguments->game);
+        SDL_Delay(1);
     }
 
 }
@@ -64,6 +55,7 @@ void * thread_update_bombs(void * arg) {
                 update_bombs(get_list_postition(&arguments->game->players, k)->bombs, arguments->map);
             }
         }
+        SDL_Delay(16);
     }
 }
 
