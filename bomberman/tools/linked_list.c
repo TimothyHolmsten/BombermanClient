@@ -21,6 +21,7 @@ DlistElement* dlist_createElement(int id, int x, int y)  // Creates the element 
     DlistElement* element = malloc(sizeof(DlistElement));
     element->local = 0;
     element->id = id;
+    element->alive = 1;
     element->x = x;
     element->y= y;
     element->aniY=y*32;

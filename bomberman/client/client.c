@@ -13,7 +13,7 @@ void initClient(Game *game)
     IPaddress ip;
     SDLNet_Init();
 //er
-    if(SDLNet_ResolveHost(&ip,"130.237.84.165",22222)==-1) //Change loopback ip to our server IP
+    if(SDLNet_ResolveHost(&ip,"127.0.0.1",22222)==-1) //Change loopback ip to our server IP
     {
         printf("SDLNet_ResolveHost: %s\n",SDLNet_GetError());
         exit(3);
@@ -115,14 +115,19 @@ void client_recv(Game *game){
                 }
             }
         }
+        if (type == 7){
+            printf("recived death packet\n");
+            sscanf(tmp, "7 %d \n", &id);
 
+            dlist_removeElement(&game->players,get_pos_from_id(&game->players, id));
+
+        }
         if (type == 9){
             printf("recived dc packet\n");
             sscanf(tmp, "9 %d \n", &id);
             printf("%d \n", id);
 
            dlist_removeElement(&game->players,get_pos_from_id(&game->players, id));
-            dlist_print(&game->players);
 
         }
     }

@@ -84,10 +84,10 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
 
         if (get_object_from_position(game->map, player->x, player->y) == 9)
         {
-            player->aniY=32;
-            player->anix=32;
-            player->x = 1;
-            player->y = 1;
+            char msg[100]; // Send this to connected device
+            sprintf(msg, "7 %d\n", get_list_postition(&game->players, 0)->id); //sends death to server
+            get_list_postition(&game->players, 0)->alive = 0;
+
         }
 
         //This is to make sure that all clients has the most recent postition without having to flood

@@ -26,7 +26,7 @@ void * thread_update_player(void * arg) {
     struct local_player_args *arguments = (struct local_player_args*) arg;
     int i = 1;
     while (i) {
-        if (get_list_postition(&arguments->game->players, 0) != NULL) {
+        if (get_list_postition(&arguments->game->players, 0) != NULL && get_list_postition(&arguments->game->players, 0)->alive == 1){
             update_local_player(arguments->player, arguments->map, arguments->game);
         }
         SDL_Delay(16);
@@ -94,7 +94,6 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     SDL_MouseButtonEvent mouseEvent;
     while (running)
     {
-
 
         //Clear screen
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
