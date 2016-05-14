@@ -31,6 +31,8 @@ void * thread_update_player(void * arg) {
         }
         SDL_Delay(16);
     }
+
+    return NULL;
 }
 void * thread_multiplayer(void * arg) {
     //Multiplayer
@@ -41,6 +43,7 @@ void * thread_multiplayer(void * arg) {
         SDL_Delay(1);
     }
 
+    return NULL;
 }
 
 void * thread_update_bombs(void * arg) {
@@ -48,8 +51,6 @@ void * thread_update_bombs(void * arg) {
     struct local_player_args *arguments = (struct local_player_args*) arg;
     int i = 1;
     while (i) {
-
-
         if (get_list_postition(&arguments->game->players, 0) != NULL) {
             for (int k = 0; k < dlist_size(&arguments->game->players); k++) {
                 update_bombs(get_list_postition(&arguments->game->players, k)->bombs, arguments->map);
@@ -57,6 +58,8 @@ void * thread_update_bombs(void * arg) {
         }
         SDL_Delay(16);
     }
+
+    return NULL;
 }
 
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
@@ -101,16 +104,16 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
         //render all element from bottom and up
         if(get_list_postition(&game->players, 0) != NULL) {
 
-            render_grass(window, game);
+            render_grass(window);
             render_walls(window, game);
             render_boxes(window, game);
             render_bombs(window, game);
             render_players(window, game);
+            render_explosion(window,game);
         }
 
         //Show whats rendered
         SDL_RenderPresent(renderer);
-
 
         if(SDL_PollEvent(&event)) {
 

@@ -6,10 +6,9 @@
 
 void render_explosion(SDL_Window *window, Game * game)
 {
-    int i = 0;
     SDL_Renderer *renderer = SDL_GetRenderer(window);
 
-    SDL_Texture *texture;
+    SDL_Texture * texture;
     texture = load_texture(renderer, "Explosion.png");
 
     for (int y = 0; y < GAME_MAX_Y; y++)
@@ -24,9 +23,8 @@ void render_explosion(SDL_Window *window, Game * game)
     SDL_DestroyTexture(texture);
 }
 
-void render_grass(SDL_Window *window, Game * game)
+void render_grass(SDL_Window *window)
 {
-    int i = 0;
     SDL_Renderer *renderer = SDL_GetRenderer(window);
 
     SDL_Texture *texture;

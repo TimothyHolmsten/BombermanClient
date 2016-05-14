@@ -22,7 +22,6 @@ void player_place_bomb(DlistElement * player, Game *game, int x, int y)
     for(int bomb = 0; bomb < GAME_MAX_BOMBS;bomb++) {
         if (player->bombs[bomb].placed != 1) {
             player->bombs[bomb] = create_bomb(x, y, 1, player->id, 3);
-            player->bombs[bomb].order = GAME_MAX_BOMBS-1-bomb;
             player->bombs_count += 1;
             player->bombs[bomb].placed = 1;
 
@@ -42,6 +41,8 @@ void send_player_pos(Game *game){
     sprintf(msg, "2 %d %d %d \n", get_list_postition(&game->players, 0)->id, (int)get_list_postition(&game->players, 0)->anix, (int)get_list_postition(&game->players, 0)->aniY);
     client_send(game, msg);
 }
+
+
 
 void update_local_player(DlistElement * player, Map * map, Game *game) {
 

@@ -13,10 +13,15 @@ typedef struct Bomb {
     int y;
     time_t time; // until explosion
     int owner; // player id
-    int order;
     int placed;
     int radius;
 }Bomb;
+
+typedef struct Explosion{
+    int x;
+    int y;
+    int owner;
+}Explosion;
 
 Bomb create_bomb(int x, int y, time_t time, int owner, int radius);
 void bomb_explode(Bomb * bomb, Map * map);
