@@ -25,7 +25,7 @@ typedef struct _DlistElement
 
 typedef struct PlayerList
 {
-    DlistElement* element;
+    DlistElement * element;
 }Dlist;
 
 void dlist_init(Dlist *list);

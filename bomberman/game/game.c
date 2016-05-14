@@ -10,14 +10,14 @@
 
 // Arguments to be passed to new thread
 struct args{
-    Wall *walls;
-    Dlist *players;
+    Wall * walls;
+    Dlist * players;
 };
 
 struct local_player_args{
     Map * map;
-    DlistElement *player;
-    Game *game;
+    DlistElement * player;
+    Game * game;
 };
 
 //multithreading to make update and render run on seperate threads
@@ -34,37 +34,51 @@ void * init_update(void* arg)
 void * thread_update_player(void * arg) {
 
     struct local_player_args *arguments = (struct local_player_args*) arg;
-        int i = 1;
-        while (i) {
-            //Multiplayer
-            client_recv(arguments->game);
-            if(get_list_postition(&arguments->game->players, 0) != NULL) {
-                update_local_player(arguments->player, arguments->map, arguments->game);
-                for(int k = 0; k< dlist_size(&arguments->game->players); k++){
-                    update_bombs(get_list_postition(&arguments->game->players,k)->bombs, arguments->map);
-                }
+    int i = 1;
+    while (i) {
 
-                SDL_Delay(0); //If we have a delay packets are lost from server.
+        //Multiplayer
+        client_recv(arguments->game);
+
+        if (get_list_postition(&arguments->game->players, 0) != NULL) {
+            update_local_player(arguments->player, arguments->map, arguments->game);
+        }
+    }
+}
+
+void * thread_update_bombs(void * arg) {
+
+    struct local_player_args *arguments = (struct local_player_args*) arg;
+    int i = 1;
+    while (i) {
+
+        //Multiplayer
+        client_recv(arguments->game);
+        if (get_list_postition(&arguments->game->players, 0) != NULL) {
+            for (int k = 0; k < dlist_size(&arguments->game->players); k++) {
+                update_bombs(get_list_postition(&arguments->game->players, k)->bombs, arguments->map);
             }
+        }
     }
 }
 
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     initClient(game);
-
-    //Arguments for update thread
-    struct args data;
-    data.walls = game->walls;
-    data.players = &game->players;
     pthread_t t1, t2;
 
-    pthread_create(&t1, NULL,init_update, &data );
+    //Arguments for update thread
+    /*struct args data;
+    data.walls = game->walls;
+    data.players = &game->players;
+
+    pthread_create(&t1, NULL,init_update, &data );*/
 
     struct local_player_args local_p_data;
     local_p_data.map = &game->map;
     local_p_data.player = get_list_postition(&game->players, 0);
     local_p_data.game = game;
     pthread_create(&t2, NULL, thread_update_player, &local_p_data);
+    pthread_create(&t1, NULL, thread_update_bombs, &local_p_data);
 
     game_loop(window, renderer, game);
 

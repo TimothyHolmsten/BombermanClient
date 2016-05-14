@@ -27,7 +27,7 @@ void initClient(Game *game)
     }
     SDLNet_SocketSet server = SDLNet_AllocSocketSet(1);
     SDLNet_TCP_AddSocket(server, client);
-//c
+
     game->client = client;
     game->server = server;
 
@@ -53,7 +53,7 @@ void client_recv(Game *game){
         sscanf(tmp, "%d %d",&type, &id);
         printf("type: %d \n", type);
         if (type == 1){
-            printf("recived start packet\n");
+            printf("received start packet\n");
             int x,y, map;
             sscanf(tmp, "1 %d %d %d %d\n", &id, &x,&y, &map);
             printf("%d %d \n", id, map);
