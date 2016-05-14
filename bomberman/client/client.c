@@ -31,9 +31,8 @@ void initClient(Game *game)
     game->client = client;
     game->server = server;
 
-
+    //Make sure we get the firs packet that defines local player
     SDL_Delay(50);
-
     client_recv(game);
 }
 

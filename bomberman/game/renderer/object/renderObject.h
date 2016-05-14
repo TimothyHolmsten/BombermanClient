@@ -15,5 +15,6 @@ void render_bombs(SDL_Window * window, Game * game);
 void render_grass(SDL_Window *window, Game * game);
 void render_boxes(SDL_Window *window, Game * game);
 void render_explosion(SDL_Window *window, Game * game);
+SDL_Rect render_button(SDL_Window *window, Game * game);
 
 #endif //CLIENT_RENDEROBJECT_H

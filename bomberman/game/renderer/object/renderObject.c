@@ -42,6 +42,22 @@ void render_grass(SDL_Window *window, Game * game)
     SDL_DestroyTexture(texture);
 }
 
+SDL_Rect render_button(SDL_Window *window, Game * game)
+{
+    int i = 0;
+    SDL_Renderer *renderer = SDL_GetRenderer(window);
+
+    SDL_Texture *texture;
+    texture = load_texture(renderer, "Grass.png");
+
+
+            SDL_Rect rect = {0,0, 32, 32};
+            SDL_RenderCopyEx(renderer, texture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
+
+    SDL_DestroyTexture(texture);
+    return rect;
+}
+
 void render_boxes(SDL_Window *window, Game * game)
 {
     int i = 0;
