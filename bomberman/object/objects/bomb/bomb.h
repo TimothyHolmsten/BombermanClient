@@ -17,12 +17,6 @@ typedef struct Bomb {
     int radius;
 }Bomb;
 
-typedef struct Explosion{
-    int x;
-    int y;
-    int owner;
-}Explosion;
-
 Bomb create_bomb(int x, int y, time_t time, int owner, int radius);
 void bomb_explode(Bomb * bomb, Map * map);
 void update_bombs(Bomb * bombs, Map * map);
