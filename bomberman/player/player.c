@@ -86,6 +86,7 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
         {
             char msg[100]; // Send this to connected device
             sprintf(msg, "7 %d\n", get_list_postition(&game->players, 0)->id); //sends death to server
+            client_send(game, msg);
             get_list_postition(&game->players, 0)->alive = 0;
 
         }
