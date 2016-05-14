@@ -5,7 +5,7 @@ int main(void)
 {
 
     SDL_Window *window;
-    window = init_window(1024,512,"Bomberman");
+    window = init_window(GAME_WINDOW_WIDTH,GAME_WINDOW_HEIGHT,"Bomberman");
 
     SDL_Renderer *renderer;
     renderer = init_renderer(window);

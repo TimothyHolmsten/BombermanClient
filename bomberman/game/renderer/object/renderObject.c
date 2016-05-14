@@ -8,6 +8,7 @@ void render_explosion(SDL_Window *window, Game * game)
 {
     SDL_Renderer *renderer = SDL_GetRenderer(window);
 
+
     SDL_Texture * texture;
     texture = load_texture(renderer, "Explosion.png");
 
