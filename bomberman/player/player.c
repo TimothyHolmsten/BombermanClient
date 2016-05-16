@@ -96,13 +96,6 @@ void update_local_player(DlistElement * player, Map * map, Game *game, Uint32 *p
             }
             player->y = (int)player->aniY/32;
         }
-
-        player->moving = 0;
-        if(player->moving == 0 && *playerUpdate == 0){
-            send_player_pos(game); // Sends position whenever player moves to server
-            *playerUpdate = 1;
-        }
-
         if (get_object_from_position(game->map, player->x, player->y) == 9)
         {
             char msg[100]; // Send this to connected device
@@ -111,6 +104,13 @@ void update_local_player(DlistElement * player, Map * map, Game *game, Uint32 *p
             get_list_postition(&game->players, 0)->alive = 0;
 
         }
+        player->moving = 0;
+        if(player->moving == 0 && *playerUpdate == 0){
+            send_player_pos(game); // Sends position whenever player moves to server
+            *playerUpdate = 1;
+        }
+
+
 
         //This is to make sure that all clients has the most recent postition without having to flood
         // the server with postions all the time. If any client has any lag and misses an update this will
