@@ -46,7 +46,7 @@ void send_player_pos(Game *game){
 
 
 
-void update_local_player(DlistElement * player, Map * map, Game *game) {
+void update_local_player(DlistElement * player, Map * map, Game *game, Uint32 *playerUpdate) {
 
     const Uint8 *state = SDL_GetKeyboardState(NULL);
     int x = 0;
@@ -77,6 +77,7 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
     if(player!= NULL) {
         if (!map_is_blocked(map, player->x + x/32, player->y) && x != 0) {
             player->moving = 1;
+            *playerUpdate = 0;
             for(int i = 0; i<8; i++){
                 player->anix += x/8;
                 send_player_pos(game); // Sends position whenever player moves to server
@@ -87,6 +88,7 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
 
         if (!map_is_blocked(map, player->x, player->y+ y/32) && y != 0) {
             player->moving = 1;
+            *playerUpdate = 0;
             for(int i = 0; i<8; i++){
                 player->aniY += y/8;
                 send_player_pos(game); // Sends position whenever player moves to server
@@ -96,6 +98,10 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
         }
 
         player->moving = 0;
+        if(player->moving == 0 && *playerUpdate == 0){
+            send_player_pos(game); // Sends position whenever player moves to server
+            *playerUpdate = 1;
+        }
 
         if (get_object_from_position(game->map, player->x, player->y) == 9)
         {

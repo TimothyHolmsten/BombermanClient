@@ -25,9 +25,10 @@ void * thread_update_player(void * arg) {
 
     struct local_player_args *arguments = (struct local_player_args*) arg;
     int i = 1;
+    Uint32 playerUpdate = 0;
     while (i) {
         if (get_list_postition(&arguments->game->players, 0) != NULL && get_list_postition(&arguments->game->players, 0)->alive == 1){
-            update_local_player(arguments->player, arguments->map, arguments->game);
+            update_local_player(arguments->player, arguments->map, arguments->game, &playerUpdate);
         }
         SDL_Delay(16);
     }
