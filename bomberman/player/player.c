@@ -38,7 +38,9 @@ void player_place_bomb(DlistElement * player, Game *game, int x, int y)
 
 void send_player_pos(Game *game){
     char msg[100]; // Send this to connected device
-    sprintf(msg, "2 %d %d %d \n", get_list_postition(&game->players, 0)->id, (int)get_list_postition(&game->players, 0)->anix, (int)get_list_postition(&game->players, 0)->aniY);
+    DlistElement *player;
+    player = get_list_postition(&game->players, 0);
+    sprintf(msg, "2 %d %d %d %d %d \n", player->id, (int)player->anix, (int)player->aniY, player->rotation, player->moving);
     client_send(game, msg);
 }
 

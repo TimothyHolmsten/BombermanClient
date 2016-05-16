@@ -112,7 +112,8 @@ void client_recv(Game *game){
 
             for(int i = 0; i < dlist_size(&game->players); i++){
                 if(id== get_list_postition(&game->players,i)->id){
-                    sscanf(tmp, "2 %d %f %f \n", &tmp2, &get_list_postition(&game->players,i)->anix, &get_list_postition(&game->players,i)->aniY);
+                    DlistElement *player = get_list_postition(&game->players,i);
+                    sscanf(tmp, "2 %d %f %f %d %d\n", &tmp2, &player->anix, &player->aniY, &player->rotation, &player->moving);
                 }
             }
         }
