@@ -24,6 +24,11 @@ DlistElement* dlist_createElement(int id, int x, int y)  // Creates the element 
     element->alive = 1;
     element->x = x;
     element->y= y;
+    element->rotation=0;
+    element->animation=0;
+    element->animation_timer = 0;
+    element->moving=0;
+    element->bomb_radius=2;
     element->aniY=y*32;
     element->anix=y*32;
     element->next = NULL;

@@ -20,14 +20,14 @@ void player_place_bomb(DlistElement * player, Game *game, int x, int y)
 {
 
     for(int bomb = 0; bomb < GAME_MAX_BOMBS;bomb++) {
-        if (player->bombs[bomb].placed != 1) {
-            player->bombs[bomb] = create_bomb(x, y, 1, player->id, 3);
+        if (player->bombs[bomb].placed == 0) {
+            player->bombs[bomb] = create_bomb(x, y, 1, player->id, player->bomb_radius);
             player->bombs_count += 1;
             player->bombs[bomb].placed = 1;
 
             if(player->local == 1) {
                 char msg[100]; // Send this to connected device
-                sprintf(msg, "4 %d %d %d \n", get_list_postition(&game->players, 0)->id, x, y);
+                sprintf(msg, "4 %d %d %d \n", player->id, x, y);
                 client_send(game, msg);
             }
                 break;
@@ -50,37 +50,50 @@ void update_local_player(DlistElement * player, Map * map, Game *game) {
     int x = 0;
     int y = 0;
 
-    if (state[SDL_SCANCODE_A])
-        x = -1*32;
-    if (state[SDL_SCANCODE_D])
-        x =  1*32;
-    if (state[SDL_SCANCODE_S])
-        y =  1*32;
-    if (state[SDL_SCANCODE_W])
-        y = -1*32;
-    if (state[SDL_SCANCODE_SPACE])
-        player_place_bomb(player, game,player->x,player->y);
+    if (state[SDL_SCANCODE_S]){
+        y = 1 * 32;
+        player->rotation = 0;
+    }
+    if (state[SDL_SCANCODE_W]) {
+        y = -1 * 32;
+        player->rotation = 1;
+    }
+    if (state[SDL_SCANCODE_A]) {
+        x = -1 * 32;
+        player->rotation = 3;
+    }
+    if (state[SDL_SCANCODE_D]) {
+        x = 1 * 32;
+        player->rotation = 2;
+    }
 
+
+    if (state[SDL_SCANCODE_SPACE]) {
+        player_place_bomb(player, game, player->x, player->y);
+        SDL_Delay(50);
+    }
     if(player!= NULL) {
         if (!map_is_blocked(map, player->x + x/32, player->y) && x != 0) {
-
+            player->moving = 1;
             for(int i = 0; i<8; i++){
                 player->anix += x/8;
                 send_player_pos(game); // Sends position whenever player moves to server
-                SDL_Delay(10);
+                SDL_Delay(15);
             }
             player->x = (int)player->anix/32;
         }
 
         if (!map_is_blocked(map, player->x, player->y+ y/32) && y != 0) {
-
+            player->moving = 1;
             for(int i = 0; i<8; i++){
                 player->aniY += y/8;
                 send_player_pos(game); // Sends position whenever player moves to server
-                SDL_Delay(10);
+                SDL_Delay(15);
             }
             player->y = (int)player->aniY/32;
         }
+
+        player->moving = 0;
 
         if (get_object_from_position(game->map, player->x, player->y) == 9)
         {

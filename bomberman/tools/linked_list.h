@@ -14,13 +14,19 @@ typedef struct _DlistElement
     int x;
     int y;
 
+    int rotation;
+    int animation_timer;
+    int moving;
+    int animation;
     float anix;
     float aniY;
 
     int alive;
     int id;
     int local;
-    Bomb bombs[2];
+
+    int bomb_radius;
+    Bomb bombs[8];
     int bombs_count;
     struct  _DlistElement *next;
 }DlistElement;

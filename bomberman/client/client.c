@@ -13,17 +13,18 @@ void initClient(Game *game)
     IPaddress ip;
     SDLNet_Init();
 //er
-    if(SDLNet_ResolveHost(&ip,"130.237.84.165",22222)==-1) //Change loopback ip to our server IP
+    if(SDLNet_ResolveHost(&ip,"127.0.0.1",22222)==-1) //Change loopback ip to our server IP
     {
         printf("SDLNet_ResolveHost: %s\n",SDLNet_GetError());
         exit(3);
     }
-
-    client = SDLNet_TCP_Open(&ip);      //Open socket, if error occurs exit with error code 9
-    if(!client)
-    {
-        printf("SDLNet_TCP_Open: %s\n",SDLNet_GetError());
-        exit(9);
+    client = SDLNet_TCP_Open(&ip);
+    while(!client) {
+        client = SDLNet_TCP_Open(&ip);      //Open socket, if error occurs exit with error code 9
+        if (!client) {
+            printf("SDLNet_TCP_Open: %s\n", SDLNet_GetError());
+        }
+        SDL_Delay(1000);
     }
     SDLNet_SocketSet server = SDLNet_AllocSocketSet(1);
     SDLNet_TCP_AddSocket(server, client);
