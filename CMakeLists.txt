@@ -47,6 +47,10 @@ file(GLOB BOMBERMAN_SRC
         bomberman/game/renderer/player/*.c
         bomberman/game/renderer/player/*.h
 
+        bomberman/menu/*.c
+        bomberman/menu/*.h
+
+
         bomberman/player/*.c
         bomberman/player/*.h
 

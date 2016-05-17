@@ -1,26 +1,23 @@
 #include <SDL.h>
 #include "game/game.h"
-
+#include "menu/Menu.h"
 int main(void)
 {
 
     SDL_Window *window;
-    window = init_window(GAME_WINDOW_WIDTH,GAME_WINDOW_HEIGHT,"Bomberman");
-
+    window = init_window(640,480,"Bomberman");
+    Game game;
     SDL_Renderer *renderer;
     renderer = init_renderer(window);
-
-    Game game;
     game.player_count = 0;
     dlist_init(&game.players);
+    int i = 1;
 
-    game.map = load_map("level1.map");
-    load_walls(game.map, game.walls);
+        SDL_SetWindowSize(window, 640, 480);
+        int temp = startMenu(window, renderer);
+        SDL_SetWindowSize(window, 1024, 480);
 
-    dlist_print(&game.players);
-    printf("%d\n", game.player_count);
-
-    init_game(window, renderer, &game);
+        init_game(window, renderer, &game);
 
     return 0;
 }

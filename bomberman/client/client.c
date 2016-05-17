@@ -52,12 +52,10 @@ void client_recv(Game *game){
         int type, id;
         //Check the type of message and who sent it
         sscanf(tmp, "%d %d",&type, &id);
-        printf("type: %d \n", type);
         if (type == 1){
             printf("received start packet\n");
             int x,y, map;
             sscanf(tmp, "1 %d %d %d %d\n", &id, &x,&y, &map);
-            printf("%d %d \n", id, map);
 
             // If there is no players locally, add first as local player, also get and set the map
             if(get_list_postition(&game->players, 0) == NULL)
@@ -100,7 +98,6 @@ void client_recv(Game *game){
             printf("recived bomb packet\n");
             int x,y;
             sscanf(tmp, "4 %d %d %d\n", &id,&x,&y);
-            printf("%d %d %d\n", id,x,y);
 
 
             struct _DlistElement *player = get_list_postition(&game->players,get_pos_from_id(&game->players, id));
@@ -127,7 +124,6 @@ void client_recv(Game *game){
         if (type == 9){
             printf("recived dc packet\n");
             sscanf(tmp, "9 %d \n", &id);
-            printf("%d \n", id);
 
            dlist_removeElement(&game->players,get_pos_from_id(&game->players, id));
 

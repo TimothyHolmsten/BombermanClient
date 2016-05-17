@@ -87,15 +87,27 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     return 0;
 }
 
+void checkWin(Game *game, int *won, int *lost){
+
+    if(get_list_postition(&game->players, 0)->alive==1 && get_list_postition(&game->players, 0)->next == NULL && game->player_count > 1 && *won==0){
+        printf("you won\n");
+        *won = 1;
+    }
+    if(get_list_postition(&game->players, 0)->alive==0 && *lost == 0 ){
+        printf("you lost\n");
+        *lost = 1;
+    }
+}
 
 int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     SDL_Rect startButton;
     bool running = true;
     SDL_Event event;
     SDL_MouseButtonEvent mouseEvent;
+    int won =0; int lost = 0;
     while (running)
     {
-
+        checkWin(game, &won , &lost);
         //Clear screen
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderClear(renderer);

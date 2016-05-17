@@ -19,7 +19,7 @@ void update_players(Dlist * players) {
 void player_place_bomb(DlistElement * player, Game *game, int x, int y)
 {
 
-    for(int bomb = 0; bomb < GAME_MAX_BOMBS;bomb++) {
+    for(int bomb = 0; bomb < GAME_MAX_BOMBS; bomb++) {
         if (player->bombs[bomb].placed == 0) {
             player->bombs[bomb] = create_bomb(x, y, 1, player->id, player->bomb_radius);
             player->bombs_count += 1;
