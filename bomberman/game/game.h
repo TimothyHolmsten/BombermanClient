@@ -18,12 +18,6 @@
 #define GAME_WINDOW_WIDTH 1024
 #define GAME_WINDOW_HEIGHT 480
 
-typedef struct Connection{
-
-}connection;
-
-
-
 SDL_Window * init_window(int w, int h, char *title);
 SDL_Renderer * init_renderer(SDL_Window *window);
 int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game);
