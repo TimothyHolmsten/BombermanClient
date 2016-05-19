@@ -12,10 +12,6 @@ void create_player(Dlist *list,int *playerCount, int x, int y, int id)
     *playerCount+=1;
 }
 
-void update_players(Dlist * players) {
-
-}
-
 void player_place_bomb(DlistElement * player, Game *game, int x, int y)
 {
 
@@ -35,7 +31,6 @@ void player_place_bomb(DlistElement * player, Game *game, int x, int y)
     }
 }
 
-
 void send_player_pos(Game *game){
     char msg[100]; // Send this to connected device
     DlistElement *player;
@@ -43,8 +38,6 @@ void send_player_pos(Game *game){
     sprintf(msg, "2 %d %d %d %d %d \n", player->id, (int)player->anix, (int)player->aniY, player->rotation, player->moving);
     client_send(game, msg);
 }
-
-
 
 void update_local_player(DlistElement * player, Map * map, Game *game, Uint32 *playerUpdate) {
 
@@ -68,7 +61,6 @@ void update_local_player(DlistElement * player, Map * map, Game *game, Uint32 *p
         x = 1 * 32;
         player->rotation = 2;
     }
-
 
     if (state[SDL_SCANCODE_SPACE]) {
         player_place_bomb(player, game, player->x, player->y);
@@ -109,8 +101,6 @@ void update_local_player(DlistElement * player, Map * map, Game *game, Uint32 *p
             send_player_pos(game); // Sends position whenever player moves to server
             *playerUpdate = 1;
         }
-
-
 
         //This is to make sure that all clients has the most recent postition without having to flood
         // the server with postions all the time. If any client has any lag and misses an update this will
