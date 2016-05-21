@@ -15,7 +15,7 @@ int main(void)
 
         SDL_SetWindowSize(window, 640, 480);
         int temp = startMenu(window, renderer);
-        SDL_SetWindowSize(window, 1024, 480);
+        SDL_SetWindowSize(window, GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT);
 
         init_game(window, renderer, &game);
 
