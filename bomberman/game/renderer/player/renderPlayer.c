@@ -27,7 +27,7 @@ void render_players(SDL_Window *window, Game *game)
 
 
 
-        //This handles the selection of spritesheet so it gets animated, renders from left to right, rotation selcts which column
+        //This handles the selection of spritesheet  so it gets animated, renders from left to right, rotation selcts which column
         if(get_list_postition(&game->players, i)->moving == 1) {
             if (get_list_postition(&game->players, i)->animation_timer == 3) {
                 get_list_postition(&game->players, i)->animation += 1;
