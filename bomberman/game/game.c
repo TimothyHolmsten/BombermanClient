@@ -33,7 +33,7 @@ void * thread_multiplayer(void * arg) {
     int i = 1;
     while (i) {
         client_recv(arguments->game);
-        SDL_Delay(1);
+        SDL_Delay(1); //Spare cpu but don't miss a packet
     }
 
     return NULL;

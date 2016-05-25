@@ -142,7 +142,7 @@ DlistElement *get_list_postition(Dlist *list, int pos)   // prints the list,tota
     for(int i = 0; i < pos; i++)
     {
         if(currentElement->next)
-        currentElement = currentElement->next;
+            currentElement = currentElement->next;
     }
 
     return currentElement;

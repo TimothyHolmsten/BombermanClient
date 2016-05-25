@@ -1,6 +1,6 @@
 #include <SDL.h>
 #include "game/game.h"
-#include "menu/Menu.h"
+
 int main(void)
 {
 
@@ -14,7 +14,7 @@ int main(void)
     int i = 1;
 
         SDL_SetWindowSize(window, 640, 480);
-        int temp = startMenu(window, renderer);
+        //int temp = startMenu(window, renderer);
         SDL_SetWindowSize(window, GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT);
 
         init_game(window, renderer, &game);
