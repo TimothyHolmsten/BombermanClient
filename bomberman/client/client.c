@@ -89,7 +89,7 @@ void client_recv(Game *game){
             //If not add them
             if (add)
             {
-                create_player(&game->players, &game->player_count, x,y, id,0);
+                create_player(&game->players, &game->player_count, x,y, id,id);
             }
 
 
