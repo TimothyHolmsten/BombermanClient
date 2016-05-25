@@ -95,10 +95,10 @@ void client_recv(Game *game){
 
         }
         if (type == 4){
-            printf("recived bomb packet\n");
+
             int x,y;
             sscanf(tmp, "4 %d %d %d\n", &id,&x,&y);
-
+            printf("recived bomb packet: %d %d\n", x,y);
 
             struct _DlistElement *player = get_list_postition(&game->players,get_pos_from_id(&game->players, id));
             player_place_bomb(player, game, x,y);

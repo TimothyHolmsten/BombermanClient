@@ -35,6 +35,7 @@ DlistElement* dlist_createElement(int id, int x, int y, int playerImage)  // Cre
     element->moving=0;
 
     element->bomb_radius=2;
+    element->bombs->placed =0;
 
     element->next = NULL;
     return element;
