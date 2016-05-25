@@ -1,0 +1,15 @@
+//
+// Created by martin on 5/20/16.
+//
+
+#ifndef CLIENT_MENU_H
+#define CLIENT_MENU_H
+
+#include "../image/image.h"
+#include <SDL2/SDL.h>
+#include <SDL_ttf.h>
+
+SDL_Rect displayButton(SDL_Renderer *renderer, int x, int y, int w, int h, SDL_Texture *texture);
+int mainMenu(SDL_Renderer *renderer);
+
+#endif //CLIENT_MENU_H

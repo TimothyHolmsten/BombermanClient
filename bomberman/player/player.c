@@ -5,10 +5,10 @@
 #include "player.h"
 #include "../game/game.h"
 
-void create_player(Dlist *list,int *playerCount, int x, int y, int id)
+void create_player(Dlist *list,int *playerCount, int x, int y, int id, int playerImage)
 {
     printf("%d\n", *playerCount);
-    dlist_insert_last(list, dlist_createElement(id,x,y));
+    dlist_insert_last(list, dlist_createElement(id,x,y,playerImage));
     *playerCount+=1;
 }
 
@@ -20,17 +20,18 @@ void player_place_bomb(DlistElement * player, Game *game, int x, int y)
 {
 
     for(int bomb = 0; bomb < GAME_MAX_BOMBS; bomb++) {
-        if (player->bombs[bomb].placed == 0) {
-            player->bombs[bomb] = create_bomb(x, y, 1, player->id, player->bomb_radius);
-            player->bombs_count += 1;
-            player->bombs[bomb].placed = 1;
 
-            if(player->local == 1) {
+        if (player->bombs[bomb].placed == 0) {
+            if(player->local == 1) { // If it was the local player
                 char msg[100]; // Send this to connected device
                 sprintf(msg, "4 %d %d %d \n", player->id, x, y);
                 client_send(game, msg);
             }
-                break;
+
+            player->bombs[bomb] = create_bomb(x, y, 1, player->id, player->bomb_radius);
+            player->bombs_count += 1;
+            player->bombs[bomb].placed = 1;
+            return;
         }
     }
 }
@@ -72,7 +73,7 @@ void update_local_player(DlistElement * player, Map * map, Game *game, Uint32 *p
 
     if (state[SDL_SCANCODE_SPACE]) {
         player_place_bomb(player, game, player->x, player->y);
-        SDL_Delay(50);
+
     }
     if(player!= NULL) {
         if (!map_is_blocked(map, player->x + x/32, player->y) && x != 0) {

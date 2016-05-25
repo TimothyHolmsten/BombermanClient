@@ -8,7 +8,11 @@ void render_players(SDL_Window *window, Game *game)
 {
     SDL_Renderer *renderer = SDL_GetRenderer(window);
 
-    SDL_Texture *texture = load_texture(renderer,"Panda.png");
+    char playerImage[20];
+    SDL_Texture *texture;
+
+
+
 
 
     int ani;
@@ -16,7 +20,14 @@ void render_players(SDL_Window *window, Game *game)
     int i = 0;
     while(i < game->player_count) {
 
-        //This handles the selection of spritesheet so it gets animated
+        //Render the specified texture for the player
+        sprintf(playerImage, "%s%d%s", "Panda", get_list_postition(&game->players, i)->playerImage, ".png") ;
+        texture = load_texture(renderer,playerImage);
+        printf("%s\n", playerImage);
+
+
+
+        //This handles the selection of spritesheet so it gets animated, renders from left to right, rotation selcts which column
         if(get_list_postition(&game->players, i)->moving == 1) {
             if (get_list_postition(&game->players, i)->animation_timer == 3) {
                 get_list_postition(&game->players, i)->animation += 1;

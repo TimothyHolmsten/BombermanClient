@@ -3,9 +3,7 @@
 
 #include "linked_list.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
 
 
 
@@ -16,21 +14,28 @@ void dlist_init(Dlist* list)    // sets the first element to null (because no el
 
 
 
-DlistElement* dlist_createElement(int id, int x, int y)  // Creates the element for the list
+DlistElement* dlist_createElement(int id, int x, int y, int playerImage)  // Creates the element for the list
 {
     DlistElement* element = malloc(sizeof(DlistElement));
     element->local = 0;
     element->id = id;
     element->alive = 1;
+
+    //Actual postition
     element->x = x;
     element->y= y;
+
+    //Animations stuff
+    element->playerImage=playerImage;
     element->rotation=0;
     element->animation=0;
-    element->animation_timer = 0;
-    element->moving=0;
-    element->bomb_radius=2;
     element->aniY=y*32;
     element->anix=y*32;
+    element->animation_timer = 0;
+    element->moving=0;
+
+    element->bomb_radius=2;
+
     element->next = NULL;
     return element;
 }
@@ -127,11 +132,11 @@ int dlist_removeElement(Dlist *list, int number) // removes a give item from the
         currentElement->next = deleteElement->next; // if not we know there is a element after the deleteElement so we assignee that to currentElement next
         free(deleteElement);
     }
+    return 1;
 }
 
 DlistElement *get_list_postition(Dlist *list, int pos)   // prints the list,totalPrice and totalAmount
 {
-    int count;
     DlistElement* currentElement = list->element;
 
     for(int i = 0; i < pos; i++)

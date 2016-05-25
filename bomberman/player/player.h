@@ -16,7 +16,7 @@
 #include "../main.h"
 
 
-void create_player(Dlist *list, int *playerCount, int x, int y, int id);
+void create_player(Dlist *list, int *playerCount, int x, int y, int id,int playerImage);
 void player_place_bomb(DlistElement * player, Game *game,int x,int y);
 
 void update_players(Dlist *players);

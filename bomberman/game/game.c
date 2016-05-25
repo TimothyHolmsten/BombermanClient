@@ -8,11 +8,6 @@
 #include "renderer/object/renderObject.h"
 
 
-// Arguments to be passed to new thread
-struct args{
-    Wall * walls;
-    Dlist * players;
-};
 
 struct local_player_args{
     Map * map;
@@ -52,7 +47,7 @@ void * thread_update_bombs(void * arg) {
     struct local_player_args *arguments = (struct local_player_args*) arg;
     int i = 1;
     while (i) {
-        if (get_list_postition(&arguments->game->players, 0) != NULL) {
+        if (get_list_postition(&arguments->game->players, 0) != NULL ) {
             for (int k = 0; k < dlist_size(&arguments->game->players); k++) {
                 update_bombs(get_list_postition(&arguments->game->players, k)->bombs, arguments->map);
             }

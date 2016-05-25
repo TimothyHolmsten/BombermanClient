@@ -9,6 +9,10 @@
 #include <SDL_net.h>
 #include "../object/objects/bomb/bomb.h"
 
+//TODO
+//Should move this struct to a place that makes more sense
+//Low priority since it works fine as it is, and we don't use
+//the linked list for something else.
 typedef struct _DlistElement
 {
     int x;
@@ -18,6 +22,7 @@ typedef struct _DlistElement
     int animation_timer;
     int moving;
     int animation;
+    int playerImage;
     float anix;
     float aniY;
 
@@ -39,7 +44,7 @@ typedef struct PlayerList
 
 void dlist_init(Dlist *list);
 
-DlistElement* dlist_createElement(int id, int x, int y);
+DlistElement* dlist_createElement(int id, int x, int y, int playerImage);
 
 void dlist_insert_first(Dlist* list, DlistElement* element);
 
