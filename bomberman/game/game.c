@@ -7,18 +7,15 @@
 #include "renderer/player/renderPlayer.h"
 #include "renderer/object/renderObject.h"
 
-
-
-struct local_player_args{
+struct thread_arguments{
     Map * map;
     DlistElement * player;
     Game * game;
 };
 
-
 void * thread_update_player(void * arg) {
 
-    struct local_player_args *arguments = (struct local_player_args*) arg;
+    struct thread_arguments *arguments = (struct thread_arguments*) arg;
     int i = 1;
     Uint32 playerUpdate = 0;
     while (i) {
@@ -32,7 +29,7 @@ void * thread_update_player(void * arg) {
 }
 void * thread_multiplayer(void * arg) {
     //Multiplayer
-    struct local_player_args *arguments = (struct local_player_args*) arg;
+    struct thread_arguments *arguments = (struct thread_arguments*) arg;
     int i = 1;
     while (i) {
         client_recv(arguments->game);
@@ -44,10 +41,10 @@ void * thread_multiplayer(void * arg) {
 
 void * thread_update_bombs(void * arg) {
 
-    struct local_player_args *arguments = (struct local_player_args*) arg;
+    struct thread_arguments *arguments = (struct thread_arguments*) arg;
     int i = 1;
     while (i) {
-        if (get_list_postition(&arguments->game->players, 0) != NULL ) {
+        if (get_list_postition(&arguments->game->players, 0) != NULL) {
             for (int k = 0; k < dlist_size(&arguments->game->players); k++) {
                 update_bombs(get_list_postition(&arguments->game->players, k)->bombs, arguments->map);
             }
@@ -59,17 +56,11 @@ void * thread_update_bombs(void * arg) {
 }
 
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
+
     initClient(game);
     pthread_t t1, t2;
 
-    //Arguments for update thread
-    /*struct args data;
-    data.walls = game->walls;
-    data.players = &game->players;
-
-    pthread_create(&t1, NULL,init_update, &data );*/
-
-    struct local_player_args local_p_data;
+    struct thread_arguments local_p_data;
     local_p_data.map = &game->map;
     local_p_data.player = get_list_postition(&game->players, 0);
     local_p_data.game = game;
@@ -104,7 +95,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     {
         checkWin(game, &won , &lost);
         //Clear screen
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(renderer, 60, 60, 60, 255);
         SDL_RenderClear(renderer);
 
 
@@ -126,8 +117,8 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
             if (event.type == SDL_QUIT) {
                 char msg[100]; // Send this to connected device
-                sprintf(msg, "3 %d\n", get_list_postition(&game->players, 0)->id);
-                client_send(game, &msg);
+                //sprintf(msg, "3 %d\n", get_list_postition(&game->players, 0)->id);
+                //client_send(game, &msg);
 
                 running = false;
             }

@@ -12,7 +12,7 @@
 #include "map/map.h"
 #include "object/objects/wall/wall.h"
 
-typedef struct Game {
+typedef struct game {
     Dlist players;
     Wall walls[GAME_MAX_X*GAME_MAX_Y];
     Map map;
