@@ -23,7 +23,6 @@ void render_players(SDL_Window *window, Game *game)
         //Render the specified texture for the player
         sprintf(playerImage, "%s%d%s", "Panda", get_list_postition(&game->players, i)->playerImage, ".png") ;
         texture = load_texture(renderer,playerImage);
-        printf("%s\n", playerImage);
 
 
 
