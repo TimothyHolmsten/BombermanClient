@@ -30,7 +30,7 @@ DlistElement* dlist_createElement(int id, int x, int y, int playerImage)  // Cre
     element->rotation=0;
     element->animation=0;
     element->aniY=y*32;
-    element->anix=y*32;
+    element->anix=x*32;
     element->animation_timer = 0;
     element->moving=0;
 
