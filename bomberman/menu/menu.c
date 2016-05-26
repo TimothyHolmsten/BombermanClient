@@ -43,9 +43,10 @@ void displayText(SDL_Renderer *renderer, char *text,int x, int y, int w, int h, 
     TTF_CloseFont(font);
 }
 
-int checkButtons(SDL_Rect *buttons, int x, int y, int curMenu){
+int checkButtons(SDL_Rect *buttons, int x, int y, int curMenu, int arrLength){
 
-    for(int i=0; i < sizeof(buttons); i++){
+
+    for(int i=0; i <arrLength; i++){
         if(x > buttons[i].x && x < buttons[i].x + buttons[i].w && y > buttons[i].y && y < buttons[i].y + buttons[i].h){
             return i;
         }
@@ -70,14 +71,13 @@ int render_Main_Menu(SDL_Renderer *renderer){
 
     if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
 
-        buttonPressed=checkButtons(buttons, mouseX,mouseY, 0)+1;
-        printf("%d %d %d\n", mouseX, mouseY,buttonPressed);
+        buttonPressed=checkButtons(buttons, mouseX,mouseY, 0, 3)+1;
         SDL_Delay(500);
     }
     return buttonPressed;
 }
 
-void get_key_input(char *name,SDL_Rect *characters,SDL_Rect *buttons, int *charSelect, int *menusSelect){
+void get_key_input(char *name,SDL_Rect *menuButtons,SDL_Rect *buttons, int *menusSelect, int *charSelect){
     const Uint8 *state = SDL_GetKeyboardState(NULL);
     SDL_Event event;
     int mouseX =0;
@@ -86,19 +86,18 @@ void get_key_input(char *name,SDL_Rect *characters,SDL_Rect *buttons, int *charS
 
         //Checking for mouseclicks
         if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
-            *charSelect=checkButtons(characters, mouseX,mouseY, 1);
-            if(!checkButtons(buttons, mouseX, mouseY, 1)){
+            *charSelect=checkButtons(buttons, mouseX,mouseY, *charSelect,8);
+            *menusSelect= checkButtons(menuButtons, mouseX,mouseY, 5,2);
+            if(*menusSelect==0){
                 strcpy(name, "");
                 strcat(name, event.text.text);
                 break;
             }
+            break;
 
-            SDL_Delay(100);
-            return;
         }
         if (state[SDL_SCANCODE_BACKSPACE]) {
             name[strlen(name) - 1] = 0; //Remove last character
-            printf("%s\n", name);
             SDL_Delay(200);
             break;
         }
@@ -122,13 +121,15 @@ void get_key_input(char *name,SDL_Rect *characters,SDL_Rect *buttons, int *charS
                 }
             }
         }
+        SDL_Delay(16);
     }
 }
 
-int render_Menu_Start(SDL_Renderer *renderer, char *name, int *charSelect){
+int render_Menu_Start(SDL_Renderer *renderer, char *name, int *charSelect, int *playerModel, char *playerName){
     int characterPadding = 74;
     int inpuText = 1;
-    int menusSelect=1;
+    int menusSelect=0;
+
     SDL_Rect buttons[2];
     SDL_Rect characters[8];
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White background color
@@ -149,15 +150,24 @@ int render_Menu_Start(SDL_Renderer *renderer, char *name, int *charSelect){
     displayButton(renderer, characters[*charSelect].x,characters[*charSelect].y,characters[*charSelect].w-5,characters[*charSelect].h-5, load_texture(renderer,"Panda_selected.png"));
 
     SDL_RenderPresent(renderer);
-    get_key_input(name, characters,buttons, charSelect, &menusSelect);
+    get_key_input(name, buttons, characters, &menusSelect, charSelect);
 
-    return menusSelect;
 
+    switch(menusSelect){
+        case 0:
+            break;
+        case 1:
+            *playerModel = *charSelect;
+            strcpy(playerName, name);
+            return 5;
+    }
+
+    return 1;
 
 }
 
 
-int mainMenu(SDL_Renderer *renderer){
+int mainMenu(SDL_Renderer *renderer, int *playerModel, char *playerName){
     SDL_Event event;
     char name[20]="Enter nickname";
     int charSelect = 0;
@@ -174,8 +184,10 @@ int mainMenu(SDL_Renderer *renderer){
                 menuSelect = render_Main_Menu(renderer);
                 break;
             case 1:
-                menuSelect = render_Menu_Start(renderer, name, &charSelect);
+                menuSelect = render_Menu_Start(renderer, name, &charSelect, playerModel, playerName);
                 break;
+            case 5:
+                return 0;
             default:
                 menuSelect=render_Main_Menu(renderer);
         }
