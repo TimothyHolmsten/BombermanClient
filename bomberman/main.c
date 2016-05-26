@@ -19,7 +19,7 @@ int main(void)
     int i = 1;
 
         SDL_SetWindowSize(window, 640, 480);
-        int temp = mainMenu(renderer, &playerModel,playerName); //funkar?
+        int temp = mainMenu(renderer, &playerModel,playerName); //funkar?d
         SDL_SetWindowSize(window, GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT);
 
         printf("%s %d\n",playerName, playerModel);
