@@ -12,8 +12,9 @@ void initClient(Game *game)
     TCPsocket client;
     IPaddress ip;
     SDLNet_Init();
-//er
-    if(SDLNet_ResolveHost(&ip,"130.237.84.165",22222)==-1) //Change loopback ip to our server IP
+
+// Our IP: 130.237.84.165 port: 22222
+    if(SDLNet_ResolveHost(&ip,"127.0.0.1",22222)==-1) //Change loopback ip to our server IP
     {
         printf("SDLNet_ResolveHost: %s\n",SDLNet_GetError());
         exit(3);
@@ -62,12 +63,14 @@ void client_recv(Game *game){
             {
                 if(id == 1){
                     create_player(&game->players, &game->player_count, 13,13, id, 0);
+
                 }
                 if(id == 2){
                     create_player(&game->players, &game->player_count, 1,1, id, 0);
                 }
                 if(id == 0){
                     create_player(&game->players, &game->player_count, 1,13, id, 0);
+
                 }
                 get_list_postition(&game->players,0)->local = 1;  //This is how we know this is the local player
 
@@ -102,16 +105,6 @@ void client_recv(Game *game){
 
 
         }
-        if (type == 4){
-
-            int x,y;
-            sscanf(tmp, "4 %d %d %d\n", &id,&x,&y);
-            printf("recived bomb packet: %d %d\n", x,y);
-
-            struct _DlistElement *player = get_list_postition(&game->players,get_pos_from_id(&game->players, id));
-            player_place_bomb(player, game, x,y);
-
-        }
         if (type == 2 && game->players.element != NULL){
             int tmp2;
 
@@ -122,6 +115,21 @@ void client_recv(Game *game){
                 }
             }
         }
+        if (type == 8 && game->players.element != NULL){
+            printf("got message\n");
+            game->gameRunning = 1;
+        }
+        if (type == 4){
+
+            int x,y;
+            sscanf(tmp, "4 %d %d %d\n", &id,&x,&y);
+            printf("recived bomb packet: %d %d\n", x,y);
+
+            struct _DlistElement *player = get_list_postition(&game->players,get_pos_from_id(&game->players, id));
+            player_place_bomb(player, game, x,y);
+
+        }
+
         if (type == 7){
             printf("recived death packet\n");
             sscanf(tmp, "7 %d \n", &id);

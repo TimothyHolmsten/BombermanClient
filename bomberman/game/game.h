@@ -13,8 +13,9 @@
 #include "../map/map.h"
 #include "../object/objects/wall/wall.h"
 #include "../main.h"
+#include "../menu/menu.h"
 
-#define GAME_MAX_BOMBS 2
+#define GAME_MAX_BOMBS 1
 #define GAME_WINDOW_WIDTH 1024
 #define GAME_WINDOW_HEIGHT 480
 

@@ -19,7 +19,8 @@ void * thread_update_player(void * arg) {
     int i = 1;
     Uint32 playerUpdate = 0;
     while (i) {
-        if (get_list_postition(&arguments->game->players, 0) != NULL && get_list_postition(&arguments->game->players, 0)->alive == 1){
+        //Only  check for input if, player has been created, player is alive and finally only if a game is running
+        if (get_list_postition(&arguments->game->players, 0) != NULL && get_list_postition(&arguments->game->players, 0)->alive == 1 && arguments->game->gameRunning == 1){
             update_local_player(arguments->player, arguments->map, arguments->game, &playerUpdate);
         }
         SDL_Delay(16);
@@ -86,17 +87,31 @@ void checkWin(Game *game, int *won, int *lost){
 }
 
 int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
-    SDL_Rect startButton;
+
     bool running = true;
     SDL_Event event;
     SDL_MouseButtonEvent mouseEvent;
     int won =0; int lost = 0;
+
+    //Things for the 'start' button
+    SDL_Rect buttons[1];
+    int mouseX =0;
+    int mouseY= 0;
+    int buttonPressed = 0;
     while (running)
     {
+
         checkWin(game, &won , &lost);
+
+
+        if(game->gameRunning != 1){
+            printf("wating for players...\n");
+        }
+
         //Clear screen
         SDL_SetRenderDrawColor(renderer, 60, 60, 60, 255);
         SDL_RenderClear(renderer);
+
 
 
         //render all element from bottom and up
@@ -108,6 +123,24 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
             render_bombs(window, game);
             render_players(window, game);
             render_explosion(window,game);
+        }
+
+
+        if(game->gameRunning == 0 ){
+            buttons[0] = displayButton(renderer, 220,120,200,80,load_texture(renderer, "Play.png"));
+
+            if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+
+                buttonPressed=checkButtons(buttons, mouseX,mouseY, 2, 1)+1;
+                if(buttonPressed == 1){
+                    printf("button");
+                    char msg[100]; // Send this to connected device
+                    sprintf(msg, "8 \n");
+                    client_send(game, &msg);
+
+                }
+
+            }
         }
 
         //Show whats rendered

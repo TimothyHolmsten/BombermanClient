@@ -14,19 +14,22 @@ void create_player(Dlist *list,int *playerCount, int x, int y, int id, int playe
 
 void player_place_bomb(DlistElement * player, Game *game, int x, int y)
 {
-
+    //If we were to introduce powerups MAX_BOMBS would be changed to player->maxBombs,
+    //this way handling powerups for individual player would be really easy
     for(int bomb = 0; bomb < GAME_MAX_BOMBS; bomb++) {
 
         if (player->bombs[bomb].placed == 0) {
+            player->bombs[bomb] = create_bomb(x, y, 1, player->id, player->bomb_radius);
+            player->bombs_count += 1;
+            player->bombs[bomb].placed = 1;
+
             if(player->local == 1) { // If it was the local player
                 char msg[100]; // Send this to connected device
                 sprintf(msg, "4 %d %d %d \n", player->id, x, y);
                 client_send(game, msg);
             }
 
-            player->bombs[bomb] = create_bomb(x, y, 1, player->id, player->bomb_radius);
-            player->bombs_count += 1;
-            player->bombs[bomb].placed = 1;
+
             return;
         }
     }
@@ -46,25 +49,26 @@ void update_local_player(DlistElement * player, Map * map, Game *game, Uint32 *p
     int x = 0;
     int y = 0;
 
-    if (state[SDL_SCANCODE_S]){
+    if (state[SDL_SCANCODE_S] || state[SDL_SCANCODE_DOWN]){
         y = 1 * 32;
         player->rotation = 0;
     }
-    if (state[SDL_SCANCODE_W]) {
+    if (state[SDL_SCANCODE_W] || state[SDL_SCANCODE_UP]) {
         y = -1 * 32;
         player->rotation = 1;
     }
-    if (state[SDL_SCANCODE_A]) {
+    if (state[SDL_SCANCODE_A] || state[SDL_SCANCODE_LEFT]) {
         x = -1 * 32;
         player->rotation = 3;
     }
-    if (state[SDL_SCANCODE_D]) {
+    if (state[SDL_SCANCODE_D] || state[SDL_SCANCODE_RIGHT]) {
         x = 1 * 32;
         player->rotation = 2;
     }
 
     if (state[SDL_SCANCODE_SPACE]) {
         player_place_bomb(player, game, player->x, player->y);
+        SDL_Delay(16);
 
     }
     if(player!= NULL) {
@@ -98,17 +102,13 @@ void update_local_player(DlistElement * player, Map * map, Game *game, Uint32 *p
 
         }
         player->moving = 0;
+
+        //This stops the animations when they player stops moving
         if(player->moving == 0 && *playerUpdate == 0){
             send_player_pos(game); // Sends position whenever player moves to server
             *playerUpdate = 1;
         }
-
-        //This is to make sure that all clients has the most recent postition without having to flood
-        // the server with postions all the time. If any client has any lag and misses an update this will
-        // fix it and allways keep everyone updated.
-
     }
-    //SDL_Delay(200);
 }
 
 
