@@ -12,6 +12,8 @@
 
 SDL_Rect displayButton(SDL_Renderer *renderer, int x, int y, int w, int h, SDL_Texture *texture);
 
+void displayText(SDL_Renderer *renderer, char *text,int x, int y, int w, int h, int fontSize );
+
 int checkButtons(SDL_Rect *buttons, int x, int y, int curMenu, int arrLength);
 
 int mainMenu(SDL_Renderer *renderer, int *playerModel, char *playerName);
