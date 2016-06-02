@@ -132,6 +132,7 @@ void client_recv(Game *game){
             sscanf(tmp, "9 %d \n", &id);
 
            dlist_removeElement(&game->players,get_pos_from_id(&game->players, id));
+            game->player_count-=1;
 
         }
     }

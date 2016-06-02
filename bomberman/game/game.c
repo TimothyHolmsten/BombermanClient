@@ -86,6 +86,34 @@ void checkWin(Game *game, int *won, int *lost){
     }
 }
 
+void check_start(SDL_Renderer *renderer, Game *game){
+    SDL_Rect buttons[3];
+    int mouseX =0;
+    int mouseY= 0;
+    int buttonPressed = 0;
+    buttons[1] = displayButton(renderer, 310,220, 380,45,load_texture(renderer, "NameBox.png"));
+    displayText(renderer,"Waiting for players...", 330,220,70,30, 30);
+    buttons[2] = displayButton(renderer, 455,280, 80,45,load_texture(renderer, "NameBox.png"));
+    char msg1[10];
+    sprintf(msg1, "%d/8", game->player_count);
+    displayText(renderer,msg1, 465,285,70,30, 30);
+    if (get_list_postition(&game->players, 0)->id == 0) {
+        buttons[0] = displayButton(renderer, 395, 120, 200, 80, load_texture(renderer, "Start.png"));
+
+        if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT) && game->player_count > 1) {
+
+            buttonPressed = checkButtons(buttons, mouseX, mouseY, 2, 1) + 1;
+            if (buttonPressed == 1) {
+                printf("button");
+                char msg[100]; // Send this to connected all other players so they know game has begun
+                sprintf(msg, "8 \n");
+                client_send(game, &msg);
+
+            }
+        }
+    }
+}
+
 int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 
     bool running = true;
@@ -94,29 +122,25 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     int won =0; int lost = 0;
 
     //Things for the 'start' button
-    SDL_Rect buttons[3];
-    int mouseX =0;
-    int mouseY= 0;
-    int buttonPressed = 0;
+
     while (running)
     {
 
         checkWin(game, &won , &lost);
-
-
-        if(game->gameRunning != 1){
-            printf("wating for players...\n");
+        if(lost){
+            displayButton(renderer, 455,280, 120,45,load_texture(renderer, "NameBox.png"));
+            displayText(renderer,"Defeat", 465,285,70,30, 30);
         }
-
+        if(won){
+            displayButton(renderer, 455,280, 120,45,load_texture(renderer, "NameBox.png"));
+            displayText(renderer,"Victory", 465,285,70,30, 30);
+        }
         //Clear screen
         SDL_SetRenderDrawColor(renderer, 60, 60, 60, 255);
         SDL_RenderClear(renderer);
 
-
-
         //render all element from bottom and up
         if(get_list_postition(&game->players, 0) != NULL) {
-
             render_grass(window);
             render_walls(window, game);
             render_boxes(window, game);
@@ -124,37 +148,18 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
             render_players(window, game);
             render_explosion(window,game);
 
-
             //Host will have a button "start" with the ability to start a game
             if(game->gameRunning == 0 ) {
-                buttons[1] = displayButton(renderer, 310,220, 380,45,load_texture(renderer, "NameBox.png"));
-                displayText(renderer,"Waiting for players...", 330,220,70,30, 30);
-                buttons[2] = displayButton(renderer, 455,280, 80,45,load_texture(renderer, "NameBox.png"));
-                char msg1[10];
-                sprintf(msg1, "%d/8", game->player_count);
-                displayText(renderer,msg1, 465,285,70,30, 30);
-                if (get_list_postition(&game->players, 0)->id == 0) {
-                    buttons[0] = displayButton(renderer, 395, 120, 200, 80, load_texture(renderer, "Start.png"));
-
-                    if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT) && game->player_count > 1) {
-
-                        buttonPressed = checkButtons(buttons, mouseX, mouseY, 2, 1) + 1;
-                        if (buttonPressed == 1) {
-                            printf("button");
-                            char msg[100]; // Send this to connected device
-                            sprintf(msg, "8 \n");
-                            client_send(game, &msg);
-
-                        }
-                    }
-                }
+                check_start(renderer,game); //Simple function that checks if you can start the game or not
+                                            //If there are 2 players or more, and u were the first one to connect ("host")
+                                            // then you can start the match
             }
         }
-
 
         //Show whats rendered
         SDL_RenderPresent(renderer);
 
+        //If you press on exit close game and send dc message
         if(SDL_PollEvent(&event)) {
 
             if (event.type == SDL_QUIT) {
