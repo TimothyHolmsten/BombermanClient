@@ -25,7 +25,8 @@ int main(void)
         dlist_init(&game.players);
 
         SDL_SetWindowSize(window, 640, 480);
-        int temp = mainMenu(renderer, &playerModel,playerName);
+        mainMenu(renderer, &playerModel,playerName); //Start menu, also get character and name
+                                                     // we currently don't use name but if you want it we have done the ground work
         game.localPlayerChar =playerModel;
 
         running = init_game(window, renderer, &game);

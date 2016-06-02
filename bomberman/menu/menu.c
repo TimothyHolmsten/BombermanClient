@@ -69,9 +69,9 @@ int render_Main_Menu(SDL_Renderer *renderer){
     buttons[2] = displayButton(renderer, 220,360,200,80,load_texture(renderer, "Help.png"));
     SDL_RenderPresent(renderer);
 
-    if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+    if (SDL_GetMouseState(&mouseX, &mouseY) && SDL_BUTTON(SDL_BUTTON_LEFT)) {
         buttonPressed=checkButtons(buttons, mouseX,mouseY, 0, 3)+1;
-        printf("%d\n",buttonPressed);
+        printf("test %d\n",buttonPressed);
         SDL_Delay(150);
     }
     return buttonPressed;
@@ -143,7 +143,6 @@ int render_Menu_Options(SDL_Renderer *renderer, char *name, int *charSelect, int
     if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
 
         buttonPressed= checkButtons(buttons, mouseX,mouseY, 2, 1)+1;
-        printf("%d\n",buttonPressed);
         if(buttonPressed == 1){
 
             SDL_Delay(150);
@@ -178,7 +177,6 @@ int render_Menu_Help(SDL_Renderer *renderer, char *name, int *charSelect, int *p
     if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
 
         buttonPressed= checkButtons(buttons, mouseX,mouseY, 2, 1)+1;
-        printf("%d\n",buttonPressed);
         if(buttonPressed == 1){
 
             SDL_Delay(150);
@@ -217,15 +215,19 @@ int render_Menu_Start(SDL_Renderer *renderer, char *name, int *charSelect, int *
     displayButton(renderer, characters[*charSelect].x+1,characters[*charSelect].y,characters[*charSelect].w-3,characters[*charSelect].h-5, load_texture(renderer,"Panda_selected.png"));
 
     SDL_RenderPresent(renderer);
+
+    //Could have just used multthreading here for keyboard input but this works aswell
     get_key_input(name, buttons, characters, &menusSelect, charSelect);
 
 
     switch(menusSelect){
         case 0:
+            SDL_Delay(150);
             break;
         case 1:
             *playerModel = *charSelect;
             strcpy(playerName, name);
+            SDL_Delay(150);
             return 5;
         case 2:
             SDL_Delay(150);
@@ -245,7 +247,7 @@ int mainMenu(SDL_Renderer *renderer, int *playerModel, char *playerName){
     int menuSelect = 0;
     TTF_Init();
     SDL_StartTextInput();
-
+printf("%d\n",menuSelect);
     //While menu is running display the diffrent submenus
     while(running){
 

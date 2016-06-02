@@ -58,6 +58,8 @@ void * thread_update_bombs(void * arg) {
 
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     int exit;
+
+    //If we cant connect to server, display error and return to menu
     if(initClient(game)==1){
         SDL_SetRenderDrawColor(renderer, 60, 60, 60, 255);
         SDL_RenderClear(renderer);
