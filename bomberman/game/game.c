@@ -156,6 +156,7 @@ void check_start(SDL_Renderer *renderer, Game *game, int *running){
             char msg[100]; // Send this to connected all other players so they know game has begun
             sprintf(msg, "3 %d\n", get_list_postition(&game->players, 0)->id);
             client_send(game, &msg);
+            SDL_Delay(150);
             *running = 0;
 
         }
