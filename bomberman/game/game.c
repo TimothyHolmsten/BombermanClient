@@ -136,28 +136,28 @@ void check_start(SDL_Renderer *renderer, Game *game, int *running){
     char msg1[10];
     sprintf(msg1, "%d/8", game->player_count);
     displayText(renderer,msg1, 465,285,70,30, 30);
-    if (get_list_postition(&game->players, 0)->id == 0) {
+    if (get_list_postition(&game->players, 0)->id == 0)
         buttons[0] = displayButton(renderer, 395, 80, 200, 80, load_texture(renderer, "Start.png"));
-        buttons[3] = displayButton(renderer, 455,170, 80,45,load_texture(renderer, "Back.png"));
-        if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT) ) {
 
-            buttonPressed = checkButtons(buttons, mouseX, mouseY, 5, 4) + 1;
+    buttons[3] = displayButton(renderer, 455,170, 80,45,load_texture(renderer, "Back.png"));
+    if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT) )
+    {
+        buttonPressed = checkButtons(buttons, mouseX, mouseY, 5, 4) + 1;
 
-            if (buttonPressed == 1 && game->player_count > 1) {
-                char msg[100]; // Send this to connected all other players so they know game has begun
-                sprintf(msg, "8 \n");
-                client_send(game, &msg);
+        if (buttonPressed == 1 && game->player_count > 1 && get_list_postition(&game->players, 0)->id == 0) {
+            char msg[100]; // Send this to connected all other players so they know game has begun
+            sprintf(msg, "8 \n");
+            client_send(game, &msg);
 
-            }
-            if (buttonPressed == 4) {
-                char msg[100]; // Send this to connected all other players so they know game has begun
-                sprintf(msg, "3 %d\n", get_list_postition(&game->players, 0)->id);
-                client_send(game, &msg);
-                *running = 0;
-
-            }
-            SDL_Delay(50);
         }
+        if (buttonPressed == 4) {
+            char msg[100]; // Send this to connected all other players so they know game has begun
+            sprintf(msg, "3 %d\n", get_list_postition(&game->players, 0)->id);
+            client_send(game, &msg);
+            *running = 0;
+
+        }
+        SDL_Delay(50);
     }
 }
 
