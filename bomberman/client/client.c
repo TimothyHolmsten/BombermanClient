@@ -37,6 +37,8 @@ int initClient(Game *game)
     //Make sure we get the firs packet that defines local player
     SDL_Delay(50);
     client_recv(game);
+
+    return 0;
 }
 
 void client_EXIT(TCPsocket client){
@@ -147,13 +149,6 @@ void client_recv(Game *game){
     }
 }
 
-
 void client_send(Game *game, char *msg){
-    /*
-    int id;
-    sscanf(msg, "%d \n", &id);
-    if(id == 4)
-    printf("%d\n", id);*/
     SDLNet_TCP_Send(game->client,  msg, (int)strlen(msg)+1);
-
 }

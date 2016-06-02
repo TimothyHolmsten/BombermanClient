@@ -28,5 +28,5 @@ void player_place_bomb(DlistElement * player, Game *game,int x,int y);
  * Sends player position to the server
  * */
 void update_local_player(DlistElement *player, Map * map,Game *game, Uint32 *playerUpdate);
-void send_player_pos(Game *game)
+void send_player_pos(Game *game);
 #endif //CLIENT_PLAYER_H
