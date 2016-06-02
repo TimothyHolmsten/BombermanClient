@@ -23,6 +23,6 @@ SDL_Window * init_window(int w, int h, char *title);
 SDL_Renderer * init_renderer(SDL_Window *window);
 int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game);
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game);
-void checkWin(Game *game, SDL_Renderer *renderer, int *lost);
+void checkWin(Game *game, SDL_Renderer *renderer, int *lost, int *running);
 #endif //CLIENT_GAME_H
 
