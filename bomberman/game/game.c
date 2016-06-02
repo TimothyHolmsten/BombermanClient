@@ -93,14 +93,14 @@ void checkWin(Game *game, SDL_Renderer *renderer, int *lost, int *running){
     int mouseY= 0;
     int buttonPressed = 0;
     if(get_list_postition(&game->players, 0)->alive==1 && get_list_postition(&game->players, 0)->next == NULL && game->gameRunning != 0 ){
-        displayButton(renderer, 430,180, 140,45,load_texture(renderer, "NameBox.png"));
-        displayText(renderer,"Victory", 440,182,70,30, 30);
-        buttons[0] = displayButton(renderer, 395, 260, 200, 80, load_texture(renderer, "Back.png"));
+        displayButton(renderer, 380,130, 240,70,load_texture(renderer, "NameBox.png"));
+        displayText(renderer,"Victory", 410,130,70,30, 50);
+        buttons[0] = displayButton(renderer, 455, 220, 100, 40, load_texture(renderer, "Back.png"));
     }
     if(get_list_postition(&game->players, 0)->alive==0 ){
-        displayButton(renderer, 430,180, 140,45,load_texture(renderer, "NameBox.png"));
-        displayText(renderer,"Defeat", 440,182,70,30, 30);
-        buttons[0] = displayButton(renderer, 395, 260, 200, 80, load_texture(renderer, "Back.png"));
+        displayButton(renderer, 380,130, 240,70,load_texture(renderer, "NameBox.png"));
+        displayText(renderer,"Defeat", 410,130,70,30, 50);
+        buttons[0] = displayButton(renderer, 455, 220, 100, 40, load_texture(renderer, "Back.png"));
     }
 
     if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
