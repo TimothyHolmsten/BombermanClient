@@ -65,7 +65,7 @@ int get_objects_count(Map map, char * object_type)
     {
         for(int x = 0; x < GAME_MAX_X; x++)
         {
-            if (map.map_array[x][y] == 1)
+            if (map.map_array[x][y] == WALL)
                 walls++;
             i++;
         }
@@ -80,11 +80,11 @@ int get_objects_count(Map map, char * object_type)
 
 int map_is_blocked(Map * map, int x, int y) {
 
-    if (map->map_array[x][y] == 1)
+    if (map->map_array[x][y] == WALL)
         return 1;
-    if (map->map_array[x][y] == 3)
+    if (map->map_array[x][y] == DESTRUCTABLE_WALL)
         return 1;
-    if (map->map_array[x][y] == 9)
+    if (map->map_array[x][y] == EXPLOSION)
         return 1;
 
     return 0;

@@ -13,7 +13,7 @@ int initClient(Game *game)
     IPaddress ip;
     SDLNet_Init();
 
-// Our IP: 130.237.84.165 port: 22222
+    // Our IP: 130.237.84.165 port: 22222
     if(SDLNet_ResolveHost(&ip,"130.237.84.165",22222)==-1) //Change loopback ip to our server IP
     {
         printf("SDLNet_ResolveHost: %s\n",SDLNet_GetError());
