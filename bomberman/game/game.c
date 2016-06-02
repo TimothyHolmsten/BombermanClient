@@ -74,12 +74,16 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     local_p_data.map = &game->map;
     local_p_data.player = get_list_postition(&game->players, 0);
     local_p_data.game = game;
+
+    //The threads are coded in such a way that mutex is irrelvant, doesn't matter which thread does what first
     pthread_create(&t1, NULL, thread_update_player, &local_p_data);
     pthread_create(&t2, NULL, thread_update_bombs, &local_p_data);
     pthread_create(&t3, NULL, thread_multiplayer, &local_p_data);
 
     exit = game_loop(window, renderer, game);
 
+    //Gotta shut them down in order to return to menu, they are coded in such a way that if we cancel
+    //in the midst of something it cant crash
     pthread_cancel(t1);
     pthread_cancel(t2);
     pthread_cancel(t3);
@@ -88,6 +92,8 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
 }
 
 void checkWin(Game *game, SDL_Renderer *renderer, int *lost, int *running){
+
+    //This is just simple check if you won or loss, and display buttons and text accordingly
     SDL_Rect buttons[1];
     int mouseX =0;
     int mouseY= 0;
@@ -117,6 +123,8 @@ void checkWin(Game *game, SDL_Renderer *renderer, int *lost, int *running){
 }
 
 void check_start(SDL_Renderer *renderer, Game *game, int *running){
+
+    //This is just simple buttons that can be pressed to start a game when requirements are med (2 or more players)
     SDL_Rect buttons[4];
     int mouseX =0;
     int mouseY= 0;
@@ -182,9 +190,16 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
                 //If there are 2 players or more, and u were the first one to connect ("host")
                 // then you can start the match
             }
+
+            checkWin(game, renderer , &lost, &running);
         }
 
-        checkWin(game, renderer , &lost, &running);
+        if(game->gameClosed == 2) { // Display error for user if trying to join when game is running
+            displayText(renderer, "There is a game in progress...", 300, 220, 70, 30, 30);
+            SDL_RenderPresent(renderer);
+            SDL_Delay(3000);
+            return 1;
+        }
         //Show whats rendered
         SDL_RenderPresent(renderer);
 

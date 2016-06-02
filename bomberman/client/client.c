@@ -114,6 +114,10 @@ void client_recv(Game *game){
             printf("got message\n");
             game->gameRunning = 1;
         }
+        if (type == 3){
+            printf("recived lobby full\n");
+            game->gameClosed =2;
+        }
         if (type == 4){
 
             int x,y;
