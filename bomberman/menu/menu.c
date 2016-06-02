@@ -124,7 +124,7 @@ void get_key_input(char *name,SDL_Rect *menuButtons,SDL_Rect *buttons, int *menu
     }
 }
 
-int render_Menu_Options(SDL_Renderer *renderer, char *name, int *charSelect, int *playerModel, char *playerName) {
+int render_Menu_Options(SDL_Renderer *renderer) {
     SDL_Event event;
     int mouseX =0;
     int mouseY= 0;
@@ -152,7 +152,7 @@ int render_Menu_Options(SDL_Renderer *renderer, char *name, int *charSelect, int
     return 2;
 }
 
-int render_Menu_Help(SDL_Renderer *renderer, char *name, int *charSelect, int *playerModel, char *playerName) {
+int render_Menu_Help(SDL_Renderer *renderer) {
     SDL_Event event;
     int mouseX =0;
     int mouseY= 0;
