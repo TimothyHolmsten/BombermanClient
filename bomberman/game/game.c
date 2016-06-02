@@ -74,11 +74,11 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     return 0;
 }
 
-void checkWin(Game *game, int *won, int *lost){
+void checkWin(Game *game, SDL_Renderer *renderer, int *lost){
 
     if(get_list_postition(&game->players, 0)->alive==1 && get_list_postition(&game->players, 0)->next == NULL && game->player_count > 1 && *won==0){
-        printf("you won\n");
-        *won = 1;
+        displayButton(renderer, 455,280, 120,45,load_texture(renderer, "NameBox.png"));
+        displayText(renderer,"Defeat", 465,285,70,30, 30);
     }
     if(get_list_postition(&game->players, 0)->alive==0 && *lost == 0 ){
         printf("you lost\n");
@@ -126,12 +126,12 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     while (running)
     {
 
-        checkWin(game, &won , &lost);
-        if(lost){
+        checkWin(game, renderer , &lost);
+        if(lost == 1){
             displayButton(renderer, 455,280, 120,45,load_texture(renderer, "NameBox.png"));
             displayText(renderer,"Defeat", 465,285,70,30, 30);
         }
-        if(won){
+        if(won == 1){
             displayButton(renderer, 455,280, 120,45,load_texture(renderer, "NameBox.png"));
             displayText(renderer,"Victory", 465,285,70,30, 30);
         }
