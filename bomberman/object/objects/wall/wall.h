@@ -12,6 +12,7 @@ typedef struct wall{
     int y;
 }Wall;
 
+/* Creates a wall from the Wall struct and returns it */
 Wall create_wall(int x, int y);
 
 void load_walls(Map map, Wall walls[]);

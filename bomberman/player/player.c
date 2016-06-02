@@ -28,8 +28,6 @@ void player_place_bomb(DlistElement * player, Game *game, int x, int y)
                 sprintf(msg, "4 %d %d %d \n", player->id, x, y);
                 client_send(game, msg);
             }
-
-
             return;
         }
     }

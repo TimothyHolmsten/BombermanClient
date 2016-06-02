@@ -40,22 +40,6 @@ void render_grass(SDL_Window *window)
     SDL_DestroyTexture(texture);
 }
 
-SDL_Rect render_button(SDL_Window *window, Game * game)
-{
-    int i = 0;
-    SDL_Renderer *renderer = SDL_GetRenderer(window);
-
-    SDL_Texture *texture;
-    texture = load_texture(renderer, "Grass.png");
-
-
-            SDL_Rect rect = {0,0, 32, 32};
-            SDL_RenderCopyEx(renderer, texture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
-
-    SDL_DestroyTexture(texture);
-    return rect;
-}
-
 void render_boxes(SDL_Window *window, Game * game)
 {
     SDL_Renderer *renderer = SDL_GetRenderer(window);
@@ -82,15 +66,6 @@ void render_walls(SDL_Window *window, Game * game) {
 
     SDL_Texture *texture;
     texture = load_texture(renderer, "Wall.png");
-    /*
-     * int i = 0;
-    while (i < get_objects_count(game->map, "Walls")) {
-        SDL_Rect rect = {256 + game->walls[i].x * 32, game->walls[i].y * 32, 32, 32};
-        SDL_RenderCopyEx(renderer, texture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
-
-        i++;
-    }
-     */
 
     for (int y = 0; y < GAME_MAX_Y; y++)
     {

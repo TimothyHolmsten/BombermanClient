@@ -19,6 +19,7 @@
 #include "../../../image/image.h"
 #include "../../../tools/linked_list.h"
 
+/* Used to render the players */
 void render_players(SDL_Window * window, Game * game);
 
 #endif //CLIENT_RENDERPLAYER_H

@@ -12,6 +12,7 @@
 #include "map/map.h"
 #include "object/objects/wall/wall.h"
 
+/* A struct that holds all the other structs in the game */
 typedef struct game {
     Dlist players;
     Wall walls[GAME_MAX_X*GAME_MAX_Y];

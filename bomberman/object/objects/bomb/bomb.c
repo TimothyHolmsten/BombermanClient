@@ -21,7 +21,7 @@ Bomb create_bomb(int x, int y, time_t tim, int owner, int radius) {
 void bomb_explode(Bomb * bomb, Map * map)
 {
     int i = 0;
-    int object = 9;
+    int object = EXPLOSION;
 
     while (i < 2) {
 
