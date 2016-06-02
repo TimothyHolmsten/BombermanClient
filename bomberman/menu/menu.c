@@ -71,7 +71,6 @@ int render_Main_Menu(SDL_Renderer *renderer){
 
     if (SDL_GetMouseState(&mouseX, &mouseY) && SDL_BUTTON(SDL_BUTTON_LEFT)) {
         buttonPressed=checkButtons(buttons, mouseX,mouseY, 0, 3)+1;
-        printf("test %d\n",buttonPressed);
         SDL_Delay(150);
     }
     return buttonPressed;
