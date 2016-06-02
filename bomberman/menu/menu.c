@@ -70,9 +70,9 @@ int render_Main_Menu(SDL_Renderer *renderer){
     SDL_RenderPresent(renderer);
 
     if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
-
         buttonPressed=checkButtons(buttons, mouseX,mouseY, 0, 3)+1;
-        SDL_Delay(500);
+        printf("%d\n",buttonPressed);
+        SDL_Delay(150);
     }
     return buttonPressed;
 }
@@ -87,7 +87,7 @@ void get_key_input(char *name,SDL_Rect *menuButtons,SDL_Rect *buttons, int *menu
         //Checking for mouseclicks
         if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
             *charSelect=checkButtons(buttons, mouseX,mouseY, *charSelect,8);
-            *menusSelect= checkButtons(menuButtons, mouseX,mouseY, 5,2);
+            *menusSelect= checkButtons(menuButtons, mouseX,mouseY, 5,3);
             if(*menusSelect==0){
                 strcpy(name, "");
                 strcat(name, event.text.text);
@@ -125,12 +125,76 @@ void get_key_input(char *name,SDL_Rect *menuButtons,SDL_Rect *buttons, int *menu
     }
 }
 
+int render_Menu_Options(SDL_Renderer *renderer, char *name, int *charSelect, int *playerModel, char *playerName) {
+    SDL_Event event;
+    int mouseX =0;
+    int mouseY= 0;
+    int buttonPressed;
+    SDL_Rect buttons[1];
+
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White background color
+    SDL_RenderClear(renderer);
+
+    buttons[0] = displayButton(renderer, 0,0, 50,30,load_texture(renderer, "Back.png"));
+
+    displayText(renderer,"No options added as for now", 100,100,70,30, 30);
+    SDL_RenderPresent(renderer);
+
+    if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+
+        buttonPressed= checkButtons(buttons, mouseX,mouseY, 2, 1)+1;
+        printf("%d\n",buttonPressed);
+        if(buttonPressed == 1){
+
+            SDL_Delay(150);
+            return 0;
+        }
+
+    }
+    return 2;
+}
+
+int render_Menu_Help(SDL_Renderer *renderer, char *name, int *charSelect, int *playerModel, char *playerName) {
+    SDL_Event event;
+    int mouseX =0;
+    int mouseY= 0;
+    int buttonPressed;
+    SDL_Rect buttons[1];
+
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White background color
+    SDL_RenderClear(renderer);
+
+    buttons[0] = displayButton(renderer, 0,0, 50,30,load_texture(renderer, "Back.png"));
+
+    displayText(renderer,"Controls", 220,50,70,30, 40);
+    displayText(renderer,"Move player", 80,250,70,30, 30);
+    displayText(renderer,"Drop bombs", 370,250,70,30, 30);
+    displayButton(renderer, 60,150, 100,100,load_texture(renderer, "Keyboard_wasd.png"));
+    displayButton(renderer, 200,150, 100,100,load_texture(renderer, "Keyboard_arrows.png"));
+    displayButton(renderer, 370,200, 200,50,load_texture(renderer, "Keyboard_space.png"));
+
+    SDL_RenderPresent(renderer);
+
+    if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+
+        buttonPressed= checkButtons(buttons, mouseX,mouseY, 2, 1)+1;
+        printf("%d\n",buttonPressed);
+        if(buttonPressed == 1){
+
+            SDL_Delay(150);
+            return 0;
+        }
+
+    }
+    return 3;
+}
+
 int render_Menu_Start(SDL_Renderer *renderer, char *name, int *charSelect, int *playerModel, char *playerName){
     int characterPadding = 74;
     int inpuText = 1;
     int menusSelect=0;
 
-    SDL_Rect buttons[2];
+    SDL_Rect buttons[3];
     SDL_Rect characters[8];
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White background color
     SDL_RenderClear(renderer);
@@ -144,6 +208,7 @@ int render_Menu_Start(SDL_Renderer *renderer, char *name, int *charSelect, int *
     displayText(renderer,"Select your character", 150,150,70,30, 30);
     buttons[0] = displayButton(renderer, 165,50, 310,45,load_texture(renderer, "NameBox.png"));
     buttons[1] = displayButton(renderer, 220,350, 200,80,load_texture(renderer, "Start.png"));
+    buttons[2] = displayButton(renderer, 0,0, 50,30,load_texture(renderer, "Back.png"));
 
     // By removing the length of the string times 10 we center it, this is kinda ugly since some characters aren't 10 wide
     displayText(renderer,name, 325 - 10 * (int) strlen(name),50,70,30, 30);
@@ -162,6 +227,9 @@ int render_Menu_Start(SDL_Renderer *renderer, char *name, int *charSelect, int *
             *playerModel = *charSelect;
             strcpy(playerName, name);
             return 5;
+        case 2:
+            SDL_Delay(150);
+            return 0;
     }
 
     return 1;
@@ -187,6 +255,12 @@ int mainMenu(SDL_Renderer *renderer, int *playerModel, char *playerName){
                 break;
             case 1:
                 menuSelect = render_Menu_Start(renderer, name, &charSelect, playerModel, playerName);
+                break;
+            case 2:
+                menuSelect = render_Menu_Options(renderer, name, &charSelect, playerModel, playerName);
+                break;
+            case 3:
+                menuSelect = render_Menu_Help(renderer, name, &charSelect, playerModel, playerName);
                 break;
             case 5:
                 return 0;
