@@ -61,7 +61,7 @@ void client_recv(Game *game){
             // If there is no players locally, add first as local player, also get and set the map
             if(get_list_postition(&game->players, 0) == NULL)
             {
-                create_player(&game->players, &game->player_count, x,y, id, 0);
+                create_player(&game->players, &game->player_count, x,y, id, game->localPlayerChar);
                 get_list_postition(&game->players,0)->local = 1;  //This is how we know this is the local player
 
                 switch(map) {
@@ -90,7 +90,11 @@ void client_recv(Game *game){
             //If not add them
             if (add)
             {
-                create_player(&game->players, &game->player_count, x,y, id,id+1);
+                //Make sure no one spawn with the same color
+                if(game->localPlayerChar == id){
+                    create_player(&game->players, &game->player_count, x,y, id,get_list_postition(&game->players, 0)->id);
+                }
+                create_player(&game->players, &game->player_count, x,y, id,id);
             }
 
 

@@ -137,7 +137,9 @@ int render_Menu_Start(SDL_Renderer *renderer, char *name, int *charSelect, int *
 
     //Render characters
     for(int i=0; i<8; i++){
-        characters[i] = displayButton(renderer, 20+characterPadding*i,215, 64,64,load_texture(renderer, "PandaBlueMenu.png"));
+        char name[20];
+        sprintf(name, "PandaMenu%d.png",i);
+        characters[i] = displayButton(renderer, 20+characterPadding*i,215, 64,64,load_texture(renderer, name));
     }
     displayText(renderer,"Select your character", 150,150,70,30, 30);
     buttons[0] = displayButton(renderer, 165,50, 310,45,load_texture(renderer, "NameBox.png"));
@@ -147,7 +149,7 @@ int render_Menu_Start(SDL_Renderer *renderer, char *name, int *charSelect, int *
     displayText(renderer,name, 325 - 10 * (int) strlen(name),50,70,30, 30);
 
     //Highligt around selcted character
-    displayButton(renderer, characters[*charSelect].x,characters[*charSelect].y,characters[*charSelect].w-5,characters[*charSelect].h-5, load_texture(renderer,"Panda_selected.png"));
+    displayButton(renderer, characters[*charSelect].x+1,characters[*charSelect].y,characters[*charSelect].w-3,characters[*charSelect].h-5, load_texture(renderer,"Panda_selected.png"));
 
     SDL_RenderPresent(renderer);
     get_key_input(name, buttons, characters, &menusSelect, charSelect);

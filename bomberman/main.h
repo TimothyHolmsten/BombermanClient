@@ -21,6 +21,7 @@ typedef struct game {
     SDLNet_SocketSet server;
     int gameRunning;
     int gameClosed;
+    int localPlayerChar;
 }Game;
 
 #endif //CLIENT_MAIN_H

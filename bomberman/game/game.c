@@ -57,7 +57,7 @@ void * thread_update_bombs(void * arg) {
 }
 
 int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
-
+    int exit;
     initClient(game);
     pthread_t t1, t2,t3;
 
@@ -69,13 +69,13 @@ int init_game(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     pthread_create(&t2, NULL, thread_update_bombs, &local_p_data);
     pthread_create(&t3, NULL, thread_multiplayer, &local_p_data);
 
-    game_loop(window, renderer, game);
+    exit = game_loop(window, renderer, game);
 
     pthread_cancel(t1);
     pthread_cancel(t2);
     pthread_cancel(t3);
 
-    return 1;
+    return exit;
 }
 
 void checkWin(Game *game, SDL_Renderer *renderer, int *lost, int *running){
@@ -86,12 +86,12 @@ void checkWin(Game *game, SDL_Renderer *renderer, int *lost, int *running){
     if(get_list_postition(&game->players, 0)->alive==1 && get_list_postition(&game->players, 0)->next == NULL && game->gameRunning != 0 ){
         displayButton(renderer, 430,180, 140,45,load_texture(renderer, "NameBox.png"));
         displayText(renderer,"Victory", 440,182,70,30, 30);
-        buttons[0] = displayButton(renderer, 395, 260, 200, 80, load_texture(renderer, "Start.png"));
+        buttons[0] = displayButton(renderer, 395, 260, 200, 80, load_texture(renderer, "Back.png"));
     }
     if(get_list_postition(&game->players, 0)->alive==0 ){
         displayButton(renderer, 430,180, 140,45,load_texture(renderer, "NameBox.png"));
         displayText(renderer,"Defeat", 440,182,70,30, 30);
-        buttons[0] = displayButton(renderer, 395, 260, 200, 80, load_texture(renderer, "Start.png"));
+        buttons[0] = displayButton(renderer, 395, 260, 200, 80, load_texture(renderer, "Back.png"));
     }
 
     if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
@@ -177,8 +177,8 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
                 char msg[100]; // Send this to connected device
                 sprintf(msg, "3 %d\n", get_list_postition(&game->players, 0)->id);
                 client_send(game, &msg);
-
                 running = 0;
+                return 0;
             }
         }
         //Spare the cpu, 16 =~ 60 fps
@@ -186,7 +186,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, Game * game) {
     }
 
 
-    return 0;
+    return 1;
 }
 
 SDL_Window * init_window(int w, int h, char *title) {
