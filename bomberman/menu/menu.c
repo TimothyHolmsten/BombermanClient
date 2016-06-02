@@ -258,10 +258,10 @@ printf("%d\n",menuSelect);
                 menuSelect = render_Menu_Start(renderer, name, &charSelect, playerModel, playerName);
                 break;
             case 2:
-                menuSelect = render_Menu_Options(renderer, name, &charSelect, playerModel, playerName);
+                menuSelect = render_Menu_Options(renderer);
                 break;
             case 3:
-                menuSelect = render_Menu_Help(renderer, name, &charSelect, playerModel, playerName);
+                menuSelect = render_Menu_Help(renderer);
                 break;
             case 5:
                 return 0;
