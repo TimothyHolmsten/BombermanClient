@@ -21,7 +21,7 @@ int initClient(Game *game)
     }
     client = SDLNet_TCP_Open(&ip);
     while(!client) {
-        client = SDLNet_TCP_Open(&ip);      //Open socket, if error occurs exit with error code 9
+        client = SDLNet_TCP_Open(&ip);      //Open socket, if error occurs return to menu
         if (!client) {
             printf("SDLNet_TCP_Open: %s\n", SDLNet_GetError());
             return 1;
