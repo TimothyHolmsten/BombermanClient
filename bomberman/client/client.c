@@ -92,9 +92,9 @@ void client_recv(Game *game){
             if (add)
             {
                 //Make sure no one spawn with the same color
-                if(game->localPlayerChar == id){
+                if(game->localPlayerChar == id)
                     create_player(&game->players, &game->player_count, x,y, id,get_list_postition(&game->players, 0)->id);
-                }
+                else
                 create_player(&game->players, &game->player_count, x,y, id,id);
             }
 
