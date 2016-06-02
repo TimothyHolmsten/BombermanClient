@@ -94,7 +94,7 @@ void checkWin(Game *game, SDL_Renderer *renderer, int *lost, int *running){
         buttons[0] = displayButton(renderer, 395, 260, 200, 80, load_texture(renderer, "Start.png"));
     }
 
-    if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT) && game->player_count > 1) {
+    if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
 
         buttonPressed = checkButtons(buttons, mouseX, mouseY, 2, 1) + 1;
         if (buttonPressed == 1) {

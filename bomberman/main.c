@@ -27,7 +27,10 @@ int main(void)
 
         printf("%s %d\n",playerName, playerModel);
         running = init_game(window, renderer, &game);
+        game.player_count = 0;
+        game.gameRunning = 0;
         game.gameClosed = 0;
+        dlist_init(&game.players);
         printf("reta %d\n", running);
 
     }
